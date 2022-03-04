@@ -14,6 +14,7 @@ class Layout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        //automaticallyImplyLeading: false,
         title: Center(child: Text(this.context),),
       ),
       body: widget,
