@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quotes_app/components/favorite_management_components/quotes_listview.dart';
 import 'package:quotes_app/components/layout.dart';
+import 'package:quotes_app/data/quotes.dart';
+import 'package:quotes_app/screens/favorite_management/view_single_quote.dart';
 
 class ViewFavorites extends StatelessWidget {
   static String routeName = '/viewFavorites';
@@ -10,21 +11,37 @@ class ViewFavorites extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Layout(
-        context: "Favorites Quotes List",
+        context: "List of Quotes",
         widget: Column(
-          children: const [
-            QuotesListView(
-              personImage: 'assets/images/3.jpg',
-              quote: 'Early bird catches worm',
-              personName: 'Charles David',
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Center(
+                child: Text("Don't let your mind kill your heart and soul",
+                    style: TextStyle(fontStyle: FontStyle.italic)),
+              ),
             ),
-            QuotesListView(
-              personImage: 'assets/images/3.jpg',
-              quote: 'Early bird catches worm',
-              personName: 'Charles David',
+            Flexible(
+              child: ListView.builder(
+                itemCount: quotesList.length,
+                  itemBuilder: (context, index) {
+                    Quotes quote = quotesList.elementAt(index);
+                    return ListTile(
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(25.0),
+                        child: Image.asset(quote.personImage),
+                      ),
+                      title: Text(quote.quote),
+                      subtitle: Text(quote.personName),
+                      onTap: () {
+                        Navigator.of(context).pushNamed(ViewSingleQuote.routeName);
+                      },
+                    );
+                  }
+              ),
             ),
           ],
-        ),
+        )
     );
   }
 }

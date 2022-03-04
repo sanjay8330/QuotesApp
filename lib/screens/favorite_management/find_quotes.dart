@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/components/layout.dart';
+import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
 
 class FindQuotes extends StatelessWidget {
   static String routeName = '/findQuotes';
@@ -23,12 +24,13 @@ class FindQuotes extends StatelessWidget {
               ),
               //Child 02
               Card(
+                //color: Colors.cyanAccent,
                 child: Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 40.0),
                       child: Image.asset(
-                        'assets/images/people.png',
+                        'assets/images/favorite_management/people.png',
                         width: 150,
                         height: 150,
                       ),
@@ -38,20 +40,23 @@ class FindQuotes extends StatelessWidget {
                       child: SizedBox(
                         width: 250,
                         child: ElevatedButton(
-                            onPressed: () => {},
+                            onPressed: () => {
+                              Navigator.of(context).pushNamed(ViewFavorites.routeName)
+                            },
                             child: const Text('Find Quotes by People')),
                       ),
                     ),
                   ],
                 ),
               ),
+              const SizedBox(width: double.infinity, height: 40,),
               Card(
                 child: Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 40.0),
                       child: Image.asset(
-                        'assets/images/category.png',
+                        'assets/images/favorite_management/category.png',
                         width: 150,
                         height: 150,
                       ),

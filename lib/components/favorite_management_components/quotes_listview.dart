@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:quotes_app/data/quotes.dart';
 
 class QuotesListView extends StatelessWidget {
-  final String personImage;
-  final String quote;
-  final String personName;
+  final Quotes quotes;
 
   const QuotesListView({
     Key? key,
-    required this.personImage,
-    required this.quote,
-    required this.personName
+    required this.quotes,
   }) : super(key: key);
 
   @override
@@ -24,7 +21,7 @@ class QuotesListView extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(25.0),
-              child: Image.asset(personImage, width: 50, height: 50),
+              child: Image.asset(quotes.personImage, width: 50, height: 50),
             ),
           ),
         ),
@@ -33,10 +30,10 @@ class QuotesListView extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
-                Text(quote),
+                Text(quotes.quote),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, right: 65.0),
-                  child: Text(personName),
+                  child: Text(quotes.personName),
                 ),
               ],
             ),

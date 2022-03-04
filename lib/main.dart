@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/screens/favorite_management/find_quotes.dart';
 import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
+import 'package:quotes_app/screens/favorite_management/view_single_quote.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
       initialRoute: FindQuotes.routeName,
       routes: {
         FindQuotes.routeName : (context) => FindQuotes(),
-        ViewFavorites.routeName : (context) => ViewFavorites()
+        ViewFavorites.routeName : (context) => ViewFavorites(),
+        ViewSingleQuote.routeName : (context) => ViewSingleQuote()
       },
 
     );
