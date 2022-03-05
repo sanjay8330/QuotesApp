@@ -48,10 +48,16 @@ class ViewSingleQuote extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
-                  children: const [
+                  children: [
                     IconButton(
-                        onPressed: null,
-                        icon: Icon(
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Quote added to Favorites')
+                            )
+                          );
+                        },
+                        icon: const Icon(
                             Icons.favorite_sharp,
                           color: Colors.red,
                         )
@@ -60,10 +66,10 @@ class ViewSingleQuote extends StatelessWidget {
                   ],
                 ),
                 Column(
-                  children: const [
+                  children: [
                     IconButton(
-                        onPressed: null,
-                        icon: Icon(
+                        onPressed: () {},
+                        icon: const Icon(
                             Icons.comment,
                           color: Colors.blue,
                         )
@@ -72,10 +78,10 @@ class ViewSingleQuote extends StatelessWidget {
                   ],
                 ),
                 Column(
-                  children: const [
+                  children: [
                     IconButton(
-                        onPressed: null,
-                        icon: Icon(
+                        onPressed: () {},
+                        icon: const Icon(
                             Icons.share,
                           color: Colors.black,
                         )
