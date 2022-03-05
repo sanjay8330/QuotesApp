@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/components/layout.dart';
 import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
+import 'package:quotes_app/screens/quote_management/view_quotes.dart';
 
 class FindQuotes extends StatelessWidget {
   static String routeName = '/findQuotes';
@@ -41,7 +42,7 @@ class FindQuotes extends StatelessWidget {
                         width: 250,
                         child: ElevatedButton(
                             onPressed: () => {
-                              Navigator.of(context).pushNamed(ViewFavorites.routeName)
+                              Navigator.of(context).pushNamed(ViewQuotes.routeName)
                             },
                             child: const Text('Find Quotes by People')),
                       ),
@@ -66,7 +67,9 @@ class FindQuotes extends StatelessWidget {
                       child: SizedBox(
                         width: 250,
                         child: ElevatedButton(
-                            onPressed: () => {},
+                            onPressed: () => {
+                              Navigator.of(context).pushNamed(ViewFavorites.routeName)
+                            },
                             child: const Text('Find Quotes by Category')),
                       ),
                     ),
