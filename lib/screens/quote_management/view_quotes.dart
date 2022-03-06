@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../components/layout.dart';
 import '../../data/quotes.dart';
 import '../favorite_management/view_single_quote.dart';
