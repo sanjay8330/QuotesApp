@@ -7,7 +7,7 @@ class Layout extends StatelessWidget {
   const Layout({
     Key? key,
     required this.context,
-    this.widget
+    this.widget, 
   }) : super(key: key);
 
   @override
