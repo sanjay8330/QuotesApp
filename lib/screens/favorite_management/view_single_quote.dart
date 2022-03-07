@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quotes_app/components/favorite_management_components/bottom_iconlist.dart';
 import 'package:quotes_app/components/layout.dart';
 
 
@@ -42,56 +43,7 @@ class ViewSingleQuote extends StatelessWidget {
             ),
           ),
           const SizedBox(width: double.infinity, height: 40,),
-          Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Quote added to Favorites')
-                            )
-                          );
-                        },
-                        icon: const Icon(
-                            Icons.favorite_sharp,
-                          color: Colors.red,
-                        )
-                    ),
-                    Text('Add to Favorites')
-                  ],
-                ),
-                Column(
-                  children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                            Icons.comment,
-                          color: Colors.blue,
-                        )
-                    ),
-                    Text('Add Comments')
-                  ],
-                ),
-                Column(
-                  children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                            Icons.share,
-                          color: Colors.black,
-                        )
-                    ),
-                    Text('Share')
-                  ],
-                ),
-              ],
-            ),
-          )
+          const BottomIconList(copyText: 'Hello',)
         ],
       )
     );

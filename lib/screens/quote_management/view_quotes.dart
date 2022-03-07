@@ -13,6 +13,8 @@ class ViewQuotes extends StatelessWidget {
     return Layout(
         context: "List of Quotes",
         widget: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             const Padding(
               padding: EdgeInsets.all(10.0),
@@ -40,8 +42,15 @@ class ViewQuotes extends StatelessWidget {
                   }
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: FloatingActionButton(
+                  onPressed: () {},
+                child: const Icon(Icons.add),
+              ),
+            )
           ],
-        )
+        ),
     );
   }
 }
