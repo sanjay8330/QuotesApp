@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quotes_app/screens/favorite_management/find_quotes.dart';
 import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
 import 'package:quotes_app/screens/favorite_management/view_single_quote.dart';
+import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes.dart';
 
 void main() {
@@ -22,10 +23,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: FindQuotes.routeName,
       routes: {
-        FindQuotes.routeName : (context) => FindQuotes(),
-        ViewSingleQuote.routeName : (context) => ViewSingleQuote(),
-        ViewFavorites.routeName : (context) => ViewFavorites(),
-        ViewQuotes.routeName : (context) => ViewQuotes(),
+        FindQuotes.routeName : (context) => const FindQuotes(),
+        ViewSingleQuote.routeName : (context) => const ViewSingleQuote(),
+        ViewFavorites.routeName : (context) => const ViewFavorites(),
+        ViewQuotes.routeName : (context) => const ViewQuotes(),
+        AddFeedback.routeName : (context) => const AddFeedback(),
       },
 
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/components/layout.dart';
+import 'package:quotes_app/screens/favorite_management/view_single_quote.dart';
 
 import '../../data/quotes.dart';
 
@@ -33,8 +34,14 @@ class ViewFavorites extends StatelessWidget {
                     ),
                     title: Text(quote.quote, overflow: TextOverflow.ellipsis, softWrap: false,),
                     subtitle: Text(quote.personName),
-                    trailing: IconButton(onPressed: () {}, icon: Icon(Icons.cancel_outlined)),
-                    onTap: () {},
+                    trailing: IconButton(onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Quote Removed from Favorites'))
+                      );
+                    }, icon: const Icon(Icons.delete_forever)),
+                    onTap: () {
+                      Navigator.of(context).pushNamed(ViewSingleQuote.routeName);
+                    },
                   );
                 }
             ),
