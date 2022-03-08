@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:quotes_app/components/quote_management_component/add_quotes.dart';
 import 'package:quotes_app/screens/favorite_management/find_quotes.dart';
@@ -7,7 +8,14 @@ import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes.dart';
 import 'components/user_management_component/home.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

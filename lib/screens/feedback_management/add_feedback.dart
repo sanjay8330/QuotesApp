@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:quotes_app/components/layout.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddFeedback extends StatefulWidget {
   static String routeName = '/addFeedback';
@@ -12,10 +13,24 @@ class AddFeedback extends StatefulWidget {
 }
 
 class _AddFeedbackState extends State<AddFeedback> {
-  final _formkey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
+    final _formkey = GlobalKey<FormState>();
+
+    double? ratingInput;
+    String? comments;
+
+    CollectionReference collectionReference = FirebaseFirestore.instance.collection('UserFeedback');
+
+    Future<void> saveFeedback() async{
+      _formkey.currentState!.save();
+      return collectionReference.add({
+        'rating': ratingInput,
+        'comments': comments,
+      }).then((value) => print('Feedback Added'))
+          .catchError((error) => print('Failed to add feedback : $error'));
+    }
+
     return Layout(
       context: 'Add Feedback',
       widget: SingleChildScrollView(
@@ -62,7 +77,8 @@ class _AddFeedbackState extends State<AddFeedback> {
                                   color: Colors.amber,
                                 ),
                                 onRatingUpdate: (rating) {
-                                  print(rating);
+                                  ratingInput = rating;
+                                  print(ratingInput);
                                 }
                             ),
                           ),
@@ -78,12 +94,18 @@ class _AddFeedbackState extends State<AddFeedback> {
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                               ),
+                              onSaved: (String? value) {
+                                if(value!=null){
+                                  comments = value;
+                                  print(comments);
+                                }
+                              },
                             ),
                           ),
                           const SizedBox(width: double.infinity, height: 10,),
                           Center(
                             child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: saveFeedback,
                                 child: const Text('Add Feedback')
                             ),
                           )

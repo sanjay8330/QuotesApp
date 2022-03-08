@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
 import '../../screens/favorite_management/find_quotes.dart';
 import '../quote_management_component/add_quotes.dart';
 
@@ -14,6 +15,7 @@ class Home extends StatelessWidget {
         title: const Center(
           child: Text('Home'),
         ),
+        actions: [IconButton(onPressed: () { Navigator.of(context).pushNamed(AddFeedback.routeName); }, icon: const Icon(Icons.feedback_sharp))],
       ),
       body: Card(
         child: Column(
