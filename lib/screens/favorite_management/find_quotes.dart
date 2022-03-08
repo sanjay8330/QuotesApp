@@ -72,9 +72,7 @@ class FindQuotes extends StatelessWidget {
                     child: SizedBox(
                       width: 250,
                       child: ElevatedButton(
-                          onPressed: () => {
-                            Navigator.of(context).pushNamed(AddFeedback.routeName)
-                          },
+                          onPressed: () {},
                           child: const Text('Find Quotes by Category')),
                     ),
                   ),
