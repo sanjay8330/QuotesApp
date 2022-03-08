@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
-import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes.dart';
 
 class FindQuotes extends StatelessWidget {

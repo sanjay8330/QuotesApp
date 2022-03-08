@@ -17,17 +17,24 @@ class _AddFeedbackState extends State<AddFeedback> {
   Widget build(BuildContext context) {
     final _formkey = GlobalKey<FormState>();
 
-    double? ratingInput;
+    double? ratingInput = 3.0;
     String? comments;
 
     CollectionReference collectionReference = FirebaseFirestore.instance.collection('UserFeedback');
 
     Future<void> saveFeedback() async{
       _formkey.currentState!.save();
-      return collectionReference.add({
+
+      collectionReference.add({
+        'userId': 'testUser12541',
         'rating': ratingInput,
         'comments': comments,
-      }).then((value) => print('Feedback Added'))
+      }).then((value) {
+        print('Feedback Added!');
+        return ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Feedback Saved Successfully'))
+        );
+      })
           .catchError((error) => print('Failed to add feedback : $error'));
     }
 
@@ -114,7 +121,7 @@ class _AddFeedbackState extends State<AddFeedback> {
                     ),
                   )
               ),
-            )
+            ),
           ],
         ),
       ),
