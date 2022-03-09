@@ -9,6 +9,15 @@ class Quotes {
     required this.personName,
     required this.category,
   });
+
+  factory Quotes.fromJSON(Map<String, dynamic> data) {
+    return Quotes(
+        personImage: data['personImage'],
+        quote: data['quote'],
+        personName: data['personName'],
+        category: data['category'],
+    );
+  }
 }
 
 const List<Quotes> quotesList = [
