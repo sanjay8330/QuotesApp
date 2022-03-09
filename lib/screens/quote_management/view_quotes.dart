@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../components/layout.dart';
 import '../../data/quotes.dart';
@@ -11,6 +10,8 @@ class ViewQuotes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String selectedCategory = 'Motivational';
+
     return Layout(
         context: "List of Quotes",
         widget: Column(
@@ -24,6 +25,8 @@ class ViewQuotes extends StatelessWidget {
                     style: TextStyle(fontStyle: FontStyle.italic)),
               ),
             ),
+            Center(child: Text('Selected Category : $selectedCategory')),
+            const SizedBox(width: double.infinity, height: 10,),
             Flexible(
               child: ListView.builder(
                   itemCount: quotesList.length,

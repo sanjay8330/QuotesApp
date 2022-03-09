@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:quotes_app/components/quote_management_component/add_quotes.dart';
 import 'package:quotes_app/screens/favorite_management/find_quotes.dart';
@@ -6,6 +5,7 @@ import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
 import 'package:quotes_app/screens/favorite_management/view_single_quote.dart';
 import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes.dart';
+import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
 import 'components/user_management_component/home.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
         ViewFavorites.routeName: (context) => const ViewFavorites(),
         ViewQuotes.routeName: (context) => const ViewQuotes(),
         AddFeedback.routeName: (context) => const AddFeedback(),
+        ViewQuotesByPerson.routeName : (context) => const ViewQuotesByPerson(),
         //Kasuni
         AddQuotes.routeName: (context) => const AddQuotes()
       },

@@ -32,7 +32,7 @@ class _AddFeedbackState extends State<AddFeedback> {
       }).then((value) {
         print('Feedback Added!');
         return ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Feedback Saved Successfully'))
+          const SnackBar(content: Text('Feedback Saved Successfully'),)
         );
       })
           .catchError((error) => print('Failed to add feedback : $error'));

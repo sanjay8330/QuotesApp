@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes.dart';
+import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
 
 class FindQuotes extends StatelessWidget {
   static String routeName = '/findQuotes';
@@ -27,9 +28,12 @@ class FindQuotes extends StatelessWidget {
                     style: TextStyle(fontStyle: FontStyle.italic)),
               ),
             ),
+            const SizedBox(width: double.infinity, height: 10,),
             //Child 02
             Card(
-              //color: Colors.cyanAccent,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+              margin: const EdgeInsets.all(8.0),
+              elevation: 25,
               child: Column(
                 children: [
                   Padding(
@@ -45,8 +49,8 @@ class FindQuotes extends StatelessWidget {
                     child: SizedBox(
                       width: 250,
                       child: ElevatedButton(
-                          onPressed: () => {
-                            Navigator.of(context).pushNamed(ViewQuotes.routeName)
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(ViewQuotesByPerson.routeName);
                           },
                           child: const Text('Find Quotes by People')),
                     ),
@@ -56,6 +60,9 @@ class FindQuotes extends StatelessWidget {
             ),
             const SizedBox(width: double.infinity, height: 40,),
             Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+              margin: const EdgeInsets.all(8.0),
+              elevation: 25,
               child: Column(
                 children: [
                   Padding(
@@ -71,7 +78,9 @@ class FindQuotes extends StatelessWidget {
                     child: SizedBox(
                       width: 250,
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(ViewQuotes.routeName);
+                          },
                           child: const Text('Find Quotes by Category')),
                     ),
                   ),
