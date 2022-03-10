@@ -6,6 +6,7 @@ class DatabaseHandler {
   List quotesListToReturn = [];
   List personQuotesListToReturn = [];
   List personDetailListToReturn = [];
+  List quoteDetailListToReturn = [];
 
   Future getQuotesByCategory(String selectedCategory) async {
     try{
@@ -55,6 +56,24 @@ class DatabaseHandler {
         personDetailListToReturn = personDetaillocal;
       });
       return personDetailListToReturn;
+    }catch(error) {
+      print('Error Occured in Retrieve '+ error.toString());
+      return null;
+    }
+  }
+
+  Future getQuoteDetails(String quote) async {
+    try{
+
+      List quoteDetaillocal = [];
+
+      await quoteslist.where('quote', isEqualTo: quote).get().then((querysnapshot) {
+        querysnapshot.docs.forEach((element) {
+          quoteDetaillocal.add(element.data());
+        });
+        quoteDetailListToReturn = quoteDetaillocal;
+      });
+      return quoteDetailListToReturn;
     }catch(error) {
       print('Error Occured in Retrieve '+ error.toString());
       return null;
