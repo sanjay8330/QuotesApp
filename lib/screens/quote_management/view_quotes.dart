@@ -70,7 +70,9 @@ class _ViewQuotesState extends State<ViewQuotes> {
                         title: Text(quotesList[index]['quote'], overflow: TextOverflow.ellipsis, softWrap: false,),
                         subtitle: Text(quotesList[index]['personName']),
                         onTap: () {
-                          Navigator.of(context).pushNamed(ViewSingleQuote.routeName);
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (_) => ViewSingleQuote(quote: quotesList[index]['quote'])
+                          ));
                         },
                       ),
                     );

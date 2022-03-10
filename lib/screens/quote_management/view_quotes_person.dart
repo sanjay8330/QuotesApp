@@ -87,7 +87,9 @@ class _ViewQuotesByPersonState extends State<ViewQuotesByPerson> {
                         child: Text('Category : '+quotesList[index]['category']),
                       ),
                       onTap: () {
-                        Navigator.of(context).pushNamed(ViewSingleQuote.routeName);
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (_) => ViewSingleQuote(quote: quotesList[index]['quote'])
+                        ));
                       },
                     ),
                   );
