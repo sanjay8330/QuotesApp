@@ -105,7 +105,7 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
           const SizedBox(width: double.infinity, height: 10,),
           Align(
             alignment: Alignment.bottomCenter,
-              child: BottomIconList(copyText: quote,))
+              child: BottomIconList(copyText: quote, userID: 'US001'))
         ],
       )
     );
