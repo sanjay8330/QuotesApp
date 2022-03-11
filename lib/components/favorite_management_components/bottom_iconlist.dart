@@ -106,7 +106,10 @@ class _BottomIconListState extends State<BottomIconList> {
                   content: Text('Quote Added to Favorites!')
               )
           );
-          Navigator.of(context).pushNamed(ViewFavorites.routeName);
+          //Navigator.of(context).pushNamed(ViewFavorites.routeName);
+          Navigator.push(context, MaterialPageRoute(
+              builder: (_) => ViewFavorites(userID: widget.userID)
+          ));
         }
       }
     }
