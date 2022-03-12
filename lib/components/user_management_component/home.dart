@@ -15,7 +15,11 @@ class Home extends StatelessWidget {
         title: const Center(
           child: Text('Home'),
         ),
-        actions: [IconButton(onPressed: () { Navigator.of(context).pushNamed(AddFeedback.routeName); }, icon: const Icon(Icons.feedback_sharp))],
+        actions: [IconButton(onPressed: () {
+          Navigator.push(context, MaterialPageRoute(
+              builder: (_) => const AddFeedback(userId: 'US001',)
+          ));
+        }, icon: const Icon(Icons.feedback_sharp))],
       ),
       body: Card(
         child: Column(

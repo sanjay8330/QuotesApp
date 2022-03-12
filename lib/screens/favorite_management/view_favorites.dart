@@ -28,9 +28,11 @@ class _ViewFavoritesState extends State<ViewFavorites> {
   }
 
   /*
+   *********************************************************************************************************************
    * @Developer: Sanjay Sakthivel (IT19158228)
    * @Created Date: 11/03/2022
-   * @Purpose: This method gets the list of quotes already added to favorites by the user
+   * @Purpose: This method gets the list of quotes already added to favorites by the user from Firestore
+   * *******************************************************************************************************************
    */
   fetchUserQuotes() async {
     dynamic result = await DatabaseHandler().getQuotesByUserID(widget.userID.toString());
@@ -47,12 +49,44 @@ class _ViewFavoritesState extends State<ViewFavorites> {
         quoteList = element['quotes'];
       });
     }
-    print('QUOTES FOR USER>>>>>>'+ quoteList.toString());
+
   }
 
 
   @override
   Widget build(BuildContext context) {
+
+    /*
+   *******************************************************************************************************************
+   * @Developer: Sanjay Sakthivel (IT19158228)
+   * @Created Date: 11/03/2022
+   * @Purpose: This method delete quotes from the favorite list of the user from the Firestore.
+   *******************************************************************************************************************
+   */
+    void deleteQuoteFromToFavorites(String quoteToDelete) async {
+
+        //Adds the quote that user selects to delete
+        List quoteListTodelete = [];
+        quoteListTodelete.add(quoteToDelete);
+
+        bool result = await DatabaseHandler().removeQuotesForUserID(widget.userID.toString(), quoteListTodelete);
+
+        if(result){
+          fetchUserQuotes();
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                  content: Text('Quote Removed from Favorites!')
+              )
+          );
+        }else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                  content: Text('Something went wrong. Try again later!')
+              )
+          );
+        }
+    }
+
     return Layout(
         context: 'View Favorites',
       widget: Column(
@@ -68,7 +102,6 @@ class _ViewFavoritesState extends State<ViewFavorites> {
             child: ListView.builder(
                 itemCount: quoteList.length,
                 itemBuilder: (context, index) {
-                  //Quotes quote = quotesList.elementAt(index);//Need to add a favorites list here
                   return Card(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                     margin: const EdgeInsets.all(8.0),
@@ -76,9 +109,7 @@ class _ViewFavoritesState extends State<ViewFavorites> {
                     child: ListTile(
                       title: Text('" ' + quoteList[index] + '"'),
                       trailing: IconButton(onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Quote Removed from Favorites'))
-                        );
+                        deleteQuoteFromToFavorites(quoteList[index]);
                       }, icon: const Icon(Icons.delete_forever)),
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(

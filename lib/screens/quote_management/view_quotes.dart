@@ -23,21 +23,32 @@ class _ViewQuotesState extends State<ViewQuotes> {
     fetchQuotesList();
   }
 
+  /*
+   *******************************************************************************************************************
+   * @Developer: Sanjay Sakthivel (IT19158228)
+   * @Created Date: 07/03/2022
+   * @Purpose: This method retrieves all the quotes for a category from the Firestore.
+   *******************************************************************************************************************
+   */
   fetchQuotesList() async {
     List result = await DatabaseHandler().getQuotesByCategory(selectedCategory);
 
-    if(result == null){
-      print('Unable to retrieve!');
+    if(result.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text('Error in retrieving details!!')
+          )
+      );
     }else{
       setState(() {
         quotesList = result;
       });
     }
+
   }
 
   @override
   Widget build(BuildContext context) {
-    //String selectedCategory = 'Motivational';
 
     return Layout(
         context: "List of Quotes",

@@ -30,9 +30,11 @@ class _BottomIconListState extends State<BottomIconList> {
   }
 
   /*
+   ********************************************************************************************************************
    * @Developer: Sanjay Sakthivel (IT19158228)
    * @Created Date: 11/03/2022
    * @Purpose: This method gets the list of quotes already added to favorites by the user
+   ********************************************************************************************************************
    */
   fetchUserQuotes() async {
     dynamic result = await DatabaseHandler().getQuotesByUserID(widget.userID.toString());
@@ -56,9 +58,11 @@ class _BottomIconListState extends State<BottomIconList> {
   Widget build(BuildContext context) {
 
     /*
+   ******************************************************************************************************************
    * @Developer: Sanjay Sakthivel (IT19158228)
    * @Created Date: 11/03/2022
    * @Purpose: This method copies the quote to the clipboard
+   ******************************************************************************************************************
    */
     void copyText() {
       FlutterClipboard.copy(widget.copyText).then((value) {
@@ -71,9 +75,11 @@ class _BottomIconListState extends State<BottomIconList> {
     }
 
     /*
+   *******************************************************************************************************************
    * @Developer: Sanjay Sakthivel (IT19158228)
    * @Created Date: 11/03/2022
    * @Purpose: This method adds the quote to the favorite list of user
+   *******************************************************************************************************************
    */
     void addToFavorites() async {
 
@@ -106,12 +112,13 @@ class _BottomIconListState extends State<BottomIconList> {
                   content: Text('Quote Added to Favorites!')
               )
           );
-          //Navigator.of(context).pushNamed(ViewFavorites.routeName);
+
           Navigator.push(context, MaterialPageRoute(
               builder: (_) => ViewFavorites(userID: widget.userID)
           ));
         }
       }
+
     }
 
     return Padding(

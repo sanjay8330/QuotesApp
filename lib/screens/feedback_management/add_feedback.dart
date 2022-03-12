@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:quotes_app/components/layout.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:quotes_app/database_manager/feedback_handler/database_handler_feedback.dart';
 
 class AddFeedback extends StatefulWidget {
   static String routeName = '/addFeedback';
 
-  const AddFeedback({Key? key}) : super(key: key);
+  final String? userId;//User ID passed from the HomePage
+
+  const AddFeedback({
+    Key? key,
+    this.userId,
+  }) : super(key: key);
 
   @override
   State<AddFeedback> createState() => _AddFeedbackState();
@@ -17,25 +23,31 @@ class _AddFeedbackState extends State<AddFeedback> {
   Widget build(BuildContext context) {
     final _formkey = GlobalKey<FormState>();
 
-    double? ratingInput = 3.0;
+    double? ratingInput = 3.0;//Default rating set to 3
     String? comments;
 
-    CollectionReference collectionReference = FirebaseFirestore.instance.collection('UserFeedback');
+    /*
+   * *******************************************************************************************************
+   * @Developer: Sanjay Sakthivel (IT19158228)
+   * @Created Date: 12/03/2022
+   * @Purpose: This method adds the feedback for the application from different users to the Firestore.
+   * *******************************************************************************************************
+   */
+    saveFeedback () async {
+      if(_formkey.currentState!.validate()){
+        _formkey.currentState!.save();
+        bool result = await DatabaseHandler().saveFeedback(widget.userId.toString(), ratingInput, comments);
 
-    Future<void> saveFeedback() async{
-      _formkey.currentState!.save();
-
-      collectionReference.add({
-        'userId': 'testUser12541',
-        'rating': ratingInput,
-        'comments': comments,
-      }).then((value) {
-        print('Feedback Added!');
-        return ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Feedback Saved Successfully'),)
-        );
-      })
-          .catchError((error) => print('Failed to add feedback : $error'));
+        if(result){
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Feedback Saved Successfully'),)
+          );
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Something went wrong. Try again later!'),)
+          );
+        }
+      }
     }
 
     return Layout(
@@ -57,9 +69,9 @@ class _AddFeedbackState extends State<AddFeedback> {
             Card(
               child: Form(
                 key: _formkey,
-                  child: Container(
+                  child: SizedBox(
                     width: 350,
-                    height: 320,
+                    height: 330,
                     child: Card(
                       elevation: 40,
                       child: Column(
@@ -85,7 +97,6 @@ class _AddFeedbackState extends State<AddFeedback> {
                                 ),
                                 onRatingUpdate: (rating) {
                                   ratingInput = rating;
-                                  print(ratingInput);
                                 }
                             ),
                           ),
@@ -97,6 +108,12 @@ class _AddFeedbackState extends State<AddFeedback> {
                           Padding(
                             padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: TextFormField(
+                              validator: (value) {
+                                if(value==null || value.isEmpty){
+                                  return 'Comments Field is required';
+                                }
+                                return null;
+                              },
                               maxLines: 4,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
@@ -104,7 +121,6 @@ class _AddFeedbackState extends State<AddFeedback> {
                               onSaved: (String? value) {
                                 if(value!=null){
                                   comments = value;
-                                  print(comments);
                                 }
                               },
                             ),

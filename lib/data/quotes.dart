@@ -20,6 +20,13 @@ class Quotes {
   }
 }
 
+/*
+**********************************************************************************************
+* @Developer - Sanjay Sakthivel (IT19158228)
+* @Created Date - 01/03/2022
+* @Purpose - Mock data for testing UI alignment.
+**********************************************************************************************
+ */
 const List<Quotes> quotesList = [
   Quotes(
     personImage: "assets/images/favorite_management/person1.jpg",
