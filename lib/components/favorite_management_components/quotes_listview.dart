@@ -50,10 +50,9 @@ class QuotesListView extends StatelessWidget {
               padding: const EdgeInsets.only(left: 250.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   IconButton(onPressed: () {}, icon: Icon(Icons.preview)),
-                  Text('Preview')
+                  const Text('Preview')
                 ],
               ),
             ),
@@ -61,16 +60,15 @@ class QuotesListView extends StatelessWidget {
               padding: const EdgeInsets.only(left: 25.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
-                  Text('Remove')
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+                  const Text('Remove')
                 ],
               ),
             ),
           ],
         ),
-        SizedBox(width: double.infinity, height: 15,),
+        const SizedBox(width: double.infinity, height: 15,),
       ],
     );
   }

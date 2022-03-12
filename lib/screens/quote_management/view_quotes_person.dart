@@ -29,11 +29,22 @@ class _ViewQuotesByPersonState extends State<ViewQuotesByPerson> {
     fetchPersonDetail();
   }
 
+  /*
+   *******************************************************************************************************************
+   * @Developer: Sanjay Sakthivel (IT19158228)
+   * @Created Date: 07/03/2022
+   * @Purpose: This method retrieves person details from the Firestore.
+   *******************************************************************************************************************
+   */
   fetchPersonDetail() async {
     List result = await DatabaseHandler().getPersonDetails(selectedPersonName);
 
     if(result.isEmpty){
-      print('No data Found');
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text('Error in retrieving details!!')
+          )
+      );
     }else{
       setState(() {
         personDetail = result;
@@ -46,18 +57,31 @@ class _ViewQuotesByPersonState extends State<ViewQuotesByPerson> {
         });
       }
     }
+
   }
 
+  /*
+   *******************************************************************************************************************
+   * @Developer: Sanjay Sakthivel (IT19158228)
+   * @Created Date: 07/03/2022
+   * @Purpose: This method retrieves quotes for person name from the Firestore.
+   *******************************************************************************************************************
+   */
   fetchQuotesList() async {
     List result = await DatabaseHandler().getQuotesByPersonName(selectedPersonName);
 
     if(result.isEmpty){
-      print('Unable to retrieve!');
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text('Error in retrieving details!!')
+          )
+      );
     }else{
       setState(() {
         quotesList = result;
       });
     }
+
   }
   
   @override
@@ -75,7 +99,6 @@ class _ViewQuotesByPersonState extends State<ViewQuotesByPerson> {
             child: ListView.builder(
                 itemCount: quotesList.length,
                 itemBuilder: (context, index) {
-                  //Quotes quote = quotesList.elementAt(index);
                   return Card(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                     margin: const EdgeInsets.all(8.0),
