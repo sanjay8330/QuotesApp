@@ -15,7 +15,12 @@ class FindQuotes extends StatelessWidget {
         title: const Center(
           child: Text('Find Quotes'),
         ),
-        actions: [IconButton(onPressed: () { Navigator.of(context).pushNamed(ViewFavorites.routeName); }, icon: const Icon(Icons.favorite_sharp))],
+        actions: [IconButton(onPressed: () {
+          Navigator.push(context, MaterialPageRoute(
+              builder: (_) => const ViewFavorites(userID: 'US001')
+          ));
+          },
+            icon: const Icon(Icons.favorite_sharp))],
       ),
       body: Card(
         child: Column(
