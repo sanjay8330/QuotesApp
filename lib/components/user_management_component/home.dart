@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
+import 'package:quotes_app/screens/quote_management/quote_home.dart';
 import '../../screens/favorite_management/find_quotes.dart';
-import '../quote_management_component/add_quotes.dart';
 
 class Home extends StatelessWidget {
   static String routeName = '/home';
@@ -60,9 +60,9 @@ class Home extends StatelessWidget {
                     child: ElevatedButton(
                         onPressed: () => {
                               Navigator.of(context)
-                                  .pushNamed(AddQuotes.routeName)
+                                  .pushNamed(QuoteHome.routeName)
                             },
-                        child: const Text('Add Quotes')),
+                        child: const Text('Quotes')),
                   ),
                 ],
               ),

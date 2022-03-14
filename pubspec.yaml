@@ -16,6 +16,7 @@ dependencies:
   clipboard: ^0.1.3
   cloud_firestore: ^3.1.10
   firebase_core: ^1.13.1
+  dropdown_button2: ^1.2.2
 
 dev_dependencies:
   flutter_test:
@@ -26,4 +27,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/favorite_management/
+    - assets/images/quotes_management/
 
