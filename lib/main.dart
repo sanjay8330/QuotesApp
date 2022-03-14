@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:quotes_app/components/quote_management_component/add_quotes.dart';
+import 'package:quotes_app/screens/quote_management/add_quotes.dart';
 import 'package:quotes_app/screens/favorite_management/find_quotes.dart';
 import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
 import 'package:quotes_app/screens/favorite_management/view_single_quote.dart';
 import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
+import 'package:quotes_app/screens/quote_management/quote_home.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes.dart';
+import 'package:quotes_app/screens/quote_management/view_quotes_category.dart';
+import 'package:quotes_app/screens/quote_management/view_quotes_people.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
 import 'components/user_management_component/home.dart';
 
@@ -43,7 +46,10 @@ class MyApp extends StatelessWidget {
         AddFeedback.routeName: (context) => const AddFeedback(),
         ViewQuotesByPerson.routeName : (context) => const ViewQuotesByPerson(),
         //Kasuni
-        AddQuotes.routeName: (context) => const AddQuotes()
+        AddQuotes.routeName: (context) => const AddQuotes(),
+        QuoteHome.routeName: (context) => const QuoteHome(),
+        ViewQuotesPeople.routeName: (context) => const ViewQuotesPeople(),
+        ViewQuotesCategory.routeName: (context) => const ViewQuotesCategory(),
       },
     );
   }
