@@ -17,13 +17,6 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
         title: const Center(child: Text("Quotes by Category")),
         backgroundColor: Colors.blue,
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: GridView.count(
-            crossAxisCount: 1,
-            crossAxisSpacing: 4.0,
-            mainAxisSpacing: 8.0,
-          )),
     );
   }
 }
