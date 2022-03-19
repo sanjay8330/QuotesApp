@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:quotes_app/components/layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -13,6 +18,7 @@ class AddQuotes extends StatefulWidget {
 }
 
 class _AddQuotesState extends State<AddQuotes> {
+
   var selectedCategory;
 
   @override
@@ -21,6 +27,9 @@ class _AddQuotesState extends State<AddQuotes> {
 
     String? personName;
     String? quote;
+    String? imageURL; //Added By Sanjay - Image Upload
+
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance; //Added By Sanjay - Image Upload
 
     List<String> _categoryType = <String>[
       'Motivational',
@@ -30,8 +39,38 @@ class _AddQuotesState extends State<AddQuotes> {
       'Personal',
     ];
 
+    /*
+    * Method for Image Upload
+    * */
+    Future uploadImage() async {
+      final picker = ImagePicker();
+      XFile? pickedImage;
+
+      try{
+        pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+        final String imageName = path.basename(pickedImage!.path);
+        File imageFile = File(pickedImage.path);
+
+        UploadTask task = firebaseStorage.ref().child(imageName).putFile(imageFile);
+
+        String downloadURL = await task.snapshot.ref.child(imageName).getDownloadURL();
+        print('IMAGE URL : '+downloadURL);
+
+        // setState(() {
+        //   imageURL: downloadURL;
+        // });
+        //
+        // print('IMAGE URL : '+imageURL.toString());
+
+      }catch(error) {
+        print('Error Occured : '+error.toString());
+      }
+    }
+
+
     CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection('AddQuotes');
+    FirebaseFirestore.instance.collection('AddQuotes');
 
     Future<void> saveQuote() async {
       _formkey.currentState!.save();
@@ -40,6 +79,7 @@ class _AddQuotesState extends State<AddQuotes> {
         'personName': personName,
         'quote': quote,
         'selectedCategory': selectedCategory,
+        'personImage': imageURL
       }).then((value) {
         print('Quote Added!');
         return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -65,47 +105,16 @@ class _AddQuotesState extends State<AddQuotes> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(
-                              child: Image.asset(
-                            'assets/images/quotes_management/quote.jpg',
-                            width: 450,
-                            height: 150,
-                          )),
                           const SizedBox(
                             width: double.infinity,
-                            height: 20,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Person Name*'),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 10.0, right: 10.0),
-                            child: TextFormField(
-                              maxLines: 1,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                              ),
-                              onSaved: (String? value) {
-                                if (value != null) {
-                                  personName = value;
-                                  print(personName);
-                                }
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            width: double.infinity,
-                            height: 10,
+                            height: 30,
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text('Category*'),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton2<String>(
                                 hint: Text(
@@ -117,15 +126,9 @@ class _AddQuotesState extends State<AddQuotes> {
                                 ),
                                 items: _categoryType
                                     .map((value) => DropdownMenuItem(
-                                          child: Text(
-                                            value,
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                          value: value,
-                                        ))
-                                    .toList(),
+                                  child: Text(value, style: const TextStyle(fontSize: 14,),),
+                                  value: value,
+                                )).toList(),
                                 onChanged: (selectedCategoryType) {
                                   setState(() {
                                     selectedCategory = selectedCategoryType;
@@ -152,11 +155,33 @@ class _AddQuotesState extends State<AddQuotes> {
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
+                            child: Text('Person Name*'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                            child: TextFormField(
+                              maxLines: 1,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              onSaved: (String? value) {
+                                if (value != null) {
+                                  personName = value;
+                                  print(personName);
+                                }
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            width: double.infinity,
+                            height: 10,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Enter Quote*'),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: TextFormField(
                               maxLines: 4,
                               decoration: const InputDecoration(
@@ -172,22 +197,7 @@ class _AddQuotesState extends State<AddQuotes> {
                           ),
                           const SizedBox(
                             width: double.infinity,
-                            height: 20,
-                          ),
-                          Center(
-                            child: ElevatedButton(
-                                onPressed: saveQuote,
-                                child: const Text('Upload Image'),
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.blue,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 120, vertical: 10),
-                                  textStyle: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50)),
-                                )),
+                            height: 10,
                           ),
                           const SizedBox(
                             width: double.infinity,
@@ -195,18 +205,13 @@ class _AddQuotesState extends State<AddQuotes> {
                           ),
                           Center(
                             child: ElevatedButton(
-                              onPressed: saveQuote,
-                              child: const Text('Add Quote'),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.blue,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 135, vertical: 10),
-                                  textStyle: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50))),
-                            ),
+                                onPressed: saveQuote,
+                                child: const Text('Add Quote')),
+                          ),
+                          Center(
+                            child: ElevatedButton(
+                                onPressed: uploadImage,
+                                child: const Text('Add Image')),
                           )
                         ],
                       ),
