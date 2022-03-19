@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:quotes_app/components/layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -22,6 +27,9 @@ class _AddQuotesState extends State<AddQuotes> {
 
     String? personName;
     String? quote;
+    String? imageURL; //Added By Sanjay - Image Upload
+
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance; //Added By Sanjay - Image Upload
 
     List<String> _categoryType = <String>[
       'Motivational',
@@ -30,6 +38,36 @@ class _AddQuotesState extends State<AddQuotes> {
       'Sports',
       'Personal',
     ];
+
+    /*
+    * Method for Image Upload
+    * */
+    Future uploadImage() async {
+      final picker = ImagePicker();
+      XFile? pickedImage;
+
+      try{
+        pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+        final String imageName = path.basename(pickedImage!.path);
+        File imageFile = File(pickedImage.path);
+
+        UploadTask task = firebaseStorage.ref().child(imageName).putFile(imageFile);
+
+        String downloadURL = await task.snapshot.ref.child(imageName).getDownloadURL();
+        print('IMAGE URL : '+downloadURL);
+
+        // setState(() {
+        //   imageURL: downloadURL;
+        // });
+        //
+        // print('IMAGE URL : '+imageURL.toString());
+
+      }catch(error) {
+        print('Error Occured : '+error.toString());
+      }
+    }
+
 
     CollectionReference collectionReference =
     FirebaseFirestore.instance.collection('AddQuotes');
@@ -41,6 +79,7 @@ class _AddQuotesState extends State<AddQuotes> {
         'personName': personName,
         'quote': quote,
         'selectedCategory': selectedCategory,
+        'personImage': imageURL
       }).then((value) {
         print('Quote Added!');
         return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -168,6 +207,11 @@ class _AddQuotesState extends State<AddQuotes> {
                             child: ElevatedButton(
                                 onPressed: saveQuote,
                                 child: const Text('Add Quote')),
+                          ),
+                          Center(
+                            child: ElevatedButton(
+                                onPressed: uploadImage,
+                                child: const Text('Add Image')),
                           )
                         ],
                       ),
