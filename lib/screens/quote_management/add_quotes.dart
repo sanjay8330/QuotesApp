@@ -13,6 +13,7 @@ class AddQuotes extends StatefulWidget {
 }
 
 class _AddQuotesState extends State<AddQuotes> {
+
   var selectedCategory;
 
   @override
@@ -31,7 +32,7 @@ class _AddQuotesState extends State<AddQuotes> {
     ];
 
     CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection('AddQuotes');
+    FirebaseFirestore.instance.collection('AddQuotes');
 
     Future<void> saveQuote() async {
       _formkey.currentState!.save();
@@ -71,29 +72,6 @@ class _AddQuotesState extends State<AddQuotes> {
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
-                            child: Text('Person Name*'),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                            child: TextFormField(
-                              maxLines: 1,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                              ),
-                              onSaved: (String? value) {
-                                if (value != null) {
-                                  personName = value;
-                                  print(personName);
-                                }
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            width: double.infinity,
-                            height: 10,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
                             child: Text('Category*'),
                           ),
                           Padding(
@@ -109,9 +87,9 @@ class _AddQuotesState extends State<AddQuotes> {
                                 ),
                                 items: _categoryType
                                     .map((value) => DropdownMenuItem(
-                                          child: Text(value, style: const TextStyle(fontSize: 14,),),
-                                          value: value,
-                                        )).toList(),
+                                  child: Text(value, style: const TextStyle(fontSize: 14,),),
+                                  value: value,
+                                )).toList(),
                                 onChanged: (selectedCategoryType) {
                                   setState(() {
                                     selectedCategory = selectedCategoryType;
@@ -130,6 +108,29 @@ class _AddQuotesState extends State<AddQuotes> {
                                   color: Colors.white,
                                 ),
                               ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: double.infinity,
+                            height: 10,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('Person Name*'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                            child: TextFormField(
+                              maxLines: 1,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              onSaved: (String? value) {
+                                if (value != null) {
+                                  personName = value;
+                                  print(personName);
+                                }
+                              },
                             ),
                           ),
                           const SizedBox(
