@@ -13,15 +13,16 @@ class AddQuotes extends StatefulWidget {
 }
 
 class _AddQuotesState extends State<AddQuotes> {
+  var selectedCategory;
+
   @override
   Widget build(BuildContext context) {
     final _formkey = GlobalKey<FormState>();
 
     String? personName;
     String? quote;
-    String? categoryValue;
 
-    List<String> items = [
+    List<String> _categoryType = <String>[
       'Motivational',
       'Religious',
       'Politics',
@@ -38,6 +39,7 @@ class _AddQuotesState extends State<AddQuotes> {
       collectionReference.add({
         'personName': personName,
         'quote': quote,
+        'selectedCategory': selectedCategory,
       }).then((value) {
         print('Quote Added!');
         return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -67,23 +69,12 @@ class _AddQuotesState extends State<AddQuotes> {
                             width: double.infinity,
                             height: 30,
                           ),
-                          Center(
-                              child: Image.asset(
-                            'assets/images/quotes_management/uploadImage.png',
-                            width: 150,
-                            height: 150,
-                          )),
-                          const SizedBox(
-                            width: double.infinity,
-                            height: 30,
-                          ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text('Person Name*'),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: TextFormField(
                               maxLines: 1,
                               decoration: const InputDecoration(
@@ -106,10 +97,9 @@ class _AddQuotesState extends State<AddQuotes> {
                             child: Text('Category*'),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
+                              child: DropdownButton2<String>(
                                 hint: Text(
                                   '  Select Category',
                                   style: TextStyle(
@@ -117,23 +107,18 @@ class _AddQuotesState extends State<AddQuotes> {
                                     color: Theme.of(context).hintColor,
                                   ),
                                 ),
-                                items: items
-                                    .map((item) => DropdownMenuItem<String>(
-                                          value: item,
-                                          child: Text(
-                                            item,
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ))
-                                    .toList(),
-                                value: categoryValue,
-                                onChanged: (value) {
+                                items: _categoryType
+                                    .map((value) => DropdownMenuItem(
+                                          child: Text(value, style: const TextStyle(fontSize: 14,),),
+                                          value: value,
+                                        )).toList(),
+                                onChanged: (selectedCategoryType) {
                                   setState(() {
-                                    categoryValue = value as String;
+                                    selectedCategory = selectedCategoryType;
                                   });
                                 },
+                                value: selectedCategory,
+                                isExpanded: false,
                                 buttonHeight: 60,
                                 buttonWidth: 440,
                                 itemHeight: 60,
@@ -156,8 +141,7 @@ class _AddQuotesState extends State<AddQuotes> {
                             child: Text('Enter Quote*'),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: TextFormField(
                               maxLines: 4,
                               decoration: const InputDecoration(
