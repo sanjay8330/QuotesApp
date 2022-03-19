@@ -12,13 +12,16 @@ class ViewQuotesPeople extends StatefulWidget {
 class _ViewQuotesPeopleState extends State<ViewQuotesPeople> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           title: const Center(child: Text("Quotes by People")),
           backgroundColor: Colors.blue,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
+        body:
+
+        Padding(
+          padding: const EdgeInsets.only(top: 80),
           child: GridView.count(
               crossAxisCount: 2,
               crossAxisSpacing: 4.0,
