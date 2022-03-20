@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/quote_handler/database_handler.dart';
 import '../../components/layout.dart';
 import '../favorite_management/view_single_quote.dart';
+import 'add_quotes.dart';
 
 class ViewQuotes extends StatefulWidget {
   static String routeName = '/viewQuotes';
@@ -93,7 +94,9 @@ class _ViewQuotesState extends State<ViewQuotes> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(AddQuotes.routeName);
+                  },
                 child: const Icon(Icons.add),
               ),
             )

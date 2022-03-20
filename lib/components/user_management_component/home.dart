@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
-import 'package:quotes_app/screens/quote_management/quote_home.dart';
 import '../../screens/favorite_management/find_quotes.dart';
 
 class Home extends StatelessWidget {
@@ -13,7 +12,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-          child: Text('Home'),
+          child: Text('Quote App'),
         ),
         actions: [IconButton(onPressed: () {
           Navigator.push(context, MaterialPageRoute(
@@ -43,26 +42,6 @@ class Home extends StatelessWidget {
                                   .pushNamed(FindQuotes.routeName)
                             },
                         child: const Text('Find Quotes')),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              width: double.infinity,
-              height: 70,
-            ),
-            Card(
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 270,
-                    height: 50,
-                    child: ElevatedButton(
-                        onPressed: () => {
-                              Navigator.of(context)
-                                  .pushNamed(QuoteHome.routeName)
-                            },
-                        child: const Text('Quotes')),
                   ),
                 ],
               ),

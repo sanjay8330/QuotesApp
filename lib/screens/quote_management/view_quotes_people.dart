@@ -1,91 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:quotes_app/screens/quote_management/people_quotes_list.dart';
 
-class ViewQuotesPeople extends StatefulWidget {
+class ViewQuotesPeople extends StatelessWidget {
   static String routeName = '/ViewQuotesPeople';
 
   const ViewQuotesPeople({Key? key}) : super(key: key);
 
   @override
-  State<ViewQuotesPeople> createState() => _ViewQuotesPeopleState();
-}
-
-class _ViewQuotesPeopleState extends State<ViewQuotesPeople> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Center(child: Text("Quotes by People")),
-          backgroundColor: Colors.blue,
+      appBar: AppBar(
+        title: const Center(
+          child: Text('Quotes by People'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 4.0,
-              mainAxisSpacing: 8.0,
-              children: List.generate(choices.length, (index) {
-                return Center(
-                  child: SelectCard(choice: choices[index]),
-                );
-              })),
-    ));
-  }
-}
-
-class Choice {
-  const Choice({required this.title, required this.image});
-
-  final String title;
-  final String image;
-}
-
-const List<Choice> choices = <Choice>[
-  Choice(
-    title: 'Mahatma Gandhi',
-    image: "assets/images/quotes_management/sharuk.jpg",
-  ),
-  Choice(
-    title: 'Albert Einstein',
-    image: "assets/images/quotes_management/sharuk.jpg",
-  ),
-  Choice(
-    title: 'Mickel Jackson',
-    image: "assets/images/quotes_management/sharuk.jpg",
-  ),
-  Choice(
-    title: 'Bruce Lee',
-    image: "assets/images/quotes_management/sharuk.jpg",
-  ),
-  Choice(
-    title: 'Shahrukh Khan',
-    image: "assets/images/quotes_management/sharuk.jpg",
-  ),
-  Choice(
-    title: 'Cristiano Ronaldo',
-    image: "assets/images/quotes_management/sharuk.jpg",
-  ),
-];
-
-class SelectCard extends StatelessWidget {
-  const SelectCard({Key? key, required this.choice}) : super(key: key);
-  final Choice choice;
-
-  @override
-  Widget build(BuildContext context) {
-    final TextStyle? textStyle = Theme.of(context).textTheme.bodyLarge;
-    return Card(
-        color: Colors.white,
-        child: Center(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const SizedBox(
-                  width: double.infinity,
-                  height: 10,
-                ),
-                Expanded(child: Image.asset(choice.image)),
-                Text(choice.title, style: textStyle),
-              ]),
-        ));
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            //Child 01
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Center(
+                child: Text("Don't let your mind kill your heart and soul",
+                    style: TextStyle(fontStyle: FontStyle.italic)),
+              ),
+            ),
+            const SizedBox(width: double.infinity, height: 50,),
+            //Child 02
+            Center(
+              child: Column(
+                children: [
+                  ClipOval(
+                    child: Image.asset(
+                      'assets/images/quotes_management/famous.png',
+                      width: 200,
+                      height: 200,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(1),
+                    child: SizedBox(
+                      width: 190,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(PeopleQuotesList.routeName);
+                          },
+                          child: const Text('Famous Quotes')),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: double.infinity, height: 40,),
+            Center(
+              child: Column(
+                children: [
+                  ClipOval(
+                    child: Image.asset(
+                      'assets/images/quotes_management/personal.jpg',
+                      width: 200,
+                      height: 200,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(1),
+                    child: SizedBox(
+                      width: 190,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(PeopleQuotesList.routeName);
+                          },
+                          child: const Text('Personal Quotes')),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
