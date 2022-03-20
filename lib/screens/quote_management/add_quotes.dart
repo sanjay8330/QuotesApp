@@ -18,7 +18,6 @@ class AddQuotes extends StatefulWidget {
 }
 
 class _AddQuotesState extends State<AddQuotes> {
-
   var selectedCategory;
 
   @override
@@ -29,7 +28,8 @@ class _AddQuotesState extends State<AddQuotes> {
     String? quote;
     String? imageURL; //Added By Sanjay - Image Upload
 
-    FirebaseStorage firebaseStorage = FirebaseStorage.instance; //Added By Sanjay - Image Upload
+    FirebaseStorage firebaseStorage =
+        FirebaseStorage.instance; //Added By Sanjay - Image Upload
 
     List<String> _categoryType = <String>[
       'Motivational',
@@ -46,16 +46,18 @@ class _AddQuotesState extends State<AddQuotes> {
       final picker = ImagePicker();
       XFile? pickedImage;
 
-      try{
+      try {
         pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
         final String imageName = path.basename(pickedImage!.path);
         File imageFile = File(pickedImage.path);
 
-        UploadTask task = firebaseStorage.ref().child(imageName).putFile(imageFile);
+        UploadTask task =
+            firebaseStorage.ref().child(imageName).putFile(imageFile);
 
-        String downloadURL = await task.snapshot.ref.child(imageName).getDownloadURL();
-        print('IMAGE URL : '+downloadURL);
+        String downloadURL =
+            await task.snapshot.ref.child(imageName).getDownloadURL();
+        print('IMAGE URL : ' + downloadURL);
 
         // setState(() {
         //   imageURL: downloadURL;
@@ -63,14 +65,13 @@ class _AddQuotesState extends State<AddQuotes> {
         //
         // print('IMAGE URL : '+imageURL.toString());
 
-      }catch(error) {
-        print('Error Occured : '+error.toString());
+      } catch (error) {
+        print('Error Occured : ' + error.toString());
       }
     }
 
-
     CollectionReference collectionReference =
-    FirebaseFirestore.instance.collection('AddQuotes');
+        FirebaseFirestore.instance.collection('AddQuotes');
 
     Future<void> saveQuote() async {
       _formkey.currentState!.save();
@@ -105,16 +106,23 @@ class _AddQuotesState extends State<AddQuotes> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Center(
+                              child: Image.asset(
+                            'assets/images/quotes_management/quote.jpg',
+                            width: 450,
+                            height: 150,
+                          )),
                           const SizedBox(
                             width: double.infinity,
-                            height: 30,
+                            height: 20,
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text('Category*'),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                            padding:
+                                const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton2<String>(
                                 hint: Text(
@@ -126,9 +134,15 @@ class _AddQuotesState extends State<AddQuotes> {
                                 ),
                                 items: _categoryType
                                     .map((value) => DropdownMenuItem(
-                                  child: Text(value, style: const TextStyle(fontSize: 14,),),
-                                  value: value,
-                                )).toList(),
+                                          child: Text(
+                                            value,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          value: value,
+                                        ))
+                                    .toList(),
                                 onChanged: (selectedCategoryType) {
                                   setState(() {
                                     selectedCategory = selectedCategoryType;
@@ -158,7 +172,8 @@ class _AddQuotesState extends State<AddQuotes> {
                             child: Text('Person Name*'),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                            padding:
+                                const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: TextFormField(
                               maxLines: 1,
                               decoration: const InputDecoration(
@@ -181,7 +196,8 @@ class _AddQuotesState extends State<AddQuotes> {
                             child: Text('Enter Quote*'),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                            padding:
+                                const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: TextFormField(
                               maxLines: 4,
                               decoration: const InputDecoration(
@@ -197,7 +213,23 @@ class _AddQuotesState extends State<AddQuotes> {
                           ),
                           const SizedBox(
                             width: double.infinity,
-                            height: 10,
+                            height: 30,
+                          ),
+                          Center(
+                            child: ElevatedButton(
+                                onPressed: uploadImage,
+                                child: const Text('Upload Image'),
+                                style: ElevatedButton.styleFrom(
+                                primary: Colors.blue,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 127, vertical: 10),
+                                textStyle: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50)),
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             width: double.infinity,
@@ -206,13 +238,19 @@ class _AddQuotesState extends State<AddQuotes> {
                           Center(
                             child: ElevatedButton(
                                 onPressed: saveQuote,
-                                child: const Text('Add Quote')),
+                                child: const Text('Add Quote'),
+                                style: ElevatedButton.styleFrom(
+                                primary: Colors.blue,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 138, vertical: 10),
+                                textStyle: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50)),
+                              ),
+                            ),
                           ),
-                          Center(
-                            child: ElevatedButton(
-                                onPressed: uploadImage,
-                                child: const Text('Add Image')),
-                          )
                         ],
                       ),
                     ),
