@@ -71,7 +71,7 @@ class _AddQuotesState extends State<AddQuotes> {
     }
 
     CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection('AddQuotes');
+        FirebaseFirestore.instance.collection('Quotes');
 
     Future<void> saveQuote() async {
       _formkey.currentState!.save();
@@ -79,7 +79,7 @@ class _AddQuotesState extends State<AddQuotes> {
       collectionReference.add({
         'personName': personName,
         'quote': quote,
-        'selectedCategory': selectedCategory,
+        'category': selectedCategory,
         'personImage': imageURL
       }).then((value) {
         print('Quote Added!');
