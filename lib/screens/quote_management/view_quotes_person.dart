@@ -107,7 +107,7 @@ class _ViewQuotesByPersonState extends State<ViewQuotesByPerson> {
                       title: Text(quotesList[index]['quote'], overflow: TextOverflow.ellipsis, softWrap: false,),
                       subtitle: Padding(
                         padding: const EdgeInsets.only(top: 8.0),
-                        child: Text('Category : '+quotesList[index]['category']),
+                        child: Text('Category : '+quotesList[index]['category'], style: Theme.of(context).textTheme.bodyMedium,),
                       ),
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(
