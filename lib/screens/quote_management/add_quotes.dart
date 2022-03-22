@@ -18,7 +18,7 @@ class AddQuotes extends StatefulWidget {
 
 class _AddQuotesState extends State<AddQuotes> {
   var selectedCategory;
-  String imageURL = '';
+  //String imageURL = '';
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _AddQuotesState extends State<AddQuotes> {
 
     String? personName;
     String? quote;
-    //String? imageURL; //Added By Sanjay - Image Upload
+    String? imageURL; //Added By Sanjay - Image Upload
 
     FirebaseStorage firebaseStorage =
         FirebaseStorage.instance; //Added By Sanjay - Image Upload
@@ -66,7 +66,7 @@ class _AddQuotesState extends State<AddQuotes> {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Image uploaded Successfully'),)
           );
-          print('Download Image URL : '+ imageURL);
+          print('Download Image URL : '+ imageURL.toString());
         }else{
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Image uploaded Failed!'),)
