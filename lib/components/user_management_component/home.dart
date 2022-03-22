@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
 import '../../screens/favorite_management/find_quotes.dart';
+import '../../screens/quote_management/add_quotes.dart';
+import '../../screens/quote_management/quotes_list_for_admin.dart';
 
 class Home extends StatelessWidget {
   static String routeName = '/home';
@@ -25,7 +27,7 @@ class Home extends StatelessWidget {
           children: [
             const SizedBox(
               width: double.infinity,
-              height: 250,
+              height: 200,
             ),
             //Child 01
             //Child 02
@@ -42,6 +44,34 @@ class Home extends StatelessWidget {
                                   .pushNamed(FindQuotes.routeName)
                             },
                         child: const Text('Find Quotes')),
+                  ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                  ),
+                  SizedBox(
+                    width: 270,
+                    height: 50,
+                    child: ElevatedButton(
+                        onPressed: () => {
+                          Navigator.of(context)
+                              .pushNamed(AddQuotes.routeName)
+                        },
+                        child: const Text('Add Quotes')),
+                  ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                  ),
+                  SizedBox(
+                    width: 270,
+                    height: 50,
+                    child: ElevatedButton(
+                        onPressed: () => {
+                          Navigator.of(context)
+                              .pushNamed(AdminQuoteList.routeName)
+                        },
+                        child: const Text('Quote List - ADMIN')),
                   ),
                 ],
               ),

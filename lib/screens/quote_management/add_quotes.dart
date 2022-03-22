@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:quotes_app/components/layout.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import '../../database_manager/quote_handler/database_handler.dart';
 
 class AddQuotes extends StatefulWidget {
   static String routeName = '/addQuotes';
@@ -59,34 +58,32 @@ class _AddQuotesState extends State<AddQuotes> {
             await task.snapshot.ref.child(imageName).getDownloadURL();
         print('IMAGE URL : ' + downloadURL);
 
-        // setState(() {
-        //   imageURL: downloadURL;
-        // });
-        //
-        // print('IMAGE URL : '+imageURL.toString());
+        setState(() {
+          imageURL: downloadURL;
+        });
+
+        print('IMAGE URL : '+imageURL.toString());
 
       } catch (error) {
         print('Error Occured : ' + error.toString());
       }
     }
 
-    CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection('Quotes');
+    saveQuote () async {
+      if(_formkey.currentState!.validate()){
+        _formkey.currentState!.save();
+        bool result = await DatabaseHandler().saveQuote(personName, quote, selectedCategory, imageURL);
 
-    Future<void> saveQuote() async {
-      _formkey.currentState!.save();
-
-      collectionReference.add({
-        'personName': personName,
-        'quote': quote,
-        'category': selectedCategory,
-        'personImage': imageURL
-      }).then((value) {
-        print('Quote Added!');
-        return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Quote Added Successfully'),
-        ));
-      }).catchError((error) => print('Failed to add quote : $error'));
+        if(result){
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Quote Added Successfully'),)
+          );
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Something went wrong. Try again later!'),)
+          );
+        }
+      }
     }
 
     return Layout(

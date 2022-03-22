@@ -107,4 +107,32 @@ class DatabaseHandler {
       return null;
     }
   }
+
+  /*
+  **********************************************************************************************
+  * @Developer - Kasuni Navodya (IT19144986)
+  * @Created Date - 15/03/2022
+  * @Purpose - Add the quote details to the Firebase.
+  **********************************************************************************************
+   */
+  Future saveQuote (String? personName, String? quote, String? selectedCategory, String? imageURL) async {
+
+    try{
+      bool successStatus = false;
+
+      await quoteslist.add({
+        'personName': personName,
+        'quote': quote,
+        'category': selectedCategory,
+        'personImage': imageURL
+      }).then((value){
+        successStatus = true;
+      });
+      return successStatus;
+    }catch(error) {
+      print('Error Occurred in Add Quote '+ error.toString());
+      return false;
+    }
+  }
+
 }
