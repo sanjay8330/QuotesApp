@@ -5,6 +5,7 @@ import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
 import 'package:quotes_app/screens/favorite_management/view_single_quote.dart';
 import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
 import 'package:quotes_app/screens/quote_management/people_quotes_list.dart';
+import 'package:quotes_app/screens/quote_management/quotes_list_for_admin.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_category.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_people.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         PeopleQuotesList.routeName: (context) => const PeopleQuotesList(),
         ViewQuotesCategory.routeName: (context) => const ViewQuotesCategory(),
         ViewQuotesPeople.routeName: (context) => const ViewQuotesPeople(),
+        AdminQuoteList.routeName: (context) => const AdminQuoteList(),
       },
     );
   }
