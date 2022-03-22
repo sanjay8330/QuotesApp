@@ -18,6 +18,7 @@ class AddQuotes extends StatefulWidget {
 
 class _AddQuotesState extends State<AddQuotes> {
   var selectedCategory;
+  String imageURL = '';
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class _AddQuotesState extends State<AddQuotes> {
 
     String? personName;
     String? quote;
-    String? imageURL; //Added By Sanjay - Image Upload
+    //String? imageURL; //Added By Sanjay - Image Upload
 
     FirebaseStorage firebaseStorage =
         FirebaseStorage.instance; //Added By Sanjay - Image Upload
@@ -51,21 +52,28 @@ class _AddQuotesState extends State<AddQuotes> {
         final String imageName = path.basename(pickedImage!.path);
         File imageFile = File(pickedImage.path);
 
-        UploadTask task =
-            firebaseStorage.ref().child(imageName).putFile(imageFile);
+        Reference reference = firebaseStorage.ref().child(imageName);
+        await reference.putFile(imageFile);
 
-        String downloadURL =
-            await task.snapshot.ref.child(imageName).getDownloadURL();
+        String downloadURL = await reference.getDownloadURL();
         print('IMAGE URL : ' + downloadURL);
 
-        setState(() {
-          imageURL: downloadURL;
-        });
+        if(downloadURL != ''){
+          setState(() {
+            imageURL = downloadURL;
+          });
 
-        print('IMAGE URL : '+imageURL.toString());
-
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Image uploaded Successfully'),)
+          );
+          print('Download Image URL : '+ imageURL);
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Image uploaded Failed!'),)
+          );
+        }
       } catch (error) {
-        print('Error Occured : ' + error.toString());
+        print('Error Occurred : ' + error.toString());
       }
     }
 
@@ -166,6 +174,16 @@ class _AddQuotesState extends State<AddQuotes> {
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
+                            child: Text('Person Image*'),
+                          ),
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: uploadImage,
+                              child: const Text('Upload Image'),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Person Name*'),
                           ),
                           Padding(
@@ -211,22 +229,6 @@ class _AddQuotesState extends State<AddQuotes> {
                           const SizedBox(
                             width: double.infinity,
                             height: 30,
-                          ),
-                          Center(
-                            child: ElevatedButton(
-                                onPressed: uploadImage,
-                                child: const Text('Upload Image'),
-                                style: ElevatedButton.styleFrom(
-                                primary: Colors.blue,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 127, vertical: 10),
-                                textStyle: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                              ),
-                            ),
                           ),
                           const SizedBox(
                             width: double.infinity,
