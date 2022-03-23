@@ -31,13 +31,19 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
   @override
   void initState() {
     super.initState();
-    print('QUOTE RECIEVED IS>>>'+widget.quote.toString());
     fetchQuotesList();
   }
 
   //Get the quote name from ViewQuotes UI
   //final argument = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic> {}) as Map;
 
+  /*
+  *******************************************************************************************************************
+  * @Developer: Sanjay Sakthivel (IT19158228)
+  * @Created Date: 07/03/2022
+  * @Purpose: This method retrieves quote details from the Firestore.
+  *******************************************************************************************************************
+  */
   fetchQuotesList() async {
     List result = await DatabaseHandler().getQuoteDetails(widget.quote.toString());
 
@@ -51,7 +57,7 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
       for (var element in quoteDetailList) {
         setState(() {
           personName = element['personName'].toString();
-          //personImage = element['personImage'].toString();
+          personImage = element['personImage'].toString();
           quote = element['quote'].toString();
           //category = element['category'].toString();
         });
@@ -80,7 +86,7 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
                 const SizedBox(width: double.infinity, height: 40,),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(50.0),
-                  child: Image.asset('assets/images/favorite_management/person1.jpg', width: 100, height: 100,),
+                  child: personImage.isNotEmpty ? Image.network(personImage, width: 100, height: 100,) : null,
                 ),
                 const SizedBox(width: double.infinity, height: 40,),
                 Padding(
