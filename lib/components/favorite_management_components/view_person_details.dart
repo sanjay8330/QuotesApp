@@ -17,7 +17,7 @@ class ViewPersonDetails extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 15.0),
           child: ClipRRect(
-              child: Image.asset(personImage, width: 120, height: 120,),
+              child: personImage.isNotEmpty ? Image.network(personImage, width: 120, height: 120,) : null,
             borderRadius: BorderRadius.circular(50.0),
           ),
         ),

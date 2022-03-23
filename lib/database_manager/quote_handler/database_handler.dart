@@ -7,6 +7,7 @@ class DatabaseHandler {
   List personQuotesListToReturn = [];
   List personDetailListToReturn = [];
   List quoteDetailListToReturn = [];
+  List allQuoteListToReturn = [];
 
   /*
   **********************************************************************************************
@@ -132,6 +133,31 @@ class DatabaseHandler {
     }catch(error) {
       print('Error Occurred in Add Quote '+ error.toString());
       return false;
+    }
+  }
+
+  /*
+  **********************************************************************************************
+  * @Developer - Sanjay Sakthivel (IT19158228)
+  * @Created Date - 22/03/2022
+  * @Purpose - Get the all quotes from the Firebase.
+  **********************************************************************************************
+   */
+  Future getAllQuotes() async {
+    try{
+
+      List allQuoteDetailLocal = [];
+
+      await quoteslist.get().then((querysnapshot) {
+        for (var element in querysnapshot.docs) {
+          allQuoteDetailLocal.add(element.data());
+        }
+        allQuoteListToReturn = allQuoteDetailLocal;
+      });
+      return allQuoteListToReturn;
+    }catch(error) {
+      print('Error Occurred in Retrieve '+ error.toString());
+      return null;
     }
   }
 
