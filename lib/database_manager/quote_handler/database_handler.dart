@@ -160,5 +160,4 @@ class DatabaseHandler {
       return null;
     }
   }
-
 }

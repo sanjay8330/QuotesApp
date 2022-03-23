@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/quote_handler/database_handler.dart';
 import '../../components/layout.dart';
 import '../favorite_management/view_single_quote.dart';
-import 'add_quotes.dart';
 
 class ViewQuotes extends StatefulWidget {
   static String routeName = '/viewQuotes';
+  final String? selectedCategory;
 
-  const ViewQuotes({Key? key}) : super(key: key);
+  const ViewQuotes({
+    Key? key,
+    this.selectedCategory
+  }) : super(key: key);
 
   @override
   State<ViewQuotes> createState() => _ViewQuotesState();
@@ -16,7 +19,6 @@ class ViewQuotes extends StatefulWidget {
 class _ViewQuotesState extends State<ViewQuotes> {
 
   List quotesList = [];
-  String selectedCategory = 'Motivational';
 
   @override
   void initState() {
@@ -32,7 +34,7 @@ class _ViewQuotesState extends State<ViewQuotes> {
    *******************************************************************************************************************
    */
   fetchQuotesList() async {
-    List result = await DatabaseHandler().getQuotesByCategory(selectedCategory);
+    List result = await DatabaseHandler().getQuotesByCategory(widget.selectedCategory.toString());
 
     if(result.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(
@@ -64,7 +66,7 @@ class _ViewQuotesState extends State<ViewQuotes> {
                     style: TextStyle(fontStyle: FontStyle.italic)),
               ),
             ),
-            Center(child: Text('Selected Category : '+selectedCategory)),
+            Center(child: Text('Selected Category : '+widget.selectedCategory.toString())),
             const SizedBox(width: double.infinity, height: 10,),
             Flexible(
               child: ListView.builder(
@@ -77,7 +79,7 @@ class _ViewQuotesState extends State<ViewQuotes> {
                       child: ListTile(
                         leading: ClipRRect(
                           borderRadius: BorderRadius.circular(25.0),
-                          child: Image.asset('assets/images/favorite_management/person1.jpg'),
+                          child: quotesList[index]['personImage'].toString().isNotEmpty ? Image.network(quotesList[index]['personImage']) : null,
                         ),
                         title: Text(quotesList[index]['quote'], overflow: TextOverflow.ellipsis, softWrap: false,),
                         subtitle: Text(quotesList[index]['personName']),
