@@ -63,7 +63,7 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
           child: Text('Quotes by Category'),
         ),
       ),
-      body: ListView.builder(
+      body: uniqueCategoriesList.isNotEmpty ? ListView.builder(
           itemCount: uniqueCategoriesList.length,
           itemBuilder: (context, index) {
             return Padding(
@@ -86,6 +86,14 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
               ),
             );
           }
+      ) : Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          Icon(Icons.hourglass_empty, size: 50.0,),
+          SizedBox(width: double.infinity, height: 10.0,),
+          Text('Categories unavailable!'),
+        ],
       ),
       // body: Center(
       //   child: Column(

@@ -69,7 +69,7 @@ class _ViewQuotesState extends State<ViewQuotes> {
             Center(child: Text('Selected Category : '+widget.selectedCategory.toString())),
             const SizedBox(width: double.infinity, height: 10,),
             Flexible(
-              child: ListView.builder(
+              child: quotesList.isNotEmpty ? ListView.builder(
                   itemCount: quotesList.length,
                   itemBuilder: (context, index) {
                     return Card(
@@ -91,6 +91,14 @@ class _ViewQuotesState extends State<ViewQuotes> {
                       ),
                     );
                   }
+              ) : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Icon(Icons.hourglass_empty, size: 50.0,),
+                  SizedBox(width: double.infinity, height: 10.0,),
+                  Text('No quotes available under selected category !'),
+                ],
               ),
             ),
             Padding(
