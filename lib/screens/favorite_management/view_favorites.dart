@@ -99,7 +99,7 @@ class _ViewFavoritesState extends State<ViewFavorites> {
             ),
           ),
           Flexible(
-            child: ListView.builder(
+            child: quoteList.isNotEmpty ? ListView.builder(
                 itemCount: quoteList.length,
                 itemBuilder: (context, index) {
                   return Card(
@@ -119,6 +119,14 @@ class _ViewFavoritesState extends State<ViewFavorites> {
                     ),
                   );
                 }
+            ) : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Icon(Icons.hourglass_empty, size: 50.0,),
+                SizedBox(width: double.infinity, height: 10.0,),
+                Text('No Quotes In Favorites'),
+              ],
             ),
           ),
         ],
