@@ -84,9 +84,11 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
                   ),
                 ),
                 const SizedBox(width: double.infinity, height: 40,),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(50.0),
-                  child: personImage.isNotEmpty ? Image.network(personImage, width: 200, height: 200,) : null,
+                Flexible(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50.0),
+                    child: personImage.isNotEmpty ? Image.network(personImage, width: 200, height: 200,) : null,
+                  ),
                 ),
                 const SizedBox(width: double.infinity, height: 40,),
                 Padding(
