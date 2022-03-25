@@ -8,8 +8,12 @@ import '../../database_manager/quote_handler/database_handler.dart';
 
 class UpdateQuotes extends StatefulWidget {
   static String routeName = '/updateQuotes';
+  final String? quote;
 
-  const UpdateQuotes({Key? key}) : super(key: key);
+  const UpdateQuotes({
+    Key? key,
+    this.quote,
+  }) : super(key: key);
 
   @override
   State<UpdateQuotes> createState() => _UpdateQuotesState();
