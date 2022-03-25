@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/quote_handler/database_handler.dart';
-import 'package:quotes_app/screens/quote_management/update_quotes.dart';
 import '../../components/layout.dart';
 import '../favorite_management/view_single_quote.dart';
 
@@ -78,8 +77,16 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
                           const PopupMenuItem(
                             child: Text("Remove"),
                           ),
-                          const PopupMenuItem(
-                            child: Text("Edit"),
+                          PopupMenuItem(
+                            onTap: () {
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (_) => UpdateQuotes(
+                              //           quote: quotesList[index]['quote'],
+                              //         )));
+                            },
+                            child: const Text("Edit"),
                           ),
                         ],
                       ),
