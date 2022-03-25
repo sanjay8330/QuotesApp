@@ -67,11 +67,18 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
           itemCount: uniqueCategoriesList.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(20.0),
               child: SizedBox(
-                width: 290,
-                height: 70,
+                width: 100,
+                height: 80,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.lightBlueAccent,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 52, vertical: 10),
+                    textStyle: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                   onPressed: () {
                     //Navigator.of(context).pushNamed(ViewQuotes.routeName);
                     Navigator.push(context, MaterialPageRoute(

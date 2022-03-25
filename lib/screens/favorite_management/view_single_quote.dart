@@ -86,12 +86,12 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
                 const SizedBox(width: double.infinity, height: 40,),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(50.0),
-                  child: personImage.isNotEmpty ? Image.network(personImage, width: 100, height: 100,) : null,
+                  child: personImage.isNotEmpty ? Image.network(personImage, width: 200, height: 200,) : null,
                 ),
                 const SizedBox(width: double.infinity, height: 40,),
                 Padding(
                   padding: EdgeInsets.all(20.0),
-                  child: Text('" '+ quote +'"',
+                  child: Text('"'+ quote +'"',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 36,
