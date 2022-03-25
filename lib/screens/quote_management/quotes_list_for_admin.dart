@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/quote_handler/database_handler.dart';
+import 'package:quotes_app/screens/quote_management/update_quotes.dart';
 import '../../components/layout.dart';
 import '../favorite_management/view_single_quote.dart';
 
@@ -73,20 +74,33 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
                                     quote: quotesList[index]['quote'])));
                       },
                       trailing: PopupMenuButton(
+                        onSelected: (value) {
+                          List<String> newValues = value.toString().split(':');
+
+                          if(newValues[0].toString().contains('Edit')){
+                            //print(quotesList[index]['quote']);
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => UpdateQuotes(
+                                      quote: newValues[1].toString(),
+                                    )));
+
+                          }
+                          if(newValues[0].toString().contains('Remove')){
+                            print(newValues[1].toString());
+                            print('Move to Remove UI');
+                          }
+                        },
                         itemBuilder: (ctx) => [
-                          const PopupMenuItem(
-                            child: Text("Remove"),
+                          PopupMenuItem(
+                            child: const Text("Remove"),
+                            value: 'Remove :'+ quotesList[index]['quote'].toString(),
                           ),
                           PopupMenuItem(
-                            onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (_) => UpdateQuotes(
-                              //           quote: quotesList[index]['quote'],
-                              //         )));
-                            },
                             child: const Text("Edit"),
+                            value: 'Edit :'+ quotesList[index]['quote'].toString(),
                           ),
                         ],
                       ),

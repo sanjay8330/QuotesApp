@@ -23,6 +23,49 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
   var selectedCategory;
   String imageURL = '';
 
+  List quoteDetailList = [];
+
+  String retrievedPersonName = '';
+  String retrievedPersonImage = '';
+  String retrievedQuote = '';
+  //String retrievedcategory = '';
+
+  @override
+  void initState() {
+    super.initState();
+    fetchQuotesList();
+  }
+
+  /*
+  *******************************************************************************************************************
+  * @Developer: Sanjay Sakthivel (IT19158228)
+  * @Created Date: 25/03/2022
+  * @Purpose: This method retrieves quote details from the Firestore.
+  *******************************************************************************************************************
+  */
+  fetchQuotesList() async {
+    List result = await DatabaseHandler().getQuoteDetails(widget.quote.toString());
+
+    if(result == null){
+      print('Unable to retrieve!');
+    }else{
+      setState(() {
+        quoteDetailList = result;
+      });
+
+      for (var element in quoteDetailList) {
+        setState(() {
+          retrievedPersonName = element['personName'].toString();
+          retrievedPersonImage = element['personImage'].toString();
+          retrievedQuote = element['quote'].toString();
+          selectedCategory = element['category'].toString();
+        });
+      }
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     final _formkey = GlobalKey<FormState>();
@@ -62,13 +105,13 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
 
         if(downloadURL != ''){
           setState(() {
-            imageURL = downloadURL;
+            retrievedPersonImage = downloadURL;
           });
 
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Image uploaded Successfully'),)
           );
-          print('Download Image URL : '+ imageURL.toString());
+          print('Download Image URL : '+ retrievedPersonImage.toString());
         }else{
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Image uploaded Failed!'),)
@@ -79,22 +122,23 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
       }
     }
 
-    saveQuote () async {
-      if(_formkey.currentState!.validate()){
-        _formkey.currentState!.save();
-        bool result = await DatabaseHandler().saveQuote(personName, quote, selectedCategory, imageURL);
-
-        if(result){
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Quote Added Successfully'),)
-          );
-        }else{
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Something went wrong. Try again later!'),)
-          );
-        }
-      }
-    }
+    // Implement the update method
+    // saveQuote () async {
+    //   if(_formkey.currentState!.validate()){
+    //     _formkey.currentState!.save();
+    //     bool result = await DatabaseHandler().saveQuote(personName, quote, selectedCategory, imageURL);
+    //
+    //     if(result){
+    //       ScaffoldMessenger.of(context).showSnackBar(
+    //           const SnackBar(content: Text('Quote Added Successfully'),)
+    //       );
+    //     }else{
+    //       ScaffoldMessenger.of(context).showSnackBar(
+    //           const SnackBar(content: Text('Something went wrong. Try again later!'),)
+    //       );
+    //     }
+    //   }
+    // }
 
     return Layout(
       context: 'Update Quote',
@@ -113,12 +157,12 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(
-                              child: Image.asset(
-                                'assets/images/quotes_management/quote.jpg',
-                                width: 450,
-                                height: 150,
-                              )),
+                          // Center(
+                          //     child: Image.asset(
+                          //       'assets/images/quotes_management/quote.jpg',
+                          //       width: 450,
+                          //       height: 150,
+                          //     )),
                           const SizedBox(
                             width: double.infinity,
                             height: 20,
@@ -170,20 +214,36 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                             width: double.infinity,
                             height: 10,
                           ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('Person Image'),
+                          ),
+                          Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50.0),
+                              child: retrievedPersonImage.isNotEmpty ? Image.network(retrievedPersonImage, width: 100, height: 100,) : null,
+                            ),
+                          ),
                           Center(
                             child: ElevatedButton(
                               onPressed: uploadImage,
-                              child: const Text('+ Upload Image'),
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.grey,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 122, vertical: 18),
-                                textStyle: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                              child: const Text(' Edit Image'),
                             ),
                           ),
+                          // Center(
+                          //   child: ElevatedButton(
+                          //     onPressed: uploadImage,
+                          //     child: const Text('+ Upload Image'),
+                          //     style: ElevatedButton.styleFrom(
+                          //       primary: Colors.grey,
+                          //       padding: const EdgeInsets.symmetric(
+                          //           horizontal: 122, vertical: 18),
+                          //       textStyle: const TextStyle(
+                          //           fontSize: 16,
+                          //           fontWeight: FontWeight.bold),
+                          //     ),
+                          //   ),
+                          // ),
                           const SizedBox(
                             width: double.infinity,
                             height: 10,
@@ -206,6 +266,7 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                               ),
+                              initialValue: retrievedPersonName,
                               onSaved: (String? value) {
                                 if (value != null) {
                                   personName = value;
@@ -226,6 +287,7 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                             padding:
                             const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: TextFormField(
+                              initialValue: retrievedQuote,
                               validator: (value) {
                                 if(value==null || value.isEmpty){
                                   return 'Quote Field is required';
@@ -250,8 +312,8 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                           ),
                           Center(
                             child: ElevatedButton(
-                              onPressed: saveQuote,
-                              child: const Text('Add Quote'),
+                              onPressed: null,
+                              child: const Text('Update Quote'),
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.blue,
                                 padding: const EdgeInsets.symmetric(
