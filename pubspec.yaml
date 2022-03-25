@@ -22,6 +22,10 @@ dependencies:
   permission_handler: ^9.2.0
   firebase: ^9.0.2
   path: ^1.8.0
+  firebase_database: any
+  firebase_auth: any
+  flutter_signin_button: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:
@@ -33,4 +37,5 @@ flutter:
   assets:
     - assets/images/favorite_management/
     - assets/images/quotes_management/
+    - assets/images/user_management/
 

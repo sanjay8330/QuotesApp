@@ -10,6 +10,8 @@ import 'package:quotes_app/screens/quote_management/view_quotes.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_category.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_people.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
+import 'package:quotes_app/screens/user_management/user_home.dart';
+
 import 'components/user_management_component/home.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -39,6 +41,7 @@ class MyApp extends StatelessWidget {
       routes: {
         //Keshawa
         Home.routeName: (context) => const Home(),
+        User_home.routeName: (context) => const User_home(),
         //Sanjay
         FindQuotes.routeName: (context) => const FindQuotes(),
         ViewSingleQuote.routeName: (context) => const ViewSingleQuote(),
