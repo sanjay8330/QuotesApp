@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/quote_handler/database_handler.dart';
+import 'package:quotes_app/screens/quote_management/update_quotes.dart';
 import '../../components/layout.dart';
 import '../favorite_management/view_single_quote.dart';
 
@@ -14,7 +15,6 @@ class AdminQuoteList extends StatefulWidget {
 
 class _AdminQuoteListState extends State<AdminQuoteList> {
   List quotesList = [];
-  String selectedCategory = 'Motivational';
 
   @override
   void initState() {
@@ -23,7 +23,7 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
   }
 
   fetchQuotesList() async {
-    List result = await DatabaseHandler().getQuotesByCategory(selectedCategory);
+    List result = await DatabaseHandler().getAllQuotes();
 
     if (result.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -58,8 +58,7 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
                     child: ListTile(
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(25.0),
-                        child: Image.asset(
-                            'assets/images/favorite_management/person1.jpg'),
+                        child: quotesList[index]['personImage'].toString().isNotEmpty ? Image.network(quotesList[index]['personImage']) : null,
                       ),
                       title: Text(
                         quotesList[index]['quote'],
@@ -67,14 +66,6 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
                         softWrap: false,
                       ),
                       subtitle: Text(quotesList[index]['personName']),
-                      trailing: Column(
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.delete), //delete icon
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
                       onTap: () {
                         Navigator.push(
                             context,
@@ -82,6 +73,16 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
                                 builder: (_) => ViewSingleQuote(
                                     quote: quotesList[index]['quote'])));
                       },
+                      trailing: PopupMenuButton(
+                        itemBuilder: (ctx) => [
+                          const PopupMenuItem(
+                            child: Text("Remove"),
+                          ),
+                          const PopupMenuItem(
+                            child: Text("Edit"),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }),

@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/quote_handler/database_handler.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
 
-class PeopleQuotesList extends StatefulWidget {
-  static String routeName = '/PeopleQuotesList';
+class FamousQuotesList extends StatefulWidget {
+  static String routeName = '/FamousQuotesList';
 
-  const PeopleQuotesList({Key? key}) : super(key: key);
+  const FamousQuotesList({Key? key}) : super(key: key);
 
   @override
-  State<PeopleQuotesList> createState() => _PeopleQuotesListState();
+  State<FamousQuotesList> createState() => _FamousQuotesListState();
 }
 
-class _PeopleQuotesListState extends State<PeopleQuotesList> {
+class _FamousQuotesListState extends State<FamousQuotesList> {
 
   List allQuotesList = [];
 
@@ -49,7 +49,7 @@ class _PeopleQuotesListState extends State<PeopleQuotesList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text("Quotes by People")),
+          title: const Center(child: Text("Famous People Quotes")),
           backgroundColor: Colors.blue,
         ),
         body: Center(

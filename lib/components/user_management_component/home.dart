@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
           children: [
             const SizedBox(
               width: double.infinity,
-              height: 200,
+              height: 150,
             ),
             //Child 01
             //Child 02
@@ -37,7 +37,7 @@ class Home extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: 270,
-                    height: 50,
+                    height: 100,
                     child: ElevatedButton(
                         onPressed: () => {
                               Navigator.of(context)
@@ -51,7 +51,7 @@ class Home extends StatelessWidget {
                   ),
                   SizedBox(
                     width: 270,
-                    height: 50,
+                    height: 100,
                     child: ElevatedButton(
                         onPressed: () => {
                           Navigator.of(context)
@@ -65,7 +65,7 @@ class Home extends StatelessWidget {
                   ),
                   SizedBox(
                     width: 270,
-                    height: 50,
+                    height: 100,
                     child: ElevatedButton(
                         onPressed: () => {
                           Navigator.of(context)
