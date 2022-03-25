@@ -7,8 +7,12 @@ import '../../database_manager/quote_handler/database_handler.dart';
 
 class ViewQuotesByPerson extends StatefulWidget {
   static String routeName = '/viewQuotesByPerson';
+  final String? selectedPersonName;
 
-  const ViewQuotesByPerson({Key? key}) : super(key: key);
+  const ViewQuotesByPerson({
+    Key? key,
+    this.selectedPersonName
+  }) : super(key: key);
 
   @override
   State<ViewQuotesByPerson> createState() => _ViewQuotesByPersonState();
@@ -20,7 +24,6 @@ class _ViewQuotesByPersonState extends State<ViewQuotesByPerson> {
   List personDetail = [];
   String personName = '';
   String personImage = '';
-  String selectedPersonName = 'Nelson Mandela';
   
   @override
   void initState() {
@@ -37,7 +40,7 @@ class _ViewQuotesByPersonState extends State<ViewQuotesByPerson> {
    *******************************************************************************************************************
    */
   fetchPersonDetail() async {
-    List result = await DatabaseHandler().getPersonDetails(selectedPersonName);
+    List result = await DatabaseHandler().getPersonDetails(widget.selectedPersonName.toString());
 
     if(result.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(
@@ -53,7 +56,7 @@ class _ViewQuotesByPersonState extends State<ViewQuotesByPerson> {
       for (var element in personDetail) {
         setState(() {
           personName = element['personName'].toString();
-          //personImage = element['personImage'].toString();
+          personImage = element['personImage'].toString();
         });
       }
     }
@@ -68,7 +71,7 @@ class _ViewQuotesByPersonState extends State<ViewQuotesByPerson> {
    *******************************************************************************************************************
    */
   fetchQuotesList() async {
-    List result = await DatabaseHandler().getQuotesByPersonName(selectedPersonName);
+    List result = await DatabaseHandler().getQuotesByPersonName(widget.selectedPersonName.toString());
 
     if(result.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(
@@ -91,12 +94,12 @@ class _ViewQuotesByPersonState extends State<ViewQuotesByPerson> {
       widget: Column(
         children: [
           ViewPersonDetails(
-              personImage: 'assets/images/favorite_management/person1.jpg',
+              personImage: personImage,
               personName: personName
           ),
           const SizedBox(width: double.infinity, height: 15,),
           Flexible(
-            child: ListView.builder(
+            child: quotesList.isNotEmpty ? ListView.builder(
                 itemCount: quotesList.length,
                 itemBuilder: (context, index) {
                   return Card(
@@ -117,6 +120,14 @@ class _ViewQuotesByPersonState extends State<ViewQuotesByPerson> {
                     ),
                   );
                 }
+            ) : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Icon(Icons.hourglass_empty, size: 50.0,),
+                SizedBox(width: double.infinity, height: 10.0,),
+                Text('No quotes available under selected person !'),
+              ],
             ),
           ),
         ],
