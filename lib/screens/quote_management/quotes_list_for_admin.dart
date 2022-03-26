@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quotes_app/components/user_management_component/home.dart';
 import 'package:quotes_app/database_manager/quote_handler/database_handler.dart';
 import 'package:quotes_app/screens/quote_management/update_quotes.dart';
 import '../../components/layout.dart';
@@ -144,13 +145,11 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
                           }
                           if(newValues[0].toString().contains('Remove')){
                             deleteQuote(quotesList[index]['quote'].toString());
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (_) => AdminQuoteList(
-                            //             quote: quotesList[index],
-                            //         )));
-                            //print(newValues[1].toString());
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => AdminQuoteList()));
+                            print(newValues[1].toString());
                             //print('Move to Remove UI');
                           }
                         },
