@@ -38,30 +38,58 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
 
-   void deleteQuote(String quoteToDelete) async {
+    List quoteDetailList = [];
+    String docID = '';
 
-     List quoteListTodelete = [];
-     quoteListTodelete.add(quoteToDelete);
+    /*
+  *******************************************************************************************************************
+  * @Developer: Sanjay Sakthivel (IT19158228)
+  * @Created Date: 25/03/2022
+  * @Purpose: This method retrieves quote details from the Firestore.
+  *******************************************************************************************************************
+  */
+    fetchQuotesDetails(quoteToDelete) async {
+      List result = await DatabaseHandler().getQuoteDetails(quoteToDelete);
 
-       bool result = await DatabaseHandler().removeQuote(widget.docID.toString(), quoteListTodelete);
+      if(result == null){
+        print('Unable to retrieve!');
+      }else{
+        setState(() {
+          quoteDetailList = result;
+        });
 
-       if(result){
-         fetchQuotesList();
-         ScaffoldMessenger.of(context).showSnackBar(
-             const SnackBar(
-                 content: Text('Quote Removed from Database!')
-             )
-         );
-       }else {
-         ScaffoldMessenger.of(context).showSnackBar(
-             const SnackBar(
-                 content: Text('Something went wrong. Try again later!')
-             )
-         );
-       }
+        print('DOC ID : '+quoteDetailList[1].toString());
+        setState(() {
+          docID = quoteDetailList[1].toString();
+        });
+      }
+    }
+
+
+    void deleteQuote(String quoteToDelete) async {
+
+      await fetchQuotesDetails(quoteToDelete).then((value) async {
+        bool result = await DatabaseHandler().removeQuote(docID);
+
+        if(result){
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                  content: Text('Quote Removed from Database!')
+              )
+          );
+          Navigator.of(context).pushNamed(AdminQuoteList.routeName);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                  content: Text('Something went wrong. Try again later!')
+              )
+          );
+        }
+      });
     }
 
     return Layout(
@@ -115,13 +143,13 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
 
                           }
                           if(newValues[0].toString().contains('Remove')){
-                            deleteQuote(quotesList[index]);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => AdminQuoteList(
-                                        quote: quotesList[index],
-                                    )));
+                            deleteQuote(quotesList[index]['quote'].toString());
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (_) => AdminQuoteList(
+                            //             quote: quotesList[index],
+                            //         )));
                             //print(newValues[1].toString());
                             //print('Move to Remove UI');
                           }
