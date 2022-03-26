@@ -17,17 +17,17 @@ class _user_homeState extends State<User_home> {
       body: Container(
         child: Column(
           children: <Widget>[
-            SizedBox(height: 35.0),
+            const SizedBox(height: 35.0),
             Container(
               height: 400,
-              child: Image(
+              child: const Image(
                 image: AssetImage('assets/images/user_management/login.jpg'),
                 fit: BoxFit.contain,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             RichText(
-                text: TextSpan(
+                text: const TextSpan(
                     text: 'Welcome to',
                     style: TextStyle(
                         fontSize: 25.0,
@@ -41,22 +41,22 @@ class _user_homeState extends State<User_home> {
                           fontWeight: FontWeight.bold,
                           color: Colors.blue))
                 ])),
-            SizedBox(height: 10.0),
-            Text(
+            const SizedBox(height: 10.0),
+            const Text(
               'Be the chnage you want to see in the World',
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(width: 40.0),
+            const SizedBox(width: 40.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RaisedButton(
-                  padding: EdgeInsets.only(left: 30, right: 30),
+                  padding: const EdgeInsets.only(left: 30, right: 30),
                   onPressed: () {},
-                  child: Text(
+                  child: const Text(
                     'LOGIN',
                     style: TextStyle(
                         fontSize: 20,
@@ -67,11 +67,11 @@ class _user_homeState extends State<User_home> {
                       borderRadius: BorderRadius.circular(10.0)),
                   color: Colors.blue,
                 ),
-                SizedBox(width: 20.0),
+                const SizedBox(width: 20.0),
                 RaisedButton(
-                  padding: EdgeInsets.only(left: 30, right: 30),
+                  padding: const EdgeInsets.only(left: 30, right: 30),
                   onPressed: () {},
-                  child: Text(
+                  child: const Text(
                     'SIGN UP',
                     style: TextStyle(
                         fontSize: 20,
