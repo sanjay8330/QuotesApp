@@ -229,7 +229,7 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                           Center(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50.0),
-                              child: retrievedPersonImage.isNotEmpty ? Image.network(retrievedPersonImage, width: 100, height: 100,) : null,
+                              child: retrievedPersonImage.isNotEmpty ? Image.network(retrievedPersonImage, width: 150, height: 150,) : null,
                             ),
                           ),
                           Center(
@@ -238,20 +238,6 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                               child: const Text(' Edit Image'),
                             ),
                           ),
-                          // Center(
-                          //   child: ElevatedButton(
-                          //     onPressed: uploadImage,
-                          //     child: const Text('+ Upload Image'),
-                          //     style: ElevatedButton.styleFrom(
-                          //       primary: Colors.grey,
-                          //       padding: const EdgeInsets.symmetric(
-                          //           horizontal: 122, vertical: 18),
-                          //       textStyle: const TextStyle(
-                          //           fontSize: 16,
-                          //           fontWeight: FontWeight.bold),
-                          //     ),
-                          //   ),
-                          // ),
                           const SizedBox(
                             width: double.infinity,
                             height: 10,
@@ -325,7 +311,7 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.blue,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 138, vertical: 10),
+                                    horizontal: 130, vertical: 10),
                                 textStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),
