@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
 import '../../screens/favorite_management/find_quotes.dart';
 import '../../screens/quote_management/add_quotes.dart';
-import '../../screens/quote_management/quotes_list_for_admin.dart';
 import '../../screens/user_management/dashboard.dart';
 
 class Home extends StatelessWidget {

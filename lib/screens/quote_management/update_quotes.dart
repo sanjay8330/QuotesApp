@@ -165,12 +165,22 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Center(
-                          //     child: Image.asset(
-                          //       'assets/images/quotes_management/quote.jpg',
-                          //       width: 450,
-                          //       height: 150,
-                          //     )),
+                          const SizedBox(
+                            width: double.infinity,
+                            height: 20,
+                          ),
+                          Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50.0),
+                              child: retrievedPersonImage.isNotEmpty ? Image.network(retrievedPersonImage, width: 150, height: 150,) : null,
+                            ),
+                          ),
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: uploadImage,
+                              child: const Text(' Edit Image'),
+                            ),
+                          ),
                           const SizedBox(
                             width: double.infinity,
                             height: 20,
@@ -216,26 +226,6 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                                 isExpanded: true,
                                 dropdownColor: Colors.white,
                               ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: double.infinity,
-                            height: 10,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Person Image'),
-                          ),
-                          Center(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50.0),
-                              child: retrievedPersonImage.isNotEmpty ? Image.network(retrievedPersonImage, width: 150, height: 150,) : null,
-                            ),
-                          ),
-                          Center(
-                            child: ElevatedButton(
-                              onPressed: uploadImage,
-                              child: const Text(' Edit Image'),
                             ),
                           ),
                           const SizedBox(

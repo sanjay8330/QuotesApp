@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quotes_app/components/user_management_component/home.dart';
 
 class Layout extends StatelessWidget {
   final String context;
@@ -7,7 +8,7 @@ class Layout extends StatelessWidget {
   const Layout({
     Key? key,
     required this.context,
-    this.widget, 
+    this.widget,
   }) : super(key: key);
 
   @override
@@ -16,6 +17,16 @@ class Layout extends StatelessWidget {
       appBar: AppBar(
         //automaticallyImplyLeading: false,
         title: Center(child: Text(this.context),),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const Home()));
+              },
+              icon: const Icon(Icons.home)),
+        ],
         backgroundColor: Colors.blueGrey,
       ),
       body: widget,
