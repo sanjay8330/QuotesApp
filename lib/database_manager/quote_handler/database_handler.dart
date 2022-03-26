@@ -88,6 +88,7 @@ class DatabaseHandler {
   **********************************************************************************************
   * @Developer - Sanjay Sakthivel (IT19158228)
   * @Created Date - 09/03/2022
+  * @Modified By - Sanjay Sakthivel - 26/03/22 - Code to capture the document ID and add to list
   * @Purpose - Get the quote details from the Firebase.
   **********************************************************************************************
    */
@@ -95,11 +96,14 @@ class DatabaseHandler {
     try{
 
       List quoteDetaillocal = [];
+      String docID = '';
 
       await quoteslist.where('quote', isEqualTo: quote).get().then((querysnapshot) {
         for (var element in querysnapshot.docs) {
+          docID = element.id.toString();
           quoteDetaillocal.add(element.data());
         }
+        quoteDetaillocal.add(docID);
         quoteDetailListToReturn = quoteDetaillocal;
       });
       return quoteDetailListToReturn;
@@ -160,4 +164,32 @@ class DatabaseHandler {
       return null;
     }
   }
+
+  /*
+  **********************************************************************************************
+  * @Developer - Sanjay Sakthivel (IT19158228)
+  * @Created Date - 26/03/2022
+  * @Purpose - Update the quote details to the Firebase.
+  **********************************************************************************************
+   */
+  Future updateQuote (String? docID, String? newPersonName, String? newQuote, String? newSelectedCategory, String? newImageURL) async {
+
+    try{
+      bool successStatus = false;
+
+      await quoteslist.doc(docID).update({
+        'personName': newPersonName,
+        'quote': newQuote,
+        'category': newSelectedCategory,
+        'personImage': newImageURL
+      }).then((value){
+        successStatus = true;
+      });
+      return successStatus;
+    }catch(error) {
+      print('Error Occurred in Add Quote '+ error.toString());
+      return false;
+    }
+  }
+
 }

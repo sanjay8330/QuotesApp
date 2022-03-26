@@ -4,6 +4,7 @@ import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:quotes_app/components/layout.dart';
+import 'package:quotes_app/screens/quote_management/quotes_list_for_admin.dart';
 import '../../database_manager/quote_handler/database_handler.dart';
 
 class UpdateQuotes extends StatefulWidget {
@@ -29,6 +30,7 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
   String retrievedPersonImage = '';
   String retrievedQuote = '';
   //String retrievedcategory = '';
+  String docID = '';
 
   @override
   void initState() {
@@ -51,6 +53,11 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
     }else{
       setState(() {
         quoteDetailList = result;
+      });
+
+      print('DOC ID : '+quoteDetailList[1].toString());
+      setState(() {
+        docID = quoteDetailList[1].toString();
       });
 
       for (var element in quoteDetailList) {
@@ -122,23 +129,24 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
       }
     }
 
-    // Implement the update method
-    // saveQuote () async {
-    //   if(_formkey.currentState!.validate()){
-    //     _formkey.currentState!.save();
-    //     bool result = await DatabaseHandler().saveQuote(personName, quote, selectedCategory, imageURL);
-    //
-    //     if(result){
-    //       ScaffoldMessenger.of(context).showSnackBar(
-    //           const SnackBar(content: Text('Quote Added Successfully'),)
-    //       );
-    //     }else{
-    //       ScaffoldMessenger.of(context).showSnackBar(
-    //           const SnackBar(content: Text('Something went wrong. Try again later!'),)
-    //       );
-    //     }
-    //   }
-    // }
+    //Implement the update method
+    updateQuote () async {
+      if(_formkey.currentState!.validate()){
+        _formkey.currentState!.save();
+        bool result = await DatabaseHandler().updateQuote(docID, personName, quote, selectedCategory, retrievedPersonImage);
+
+        if(result){
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Quote Updated Successfully'),)
+          );
+          Navigator.of(context).pushNamed(AdminQuoteList.routeName);
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Something went wrong. Try again later!'),)
+          );
+        }
+      }
+    }
 
     return Layout(
       context: 'Update Quote',
@@ -312,7 +320,7 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                           ),
                           Center(
                             child: ElevatedButton(
-                              onPressed: null,
+                              onPressed: updateQuote,
                               child: const Text('Update Quote'),
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.blue,
