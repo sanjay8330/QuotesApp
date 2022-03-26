@@ -14,6 +14,8 @@ class FamousQuotesList extends StatefulWidget {
 class _FamousQuotesListState extends State<FamousQuotesList> {
 
   List allQuotesList = [];
+  Icon cusIcon = const Icon(Icons.search);
+  Widget cusSearchBar = const Text("Quotes by Famous people");
 
   @override
   void initState() {
@@ -42,14 +44,40 @@ class _FamousQuotesListState extends State<FamousQuotesList> {
         allQuotesList = result;
       });
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text("Famous People Quotes")),
+          title: cusSearchBar,
+          actions: [
+            IconButton(
+                icon: cusIcon,
+                onPressed: (){
+                  setState(() {
+                    if(cusIcon.icon == Icons.search){
+                      cusIcon = const Icon(Icons.cancel);
+                      cusSearchBar = const TextField(
+                        textInputAction: TextInputAction.go,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Search here",
+                        ),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        ),
+                      );
+                    }
+                    else{
+                      cusIcon = const Icon(Icons.search);
+                      cusSearchBar = const Text("Quotes by Famous people");
+                    }
+                  });
+                },
+            ),
+          ],
           backgroundColor: Colors.blue,
         ),
         body: Center(
@@ -59,11 +87,6 @@ class _FamousQuotesListState extends State<FamousQuotesList> {
               crossAxisCount: 2,
               crossAxisSpacing: 4.0,
               mainAxisSpacing: 8.0,
-              // children: List.generate(choices.length, (index) {
-              //   return Center(
-              //     child: SelectCard(choice: choices[index]),
-              //   );
-              // }),
               children: List.generate(allQuotesList.length, (index) {
                 return Center(
                   child: Card(
@@ -93,62 +116,3 @@ class _FamousQuotesListState extends State<FamousQuotesList> {
   }
 }
 
-// class Choice {
-//   const Choice({required this.title, required this.image});
-//
-//   final String title;
-//   final String image;
-// }
-//
-// const List<Choice> choices = <Choice>[
-//   Choice(
-//     title: 'Mahatma Gandhi',
-//     image: "assets/images/quotes_management/sharuk.jpg",
-//   ),
-//   Choice(
-//     title: 'Albert Einstein',
-//     image: "assets/images/quotes_management/sharuk.jpg",
-//   ),
-//   Choice(
-//     title: 'Mickel Jackson',
-//     image: "assets/images/quotes_management/sharuk.jpg",
-//   ),
-//   Choice(
-//     title: 'Bruce Lee',
-//     image: "assets/images/quotes_management/sharuk.jpg",
-//   ),
-//   Choice(
-//     title: 'Shahrukh Khan',
-//     image: "assets/images/quotes_management/sharuk.jpg",
-//   ),
-//   Choice(
-//     title: 'Cristiano Ronaldo',
-//     image: "assets/images/quotes_management/sharuk.jpg",
-//   ),
-// ];
-//
-// class SelectCard extends StatelessWidget {
-//   const SelectCard({Key? key, required this.choice}) : super(key: key);
-//   final Choice choice;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final TextStyle? textStyle = Theme.of(context).textTheme.bodyLarge;
-//     return Card(
-//         color: Colors.white,
-//         child: Center(
-//           child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: <Widget>[
-//                 const SizedBox(
-//                   width: double.infinity,
-//                   height: 10,
-//                 ),
-//                 IconButton(icon: Image.asset(choice.image), iconSize: 130, onPressed: () {
-//                   Navigator.of(context).pushNamed(ViewQuotesByPerson.routeName);
-//                 },),
-//                 Text(choice.title, style: textStyle),
-//               ]),
-//         ));
-//   }
-// }

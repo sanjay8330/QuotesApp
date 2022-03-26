@@ -135,16 +135,16 @@ class DatabaseHandler {
       });
       return successStatus;
     }catch(error) {
-      print('Error Occurred in Add Quote '+ error.toString());
+      print('Error Occurred in Adding Quote '+ error.toString());
       return false;
     }
   }
 
   /*
   **********************************************************************************************
-  * @Developer - Sanjay Sakthivel (IT19158228)
-  * @Created Date - 22/03/2022
-  * @Purpose - Get the all quotes from the Firebase.
+  * @Developer - Kasuni Navodya (IT19144986)
+  * @Created Date - 15/03/2022
+  * @Purpose - Add the quote details to the Firebase.
   **********************************************************************************************
    */
   Future getAllQuotes() async {
@@ -160,15 +160,15 @@ class DatabaseHandler {
       });
       return allQuoteListToReturn;
     }catch(error) {
-      print('Error Occurred in Retrieve '+ error.toString());
+      print('Error Occurred in Retrieving Quotes '+ error.toString());
       return null;
     }
   }
 
   /*
   **********************************************************************************************
-  * @Developer - Sanjay Sakthivel (IT19158228)
-  * @Created Date - 26/03/2022
+  * @Developer - Kasuni Navodya (IT19144986)
+  * @Created Date - 17/03/2022
   * @Purpose - Update the quote details to the Firebase.
   **********************************************************************************************
    */
@@ -187,7 +187,32 @@ class DatabaseHandler {
       });
       return successStatus;
     }catch(error) {
-      print('Error Occurred in Add Quote '+ error.toString());
+      print('Error Occurred in Updating Quote '+ error.toString());
+      return false;
+    }
+  }
+
+/*
+  **********************************************************************************************
+  * @Developer - Kasuni Navodya (IT19144986)
+  * @Created Date - 17/03/2022
+  * @Purpose - Remove the quote details from the Firebase.
+  **********************************************************************************************
+ */
+
+  Future removeQuote (String docId, List quote) async {
+
+    try{
+      bool successStatus = false;
+
+      await quoteslist.doc(docId)
+          .update({'quotes': FieldValue.arrayRemove(quote)})
+          .then((value){
+        successStatus = true;
+      });
+      return successStatus;
+    }catch(error) {
+      print('Error Occurred in Removing Quote'+ error.toString());
       return false;
     }
   }

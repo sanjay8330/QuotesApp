@@ -7,7 +7,10 @@ import '../favorite_management/view_single_quote.dart';
 class AdminQuoteList extends StatefulWidget {
   static String routeName = '/AdminQuoteList';
 
-  const AdminQuoteList({Key? key}) : super(key: key);
+  final String? docID;
+  final String? quote;
+
+  const AdminQuoteList({Key? key, this.docID, this.quote}) : super(key: key);
 
   @override
   State<AdminQuoteList> createState() => _AdminQuoteListState();
@@ -37,6 +40,30 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
 
   @override
   Widget build(BuildContext context) {
+
+   void deleteQuote(String quoteToDelete) async {
+
+     List quoteListTodelete = [];
+     quoteListTodelete.add(quoteToDelete);
+
+       bool result = await DatabaseHandler().removeQuote(widget.docID.toString(), quoteListTodelete);
+
+       if(result){
+         fetchQuotesList();
+         ScaffoldMessenger.of(context).showSnackBar(
+             const SnackBar(
+                 content: Text('Quote Removed from Database!')
+             )
+         );
+       }else {
+         ScaffoldMessenger.of(context).showSnackBar(
+             const SnackBar(
+                 content: Text('Something went wrong. Try again later!')
+             )
+         );
+       }
+    }
+
     return Layout(
       context: "Admin - Quotes List",
       widget: Column(
@@ -79,7 +106,6 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
 
                           if(newValues[0].toString().contains('Edit')){
                             //print(quotesList[index]['quote']);
-
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -89,8 +115,15 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
 
                           }
                           if(newValues[0].toString().contains('Remove')){
-                            print(newValues[1].toString());
-                            print('Move to Remove UI');
+                            deleteQuote(quotesList[index]);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => AdminQuoteList(
+                                        quote: quotesList[index],
+                                    )));
+                            //print(newValues[1].toString());
+                            //print('Move to Remove UI');
                           }
                         },
                         itemBuilder: (ctx) => [
