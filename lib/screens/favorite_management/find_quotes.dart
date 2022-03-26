@@ -38,9 +38,9 @@ class FindQuotes extends StatelessWidget {
             const SizedBox(width: double.infinity, height: 10,),
             //Child 02
             Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0),),
               margin: const EdgeInsets.all(8.0),
-              elevation: 25,
+              elevation: 35,
               child: Column(
                 children: [
                   Padding(

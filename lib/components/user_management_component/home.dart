@@ -49,69 +49,75 @@ class Home extends StatelessWidget {
                 style: TextStyle(fontSize: 69, color: Colors.lightBlueAccent, fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(
-              width: 270,
-              height: 100,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 5.0,
-                    primary: Colors.blue.withOpacity(0),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(2),
-                        ),
-                        side: BorderSide(color: Colors.white)),
-                  ),
-                  onPressed: () =>
-                      {Navigator.of(context).pushNamed(FindQuotes.routeName)},
-                  child: const Text('Find Quotes',
-                      style: TextStyle(color: Colors.white, fontSize: 20))),
+            Flexible(
+              child: SizedBox(
+                width: 270,
+                height: 100,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 5.0,
+                      primary: Colors.blue.withOpacity(0),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(2),
+                          ),
+                          side: BorderSide(color: Colors.white)),
+                    ),
+                    onPressed: () =>
+                        {Navigator.of(context).pushNamed(FindQuotes.routeName)},
+                    child: const Text('Find Quotes',
+                        style: TextStyle(color: Colors.white, fontSize: 20))),
+              ),
             ),
             const SizedBox(
               width: double.infinity,
               height: 20,
             ),
-            SizedBox(
-              width: 270,
-              height: 100,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 5.0,
-                    primary: Colors.red.withOpacity(0),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(2),
-                        ),
-                        side: BorderSide(color: Colors.white)),
-                  ),
-                  onPressed: () =>
-                      {Navigator.of(context).pushNamed(AddQuotes.routeName)},
-                  child: const Text('Add Quotes',
-                      style: TextStyle(color: Colors.white, fontSize: 20))),
+            Flexible(
+              child: SizedBox(
+                width: 270,
+                height: 100,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 5.0,
+                      primary: Colors.red.withOpacity(0),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(2),
+                          ),
+                          side: BorderSide(color: Colors.white)),
+                    ),
+                    onPressed: () =>
+                        {Navigator.of(context).pushNamed(AddQuotes.routeName)},
+                    child: const Text('Add Quotes',
+                        style: TextStyle(color: Colors.white, fontSize: 20))),
+              ),
             ),
             const SizedBox(
               width: double.infinity,
               height: 20,
             ),
-            SizedBox(
-              width: 270,
-              height: 100,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 5.0,
-                    primary: Colors.red.withOpacity(0),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(2),
-                        ),
-                        side: BorderSide(color: Colors.white)),
-                  ),
-                  onPressed: () => {
-                    Navigator.of(context)
-                        .pushNamed(AdminDashboard.routeName)
-                  },
-                  child: const Text('Admin Dashboard',
-                      style: TextStyle(color: Colors.white, fontSize: 20))),
+            Flexible(
+              child: SizedBox(
+                width: 270,
+                height: 100,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 5.0,
+                      primary: Colors.red.withOpacity(0),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(2),
+                          ),
+                          side: BorderSide(color: Colors.white)),
+                    ),
+                    onPressed: () => {
+                      Navigator.of(context)
+                          .pushNamed(AdminDashboard.routeName)
+                    },
+                    child: const Text('Admin Dashboard',
+                        style: TextStyle(color: Colors.white, fontSize: 20))),
+              ),
             ),
             const SizedBox(
               width: double.infinity,
