@@ -1,44 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
-import '../../screens/favorite_management/find_quotes.dart';
-import '../../screens/quote_management/add_quotes.dart';
 import '../../screens/quote_management/quotes_list_for_admin.dart';
-import '../../screens/user_management/dashboard.dart';
 
-class Home extends StatelessWidget {
-  static String routeName = '/home';
+class AdminDashboard extends StatelessWidget {
+  static String routeName = '/dashboard';
 
-  const Home({Key? key}) : super(key: key);
+  const AdminDashboard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-          child: Text('Quote App'),
+          child: Text('Admin Dashboard'),
         ),
         backgroundColor: Colors.blueGrey,
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const AddFeedback(
-                              userId: 'US001',
-                            )));
-              },
-              icon: const Icon(Icons.feedback_sharp)),
-          IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.login))
+              icon: const Icon(Icons.logout)),
         ],
       ),
       body: Container(
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/user_management/home1.jpg"),
+              image: AssetImage("assets/images/user_management/home3.jpg"),
               fit: BoxFit.cover),
         ),
         child: Column(
@@ -63,9 +49,8 @@ class Home extends StatelessWidget {
                         ),
                         side: BorderSide(color: Colors.white)),
                   ),
-                  onPressed: () =>
-                      {Navigator.of(context).pushNamed(FindQuotes.routeName)},
-                  child: const Text('Find Quotes',
+                  onPressed: () => {},
+                  child: const Text('Manage User Profiles',
                       style: TextStyle(color: Colors.white, fontSize: 20))),
             ),
             const SizedBox(
@@ -86,37 +71,17 @@ class Home extends StatelessWidget {
                         side: BorderSide(color: Colors.white)),
                   ),
                   onPressed: () =>
-                      {Navigator.of(context).pushNamed(AddQuotes.routeName)},
-                  child: const Text('Add Quotes',
+                  {Navigator.of(context).pushNamed(AdminQuoteList.routeName)},
+                  child: const Text('Manage Quotes',
                       style: TextStyle(color: Colors.white, fontSize: 20))),
             ),
             const SizedBox(
               width: double.infinity,
               height: 20,
             ),
-            SizedBox(
-              width: 270,
-              height: 100,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 5.0,
-                    primary: Colors.red.withOpacity(0),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(2),
-                        ),
-                        side: BorderSide(color: Colors.white)),
-                  ),
-                  onPressed: () => {
-                    Navigator.of(context)
-                        .pushNamed(AdminDashboard.routeName)
-                  },
-                  child: const Text('Admin Dashboard',
-                      style: TextStyle(color: Colors.white, fontSize: 20))),
-            ),
             const SizedBox(
               width: double.infinity,
-              height: 85,
+              height: 193,
             ),
             const Center(
               child: Text(

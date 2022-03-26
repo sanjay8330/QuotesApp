@@ -44,7 +44,7 @@ class _PersonalQuotesListState extends State<PersonalQuotesList> {
     return Scaffold(
         appBar: AppBar(
           title: const Center(child: Text("Personal People Quotes")),
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.blueGrey,
         ),
         body: Center(
           child: Padding(

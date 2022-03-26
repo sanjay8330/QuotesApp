@@ -14,6 +14,7 @@ class ViewQuotesPeople extends StatelessWidget {
         title: const Center(
           child: Text('Quotes by People'),
         ),
+        backgroundColor: Colors.blueGrey,
       ),
       body: Center(
         child: Column(

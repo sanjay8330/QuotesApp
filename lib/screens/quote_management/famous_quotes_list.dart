@@ -78,7 +78,7 @@ class _FamousQuotesListState extends State<FamousQuotesList> {
                 },
             ),
           ],
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.blueGrey,
         ),
         body: Center(
           child: Padding(

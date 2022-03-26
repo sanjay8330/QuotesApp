@@ -16,6 +16,7 @@ class Layout extends StatelessWidget {
       appBar: AppBar(
         //automaticallyImplyLeading: false,
         title: Center(child: Text(this.context),),
+        backgroundColor: Colors.blueGrey,
       ),
       body: widget,
     );

@@ -16,6 +16,7 @@ class FindQuotes extends StatelessWidget {
         title: const Center(
           child: Text('Find Quotes'),
         ),
+        backgroundColor: Colors.blueGrey,
         actions: [IconButton(onPressed: () {
           Navigator.push(context, MaterialPageRoute(
               builder: (_) => const ViewFavorites(userID: 'US001')

@@ -62,6 +62,7 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
         title: const Center(
           child: Text('Quotes by Category'),
         ),
+        backgroundColor: Colors.blueGrey,
       ),
       body: uniqueCategoriesList.isNotEmpty ? ListView.builder(
           itemCount: uniqueCategoriesList.length,
@@ -73,7 +74,7 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
                 height: 80,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.lightBlueAccent,
+                    primary: Colors.blue,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 52, vertical: 10),
                     textStyle: const TextStyle(
