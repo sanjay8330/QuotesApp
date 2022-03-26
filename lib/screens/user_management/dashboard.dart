@@ -36,44 +36,48 @@ class AdminDashboard extends StatelessWidget {
                 style: TextStyle(fontSize: 69, color: Colors.lightBlueAccent, fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(
-              width: 270,
-              height: 100,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 5.0,
-                    primary: Colors.blue.withOpacity(0),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(2),
-                        ),
-                        side: BorderSide(color: Colors.white)),
-                  ),
-                  onPressed: () => {},
-                  child: const Text('Manage User Profiles',
-                      style: TextStyle(color: Colors.white, fontSize: 20))),
+            Flexible(
+              child: SizedBox(
+                width: 270,
+                height: 100,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 5.0,
+                      primary: Colors.blue.withOpacity(0),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(2),
+                          ),
+                          side: BorderSide(color: Colors.white)),
+                    ),
+                    onPressed: () => {},
+                    child: const Text('Manage User Profiles',
+                        style: TextStyle(color: Colors.white, fontSize: 20))),
+              ),
             ),
             const SizedBox(
               width: double.infinity,
               height: 20,
             ),
-            SizedBox(
-              width: 270,
-              height: 100,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 5.0,
-                    primary: Colors.red.withOpacity(0),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(2),
-                        ),
-                        side: BorderSide(color: Colors.white)),
-                  ),
-                  onPressed: () =>
-                  {Navigator.of(context).pushNamed(AdminQuoteList.routeName)},
-                  child: const Text('Manage Quotes',
-                      style: TextStyle(color: Colors.white, fontSize: 20))),
+            Flexible(
+              child: SizedBox(
+                width: 270,
+                height: 100,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 5.0,
+                      primary: Colors.red.withOpacity(0),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(2),
+                          ),
+                          side: BorderSide(color: Colors.white)),
+                    ),
+                    onPressed: () =>
+                    {Navigator.of(context).pushNamed(AdminQuoteList.routeName)},
+                    child: const Text('Manage Quotes',
+                        style: TextStyle(color: Colors.white, fontSize: 20))),
+              ),
             ),
             const SizedBox(
               width: double.infinity,
