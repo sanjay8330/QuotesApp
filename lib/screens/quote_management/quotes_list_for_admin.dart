@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quotes_app/components/user_management_component/home.dart';
 import 'package:quotes_app/database_manager/quote_handler/database_handler.dart';
 import 'package:quotes_app/screens/quote_management/update_quotes.dart';
 import '../../components/layout.dart';
@@ -39,7 +38,6 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
 
@@ -48,7 +46,7 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
 
     /*
   *******************************************************************************************************************
-  * @Developer: Sanjay Sakthivel (IT19158228)
+  * @Developer: Kasuni Navodya (IT19144986)
   * @Created Date: 25/03/2022
   * @Purpose: This method retrieves quote details from the Firestore.
   *******************************************************************************************************************
@@ -69,7 +67,6 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
         });
       }
     }
-
 
     void deleteQuote(String quoteToDelete) async {
 

@@ -112,10 +112,10 @@ class _AddQuotesState extends State<AddQuotes> {
                         children: [
                           Center(
                               child: Image.asset(
-                            'assets/images/quotes_management/quote.jpg',
-                            width: 450,
-                            height: 150,
-                          )),
+                                'assets/images/quotes_management/quote.jpg',
+                                width: 450,
+                                height: 150,
+                              )),
                           const SizedBox(
                             width: double.infinity,
                             height: 20,
@@ -126,7 +126,7 @@ class _AddQuotesState extends State<AddQuotes> {
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                            const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
                                 hint: Text(
@@ -138,14 +138,14 @@ class _AddQuotesState extends State<AddQuotes> {
                                 ),
                                 items: _categoryType
                                     .map((value) => DropdownMenuItem(
-                                          child: Text(
-                                            value,
-                                            style: const TextStyle(
-                                              fontSize: 17,
-                                            ),
-                                          ),
-                                          value: value,
-                                        ))
+                                  child: Text(
+                                    value,
+                                    style: const TextStyle(
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                                  value: value,
+                                ))
                                     .toList(),
                                 onChanged: (selectedCategoryType) {
                                   setState(() {
@@ -165,16 +165,14 @@ class _AddQuotesState extends State<AddQuotes> {
                           ),
                           const SizedBox(
                             width: double.infinity,
-                            height: 10,
+                            height: 20,
                           ),
                           Center(
                             child: ElevatedButton(
                               onPressed: uploadImage,
                               child: const Text('+ Upload Image'),
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.grey,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 122, vertical: 18),
+                                primary: Colors.blue,
                                 textStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),
@@ -191,7 +189,7 @@ class _AddQuotesState extends State<AddQuotes> {
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                            const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: TextFormField(
                               validator: (value) {
                                 if(value==null || value.isEmpty){
@@ -221,7 +219,7 @@ class _AddQuotesState extends State<AddQuotes> {
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                            const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: TextFormField(
                               validator: (value) {
                                 if(value==null || value.isEmpty){
@@ -247,9 +245,9 @@ class _AddQuotesState extends State<AddQuotes> {
                           ),
                           Center(
                             child: ElevatedButton(
-                                onPressed: saveQuote,
-                                child: const Text('Add Quote'),
-                                style: ElevatedButton.styleFrom(
+                              onPressed: saveQuote,
+                              child: const Text('Add Quote'),
+                              style: ElevatedButton.styleFrom(
                                 primary: Colors.blue,
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 138, vertical: 10),

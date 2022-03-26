@@ -25,7 +25,7 @@ class _FamousQuotesListState extends State<FamousQuotesList> {
 
   /*
    *******************************************************************************************************************
-   * @Developer: Sanjay Sakthivel (IT19158228)
+   * @Developer: Kasuni Navodya (IT19144986)
    * @Created Date: 22/03/2022
    * @Purpose: This method retrieves all the quotes from the Firestore.
    *******************************************************************************************************************

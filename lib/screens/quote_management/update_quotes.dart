@@ -29,7 +29,6 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
   String retrievedPersonName = '';
   String retrievedPersonImage = '';
   String retrievedQuote = '';
-  //String retrievedcategory = '';
   String docID = '';
 
   @override
@@ -40,7 +39,7 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
 
   /*
   *******************************************************************************************************************
-  * @Developer: Sanjay Sakthivel (IT19158228)
+  * @Developer: Kasuni Navodya (IT19144986)
   * @Created Date: 25/03/2022
   * @Purpose: This method retrieves quote details from the Firestore.
   *******************************************************************************************************************
@@ -70,8 +69,6 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
       }
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {

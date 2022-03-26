@@ -36,7 +36,6 @@ class _PersonalQuotesListState extends State<PersonalQuotesList> {
         quotesList = result;
       });
     }
-
   }
 
   @override
@@ -66,7 +65,6 @@ class _PersonalQuotesListState extends State<PersonalQuotesList> {
                                 height: 10,
                               ),
                               IconButton(icon: Image.network(quotesList[index]['personImage']), iconSize: 130, onPressed: () {
-                                //Navigator.of(context).pushNamed(ViewQuotesByPerson.routeName);
                                 Navigator.push(context, MaterialPageRoute(
                                     builder: (_) => ViewQuotesByPerson(selectedPersonName: quotesList[index]['personName'],)
                                 ));
