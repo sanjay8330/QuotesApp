@@ -200,16 +200,21 @@ class DatabaseHandler {
   **********************************************************************************************
  */
 
-  Future removeQuote (String docId, List quote) async {
+  Future removeQuote (String docId) async {
 
     try{
       bool successStatus = false;
 
       await quoteslist.doc(docId)
-          .update({'quotes': FieldValue.arrayRemove(quote)})
-          .then((value){
+          .delete()
+          .then((value) {
         successStatus = true;
       });
+      // await quoteslist.doc(docId)
+      //     .update({'quotes': FieldValue.arrayRemove(quote)})
+      //     .then((value){
+      //   successStatus = true;
+      // });
       return successStatus;
     }catch(error) {
       print('Error Occurred in Removing Quote'+ error.toString());
