@@ -121,7 +121,6 @@ class DatabaseHandler {
   **********************************************************************************************
    */
   Future saveQuote (String? personName, String? quote, String? selectedCategory, String? imageURL) async {
-
     try{
       bool successStatus = false;
 
@@ -144,12 +143,11 @@ class DatabaseHandler {
   **********************************************************************************************
   * @Developer - Kasuni Navodya (IT19144986)
   * @Created Date - 15/03/2022
-  * @Purpose - Add the quote details to the Firebase.
+  * @Purpose - Get the quote details from the Firebase.
   **********************************************************************************************
    */
   Future getAllQuotes() async {
     try{
-
       List allQuoteDetailLocal = [];
 
       await quoteslist.get().then((querysnapshot) {
@@ -168,12 +166,11 @@ class DatabaseHandler {
   /*
   **********************************************************************************************
   * @Developer - Kasuni Navodya (IT19144986)
-  * @Created Date - 17/03/2022
+  * @Created Date - 20/03/2022
   * @Purpose - Update the quote details to the Firebase.
   **********************************************************************************************
    */
   Future updateQuote (String? docID, String? newPersonName, String? newQuote, String? newSelectedCategory, String? newImageURL) async {
-
     try{
       bool successStatus = false;
 
@@ -195,13 +192,11 @@ class DatabaseHandler {
 /*
   **********************************************************************************************
   * @Developer - Kasuni Navodya (IT19144986)
-  * @Created Date - 17/03/2022
+  * @Created Date - 20/03/2022
   * @Purpose - Remove the quote details from the Firebase.
   **********************************************************************************************
  */
-
   Future removeQuote (String docId) async {
-
     try{
       bool successStatus = false;
 
@@ -210,16 +205,10 @@ class DatabaseHandler {
           .then((value) {
         successStatus = true;
       });
-      // await quoteslist.doc(docId)
-      //     .update({'quotes': FieldValue.arrayRemove(quote)})
-      //     .then((value){
-      //   successStatus = true;
-      // });
       return successStatus;
     }catch(error) {
       print('Error Occurred in Removing Quote'+ error.toString());
       return false;
     }
   }
-
 }

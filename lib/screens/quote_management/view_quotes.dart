@@ -101,13 +101,6 @@ class _ViewQuotesState extends State<ViewQuotes> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: FloatingActionButton(
-                  onPressed: () {},
-                child: const Icon(Icons.add),
-              ),
-            )
           ],
         ),
     );
