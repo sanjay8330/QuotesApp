@@ -28,7 +28,7 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
   *******************************************************************************************************************
   * @Developer: Kasuni Navodya (IT19144986)
   * @Created Date: 23/03/2022
-  * @Purpose: This method retrieves all the quotes from the Firestore.
+  * @Method: This method retrieves all the quotes from the Firestore.
   *******************************************************************************************************************
   */
   fetchQuotesList() async {
@@ -68,7 +68,7 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
           itemCount: uniqueCategoriesList.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(30.0),
               child: SizedBox(
                 width: 100,
                 height: 80,
@@ -78,7 +78,7 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 52, vertical: 10),
                     textStyle: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(

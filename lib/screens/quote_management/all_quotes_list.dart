@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/quote_handler/database_handler.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
 
-class FamousQuotesList extends StatefulWidget {
-  static String routeName = '/FamousQuotesList';
+class AllQuotesList extends StatefulWidget {
+  static String routeName = '/AllQuotesList';
 
-  const FamousQuotesList({Key? key}) : super(key: key);
+  const AllQuotesList({Key? key}) : super(key: key);
 
   @override
-  State<FamousQuotesList> createState() => _FamousQuotesListState();
+  State<AllQuotesList> createState() => _AllQuotesListState();
 }
 
-class _FamousQuotesListState extends State<FamousQuotesList> {
+class _AllQuotesListState extends State<AllQuotesList> {
 
   List allQuotesList = [];
   Icon cusIcon = const Icon(Icons.search);
-  Widget cusSearchBar = const Text("Quotes by Famous people");
+
+  Widget cusSearchBar = const Center(child: Text("All Quotes"));
 
   @override
   void initState() {
@@ -72,7 +73,7 @@ class _FamousQuotesListState extends State<FamousQuotesList> {
                     }
                     else{
                       cusIcon = const Icon(Icons.search);
-                      cusSearchBar = const Text("Quotes by Famous people");
+                      cusSearchBar = const Text("All Quotes");
                     }
                   });
                 },

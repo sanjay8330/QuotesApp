@@ -15,6 +15,9 @@ class _PersonalQuotesListState extends State<PersonalQuotesList> {
 
   List quotesList = [];
   String selectedCategory = 'Personal';
+  Icon cusIcon = const Icon(Icons.search);
+
+  Widget cusSearchBar = const Center(child: Text("Personal Quotes"));
 
   @override
   void initState() {
@@ -22,6 +25,13 @@ class _PersonalQuotesListState extends State<PersonalQuotesList> {
     fetchQuotesList();
   }
 
+/*
+   *********************************************************************************************************************
+   * @Developer: Kasuni Navodya (IT19144986)
+   * @Created Date: 20/03/2022
+   * @Method: Get the quote details related to selected category
+   * *******************************************************************************************************************
+*/
   fetchQuotesList() async {
     List result = await DatabaseHandler().getQuotesByCategory(selectedCategory);
 
@@ -42,7 +52,34 @@ class _PersonalQuotesListState extends State<PersonalQuotesList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text("Personal People Quotes")),
+          title: cusSearchBar,
+          actions: [
+            IconButton(
+              icon: cusIcon,
+              onPressed: (){
+                setState(() {
+                  if(cusIcon.icon == Icons.search){
+                    cusIcon = const Icon(Icons.cancel);
+                    cusSearchBar = const TextField(
+                      textInputAction: TextInputAction.go,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Search here",
+                      ),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      ),
+                    );
+                  }
+                  else{
+                    cusIcon = const Icon(Icons.search);
+                    cusSearchBar = const Text("Personal Quotes");
+                  }
+                });
+              },
+            ),
+          ],
           backgroundColor: Colors.blueGrey,
         ),
         body: Center(

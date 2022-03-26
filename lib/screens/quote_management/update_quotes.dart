@@ -41,7 +41,7 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
   *******************************************************************************************************************
   * @Developer: Kasuni Navodya (IT19144986)
   * @Created Date: 25/03/2022
-  * @Purpose: This method retrieves quote details from the Firestore.
+  * @Method: This method retrieves quote details from the Firestore.
   *******************************************************************************************************************
   */
   fetchQuotesList() async {
@@ -82,15 +82,20 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
 
     List<String> _categoryType = <String>[
       'Motivational',
+      'Educational',
       'Religious',
-      'Politics',
+      'Nature',
       'Sports',
       'Personal',
     ];
 
-    /*
-    * Method for Image Upload
-    * */
+/*
+  *******************************************************************************************************************
+  * @Developer: Kasuni Navodya (IT19144986)
+  * @Created Date: 25/03/2022
+  * @Method: Update the uploaded image
+  *******************************************************************************************************************
+ */
     Future uploadImage() async {
       final picker = ImagePicker();
       XFile? pickedImage;
@@ -126,7 +131,13 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
       }
     }
 
-    //Implement the update method
+/*
+  *******************************************************************************************************************
+  * @Developer: Kasuni Navodya (IT19144986)
+  * @Created Date: 25/03/2022
+  * @Method: Update the quote details
+  *******************************************************************************************************************
+*/
     updateQuote () async {
       if(_formkey.currentState!.validate()){
         _formkey.currentState!.save();
@@ -298,7 +309,7 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.blue,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 130, vertical: 10),
+                                    horizontal: 130, vertical: 15),
                                 textStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),

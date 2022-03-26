@@ -25,22 +25,26 @@ class _AddQuotesState extends State<AddQuotes> {
 
     String? personName;
     String? quote;
-    //String? imageURL; //Added By Sanjay - Image Upload
 
     FirebaseStorage firebaseStorage =
-        FirebaseStorage.instance; //Added By Sanjay - Image Upload
+        FirebaseStorage.instance;
 
     List<String> _categoryType = <String>[
       'Motivational',
+      'Educational',
       'Religious',
-      'Politics',
+      'Nature',
       'Sports',
       'Personal',
     ];
 
-    /*
-    * Method for Image Upload
-    * */
+/*
+   *********************************************************************************************************************
+   * @Developer: Kasuni Navodya (IT19144986)
+   * @Created Date: 20/03/2022
+   * @Method: Upload Person Image related to quote
+   * *******************************************************************************************************************
+*/
     Future uploadImage() async {
       final picker = ImagePicker();
       XFile? pickedImage;
@@ -76,6 +80,13 @@ class _AddQuotesState extends State<AddQuotes> {
       }
     }
 
+/*
+   *********************************************************************************************************************
+   * @Developer: Kasuni Navodya (IT19144986)
+   * @Created Date: 15/03/2022
+   * @Method: Add quote details to the firebase (Image, PersonName, Quote, Selected Category)
+   * *******************************************************************************************************************
+*/
     saveQuote () async {
       if(_formkey.currentState!.validate()){
         _formkey.currentState!.save();
@@ -125,8 +136,7 @@ class _AddQuotesState extends State<AddQuotes> {
                             child: Text('Category*'),
                           ),
                           Padding(
-                            padding:
-                            const EdgeInsets.only(left: 10.0, right: 10.0),
+                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
                                 hint: Text(
@@ -250,7 +260,7 @@ class _AddQuotesState extends State<AddQuotes> {
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.blue,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 138, vertical: 10),
+                                    horizontal: 138, vertical: 15),
                                 textStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),
