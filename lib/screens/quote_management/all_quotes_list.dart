@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/quote_handler/database_handler.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
 
-class PeopleQuotesList extends StatefulWidget {
-  static String routeName = '/PeopleQuotesList';
+class AllQuotesList extends StatefulWidget {
+  static String routeName = '/AllQuotesList';
 
-  const PeopleQuotesList({Key? key}) : super(key: key);
+  const AllQuotesList({Key? key}) : super(key: key);
 
   @override
-  State<PeopleQuotesList> createState() => _PeopleQuotesListState();
+  State<AllQuotesList> createState() => _AllQuotesListState();
 }
 
-class _PeopleQuotesListState extends State<PeopleQuotesList> {
+class _AllQuotesListState extends State<AllQuotesList> {
 
   List allQuotesList = [];
+  Icon cusIcon = const Icon(Icons.search);
+
+  Widget cusSearchBar = const Center(child: Text("All Quotes"));
 
   @override
   void initState() {
@@ -23,7 +26,7 @@ class _PeopleQuotesListState extends State<PeopleQuotesList> {
 
   /*
    *******************************************************************************************************************
-   * @Developer: Sanjay Sakthivel (IT19158228)
+   * @Developer: Kasuni Navodya (IT19144986)
    * @Created Date: 22/03/2022
    * @Purpose: This method retrieves all the quotes from the Firestore.
    *******************************************************************************************************************
@@ -42,15 +45,41 @@ class _PeopleQuotesListState extends State<PeopleQuotesList> {
         allQuotesList = result;
       });
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text("Quotes by People")),
-          backgroundColor: Colors.blue,
+          title: cusSearchBar,
+          actions: [
+            IconButton(
+                icon: cusIcon,
+                onPressed: (){
+                  setState(() {
+                    if(cusIcon.icon == Icons.search){
+                      cusIcon = const Icon(Icons.cancel);
+                      cusSearchBar = const TextField(
+                        textInputAction: TextInputAction.go,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Search here",
+                        ),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        ),
+                      );
+                    }
+                    else{
+                      cusIcon = const Icon(Icons.search);
+                      cusSearchBar = const Text("All Quotes");
+                    }
+                  });
+                },
+            ),
+          ],
+          backgroundColor: Colors.blueGrey,
         ),
         body: Center(
           child: Padding(
@@ -59,11 +88,6 @@ class _PeopleQuotesListState extends State<PeopleQuotesList> {
               crossAxisCount: 2,
               crossAxisSpacing: 4.0,
               mainAxisSpacing: 8.0,
-              // children: List.generate(choices.length, (index) {
-              //   return Center(
-              //     child: SelectCard(choice: choices[index]),
-              //   );
-              // }),
               children: List.generate(allQuotesList.length, (index) {
                 return Center(
                   child: Card(
@@ -93,62 +117,3 @@ class _PeopleQuotesListState extends State<PeopleQuotesList> {
   }
 }
 
-// class Choice {
-//   const Choice({required this.title, required this.image});
-//
-//   final String title;
-//   final String image;
-// }
-//
-// const List<Choice> choices = <Choice>[
-//   Choice(
-//     title: 'Mahatma Gandhi',
-//     image: "assets/images/quotes_management/sharuk.jpg",
-//   ),
-//   Choice(
-//     title: 'Albert Einstein',
-//     image: "assets/images/quotes_management/sharuk.jpg",
-//   ),
-//   Choice(
-//     title: 'Mickel Jackson',
-//     image: "assets/images/quotes_management/sharuk.jpg",
-//   ),
-//   Choice(
-//     title: 'Bruce Lee',
-//     image: "assets/images/quotes_management/sharuk.jpg",
-//   ),
-//   Choice(
-//     title: 'Shahrukh Khan',
-//     image: "assets/images/quotes_management/sharuk.jpg",
-//   ),
-//   Choice(
-//     title: 'Cristiano Ronaldo',
-//     image: "assets/images/quotes_management/sharuk.jpg",
-//   ),
-// ];
-//
-// class SelectCard extends StatelessWidget {
-//   const SelectCard({Key? key, required this.choice}) : super(key: key);
-//   final Choice choice;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final TextStyle? textStyle = Theme.of(context).textTheme.bodyLarge;
-//     return Card(
-//         color: Colors.white,
-//         child: Center(
-//           child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: <Widget>[
-//                 const SizedBox(
-//                   width: double.infinity,
-//                   height: 10,
-//                 ),
-//                 IconButton(icon: Image.asset(choice.image), iconSize: 130, onPressed: () {
-//                   Navigator.of(context).pushNamed(ViewQuotesByPerson.routeName);
-//                 },),
-//                 Text(choice.title, style: textStyle),
-//               ]),
-//         ));
-//   }
-// }

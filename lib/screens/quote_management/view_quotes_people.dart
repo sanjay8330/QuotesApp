@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quotes_app/screens/quote_management/people_quotes_list.dart';
+import 'package:quotes_app/screens/quote_management/all_quotes_list.dart';
+import 'package:quotes_app/screens/quote_management/personal_quotes_list.dart';
 
 class ViewQuotesPeople extends StatelessWidget {
   static String routeName = '/ViewQuotesPeople';
@@ -13,6 +14,7 @@ class ViewQuotesPeople extends StatelessWidget {
         title: const Center(
           child: Text('Quotes by People'),
         ),
+        backgroundColor: Colors.blueGrey,
       ),
       body: Center(
         child: Column(
@@ -43,9 +45,9 @@ class ViewQuotesPeople extends StatelessWidget {
                       width: 190,
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed(PeopleQuotesList.routeName);
+                            Navigator.of(context).pushNamed(AllQuotesList.routeName);
                           },
-                          child: const Text('Famous Quotes')),
+                          child: const Text('All Quotes')),
                     ),
                   ),
                 ],
@@ -68,7 +70,7 @@ class ViewQuotesPeople extends StatelessWidget {
                       width: 190,
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed(PeopleQuotesList.routeName);
+                            Navigator.of(context).pushNamed(PersonalQuotesList.routeName);
                           },
                           child: const Text('Personal Quotes')),
                     ),

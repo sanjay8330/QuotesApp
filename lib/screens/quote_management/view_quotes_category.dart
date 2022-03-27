@@ -26,9 +26,9 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
 
   /*
   *******************************************************************************************************************
-  * @Developer: Sanjay Sakthivel (IT19158228)
+  * @Developer: Kasuni Navodya (IT19144986)
   * @Created Date: 23/03/2022
-  * @Purpose: This method retrieves all the quotes from the Firestore.
+  * @Method: This method retrieves all the quotes from the Firestore.
   *******************************************************************************************************************
   */
   fetchQuotesList() async {
@@ -62,18 +62,25 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
         title: const Center(
           child: Text('Quotes by Category'),
         ),
+        backgroundColor: Colors.blueGrey,
       ),
       body: uniqueCategoriesList.isNotEmpty ? ListView.builder(
           itemCount: uniqueCategoriesList.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(30.0),
               child: SizedBox(
-                width: 290,
-                height: 70,
+                width: 100,
+                height: 80,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 52, vertical: 10),
+                    textStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
                   onPressed: () {
-                    //Navigator.of(context).pushNamed(ViewQuotes.routeName);
                     Navigator.push(context, MaterialPageRoute(
                         builder: (_) => ViewQuotes(selectedCategory: uniqueCategoriesList[index].toString(),)
                     ));
@@ -95,170 +102,6 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
           Text('Categories unavailable!'),
         ],
       ),
-      // body: Center(
-      //   child: Column(
-      //     children: [
-      //       //Child 01
-      //       const SizedBox(
-      //         width: double.infinity,
-      //         height: 70,
-      //       ),
-      //       //Child 02
-      //       // Center(
-      //       //   child: Column(
-      //       //     children: [
-      //       //       Padding(
-      //       //         padding: const EdgeInsets.all(1),
-      //       //         child: SizedBox(
-      //       //           width: 290,
-      //       //           height: 70,
-      //       //           child: ElevatedButton(
-      //       //             onPressed: () {
-      //       //               Navigator.of(context).pushNamed(ViewQuotes.routeName);
-      //       //             },
-      //       //             child: const Text(
-      //       //               'Motivational',
-      //       //               style: TextStyle(fontSize: 25.0),
-      //       //             ),
-      //       //           ),
-      //       //         ),
-      //       //       ),
-      //       //     ],
-      //       //   ),
-      //       // ),
-      //       // const SizedBox(
-      //       //   width: double.infinity,
-      //       //   height: 20,
-      //       // ),
-      //       // Center(
-      //       //   child: Column(
-      //       //     children: [
-      //       //       Padding(
-      //       //         padding: const EdgeInsets.all(1),
-      //       //         child: SizedBox(
-      //       //           width: 290,
-      //       //           height: 70,
-      //       //           child: ElevatedButton(
-      //       //             onPressed: () {
-      //       //               Navigator.of(context).pushNamed(ViewQuotes.routeName);
-      //       //             },
-      //       //             child: const Text(
-      //       //               'Religious',
-      //       //               style: TextStyle(fontSize: 25.0),
-      //       //             ),
-      //       //           ),
-      //       //         ),
-      //       //       ),
-      //       //     ],
-      //       //   ),
-      //       // ),
-      //       // const SizedBox(
-      //       //   width: double.infinity,
-      //       //   height: 20,
-      //       // ),
-      //       // Center(
-      //       //   child: Column(
-      //       //     children: [
-      //       //       Padding(
-      //       //         padding: const EdgeInsets.all(1),
-      //       //         child: SizedBox(
-      //       //           width: 290,
-      //       //           height: 70,
-      //       //           child: ElevatedButton(
-      //       //             onPressed: () {
-      //       //               Navigator.of(context).pushNamed(ViewQuotes.routeName);
-      //       //             },
-      //       //             child: const Text(
-      //       //               'Political',
-      //       //               style: TextStyle(fontSize: 25.0),
-      //       //             ),
-      //       //           ),
-      //       //         ),
-      //       //       ),
-      //       //     ],
-      //       //   ),
-      //       // ),
-      //       // const SizedBox(
-      //       //   width: double.infinity,
-      //       //   height: 20,
-      //       // ),
-      //       // Center(
-      //       //   child: Column(
-      //       //     children: [
-      //       //       Padding(
-      //       //         padding: const EdgeInsets.all(1),
-      //       //         child: SizedBox(
-      //       //           width: 290,
-      //       //           height: 70,
-      //       //           child: ElevatedButton(
-      //       //             onPressed: () {
-      //       //               Navigator.of(context).pushNamed(ViewQuotes.routeName);
-      //       //             },
-      //       //             child: const Text(
-      //       //               'Sports',
-      //       //               style: TextStyle(fontSize: 25.0),
-      //       //             ),
-      //       //           ),
-      //       //         ),
-      //       //       ),
-      //       //     ],
-      //       //   ),
-      //       // ),
-      //       // const SizedBox(
-      //       //   width: double.infinity,
-      //       //   height: 20,
-      //       // ),
-      //       // Center(
-      //       //   child: Column(
-      //       //     children: [
-      //       //       Padding(
-      //       //         padding: const EdgeInsets.all(1),
-      //       //         child: SizedBox(
-      //       //           width: 290,
-      //       //           height: 70,
-      //       //           child: ElevatedButton(
-      //       //             onPressed: () {
-      //       //               Navigator.of(context).pushNamed(ViewQuotes.routeName);
-      //       //             },
-      //       //             child: const Text(
-      //       //               'Educational',
-      //       //               style: TextStyle(fontSize: 25.0),
-      //       //             ),
-      //       //           ),
-      //       //         ),
-      //       //       ),
-      //       //     ],
-      //       //   ),
-      //       // ),
-      //       // const SizedBox(
-      //       //   width: double.infinity,
-      //       //   height: 20,
-      //       // ),
-      //       // Center(
-      //       //   child: Column(
-      //       //     children: [
-      //       //       Padding(
-      //       //         padding: const EdgeInsets.all(1),
-      //       //         child: SizedBox(
-      //       //           width: 290,
-      //       //           height: 70,
-      //       //           child: ElevatedButton(
-      //       //             onPressed: () {
-      //       //               Navigator.of(context).pushNamed(ViewQuotes.routeName);
-      //       //             },
-      //       //             child: const Text(
-      //       //               'Personal',
-      //       //               style: TextStyle(fontSize: 25.0),
-      //       //             ),
-      //       //           ),
-      //       //         ),
-      //       //       ),
-      //       //     ],
-      //       //   ),
-      //       // ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

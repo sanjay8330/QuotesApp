@@ -88,6 +88,7 @@ class DatabaseHandler {
   **********************************************************************************************
   * @Developer - Sanjay Sakthivel (IT19158228)
   * @Created Date - 09/03/2022
+  * @Modified By - Sanjay Sakthivel - 26/03/22 - Code to capture the document ID and add to list
   * @Purpose - Get the quote details from the Firebase.
   **********************************************************************************************
    */
@@ -95,11 +96,14 @@ class DatabaseHandler {
     try{
 
       List quoteDetaillocal = [];
+      String docID = '';
 
       await quoteslist.where('quote', isEqualTo: quote).get().then((querysnapshot) {
         for (var element in querysnapshot.docs) {
+          docID = element.id.toString();
           quoteDetaillocal.add(element.data());
         }
+        quoteDetaillocal.add(docID);
         quoteDetailListToReturn = quoteDetaillocal;
       });
       return quoteDetailListToReturn;
@@ -117,7 +121,6 @@ class DatabaseHandler {
   **********************************************************************************************
    */
   Future saveQuote (String? personName, String? quote, String? selectedCategory, String? imageURL) async {
-
     try{
       bool successStatus = false;
 
@@ -131,21 +134,20 @@ class DatabaseHandler {
       });
       return successStatus;
     }catch(error) {
-      print('Error Occurred in Add Quote '+ error.toString());
+      print('Error Occurred in Adding Quote '+ error.toString());
       return false;
     }
   }
 
   /*
   **********************************************************************************************
-  * @Developer - Sanjay Sakthivel (IT19158228)
-  * @Created Date - 22/03/2022
-  * @Purpose - Get the all quotes from the Firebase.
+  * @Developer - Kasuni Navodya (IT19144986)
+  * @Created Date - 15/03/2022
+  * @Purpose - Get the quote details from the Firebase.
   **********************************************************************************************
    */
   Future getAllQuotes() async {
     try{
-
       List allQuoteDetailLocal = [];
 
       await quoteslist.get().then((querysnapshot) {
@@ -156,8 +158,57 @@ class DatabaseHandler {
       });
       return allQuoteListToReturn;
     }catch(error) {
-      print('Error Occurred in Retrieve '+ error.toString());
+      print('Error Occurred in Retrieving Quotes '+ error.toString());
       return null;
+    }
+  }
+
+  /*
+  **********************************************************************************************
+  * @Developer - Kasuni Navodya (IT19144986)
+  * @Created Date - 20/03/2022
+  * @Purpose - Update the quote details to the Firebase.
+  **********************************************************************************************
+   */
+  Future updateQuote (String? docID, String? newPersonName, String? newQuote, String? newSelectedCategory, String? newImageURL) async {
+    try{
+      bool successStatus = false;
+
+      await quoteslist.doc(docID).update({
+        'personName': newPersonName,
+        'quote': newQuote,
+        'category': newSelectedCategory,
+        'personImage': newImageURL
+      }).then((value){
+        successStatus = true;
+      });
+      return successStatus;
+    }catch(error) {
+      print('Error Occurred in Updating Quote '+ error.toString());
+      return false;
+    }
+  }
+
+/*
+  **********************************************************************************************
+  * @Developer - Kasuni Navodya (IT19144986)
+  * @Created Date - 20/03/2022
+  * @Purpose - Remove the quote details from the Firebase.
+  **********************************************************************************************
+ */
+  Future removeQuote (String docId) async {
+    try{
+      bool successStatus = false;
+
+      await quoteslist.doc(docId)
+          .delete()
+          .then((value) {
+        successStatus = true;
+      });
+      return successStatus;
+    }catch(error) {
+      print('Error Occurred in Removing Quote'+ error.toString());
+      return false;
     }
   }
 }
