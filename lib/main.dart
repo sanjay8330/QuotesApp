@@ -11,6 +11,8 @@ import 'package:quotes_app/screens/quote_management/view_quotes_category.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_people.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
 import 'components/user_management_component/home.dart';
+import 'package:quotes_app/screens/comments_management/view_comments.dart';
+import 'package:quotes_app/screens/comments_management/add_comments.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -52,6 +54,9 @@ class MyApp extends StatelessWidget {
         ViewQuotesCategory.routeName: (context) => const ViewQuotesCategory(),
         ViewQuotesPeople.routeName: (context) => const ViewQuotesPeople(),
         AdminQuoteList.routeName: (context) => const AdminQuoteList(),
+        //Kavindi
+        ViewComments.routeName: (context) => const ViewComments(),
+        AddComments.routeName: (context) => const AddComments(),
       },
     );
   }
