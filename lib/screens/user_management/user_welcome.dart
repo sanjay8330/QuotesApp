@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quotes_app/model/user_model.dart';
 
+import '../../components/user_management_component/home.dart';
+
 class UserWelcome extends StatefulWidget {
   const UserWelcome({Key? key}) : super(key: key);
 
@@ -43,7 +45,10 @@ class _UserWelcomeState extends State<UserWelcome> {
                 style: TextStyle(color: Colors.black54, fontWeight: FontWeight.w500),
               ),
               SizedBox(height: 15,),
-              ActionChip(label: Text("Logout"), onPressed: () {})
+              ActionChip(label: Text("Logout"), onPressed: () {}),
+              ElevatedButton(onPressed: () {
+                Navigator.of(context).pushNamed(Home.routeName);
+              }, child: const Text('Home Nav Test'))
             ],
           ),
         ),
