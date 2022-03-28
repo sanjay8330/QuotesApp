@@ -129,7 +129,7 @@ class _AddQuotesState extends State<AddQuotes> {
                               )),
                           const SizedBox(
                             width: double.infinity,
-                            height: 20,
+                            height: 5,
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -138,39 +138,42 @@ class _AddQuotesState extends State<AddQuotes> {
                           Padding(
                             padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                hint: Text(
-                                  '  Select Category',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Theme.of(context).hintColor,
+                                child: DropdownButtonFormField<String>(
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
                                   ),
-                                ),
-                                items: _categoryType
-                                    .map((value) => DropdownMenuItem(
-                                  child: Text(
-                                    value,
-                                    style: const TextStyle(
-                                      fontSize: 17,
+                                  hint: Text(
+                                    'Select Category',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Theme.of(context).hintColor,
                                     ),
                                   ),
-                                  value: value,
-                                ))
-                                    .toList(),
-                                onChanged: (selectedCategoryType) {
-                                  setState(() {
-                                    selectedCategory = selectedCategoryType;
-                                  });
-                                },
-                                value: selectedCategory,
-                                elevation: 10,
-                                alignment: Alignment.center,
-                                style:const TextStyle(color:Colors.black, fontSize: 20),
-                                icon: const Icon(Icons.arrow_drop_down_circle),
-                                iconEnabledColor: Colors.blue,
-                                isExpanded: true,
-                                dropdownColor: Colors.white,
-                              ),
+                                  items: _categoryType
+                                      .map((value) => DropdownMenuItem(
+                                    child: Text(
+                                      value,
+                                      style: const TextStyle(
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                    value: value,
+                                  ))
+                                      .toList(),
+                                  onChanged: (selectedCategoryType) {
+                                    setState(() {
+                                      selectedCategory = selectedCategoryType;
+                                    });
+                                  },
+                                  value: selectedCategory,
+                                  elevation: 10,
+                                  alignment: Alignment.center,
+                                  style:const TextStyle(color:Colors.black, fontSize: 20),
+                                  icon: const Icon(Icons.arrow_drop_down_circle),
+                                  iconEnabledColor: Colors.blue,
+                                  isExpanded: true,
+                                  dropdownColor: Colors.white,
+                                ),
                             ),
                           ),
                           const SizedBox(
@@ -251,7 +254,7 @@ class _AddQuotesState extends State<AddQuotes> {
                           ),
                           const SizedBox(
                             width: double.infinity,
-                            height: 25,
+                            height: 20,
                           ),
                           Center(
                             child: ElevatedButton(
