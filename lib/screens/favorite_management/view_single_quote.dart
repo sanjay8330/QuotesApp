@@ -27,6 +27,7 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
   String personImage = '';
   String quote = '';
   //String category = '';
+  String docId = '';
 
   @override
   void initState() {
@@ -53,6 +54,12 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
       setState(() {
         quoteDetailList = result;
       });
+
+      setState(() {
+        docId = quoteDetailList[1].toString();
+      });
+
+      print('Quote Retreived : '+docId.toString());
 
       for (var element in quoteDetailList) {
         setState(() {
@@ -113,7 +120,7 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
           const SizedBox(width: double.infinity, height: 10,),
           Align(
             alignment: Alignment.bottomCenter,
-              child: BottomIconList(copyText: quote, userID: 'US001'))
+              child: BottomIconList(copyText: quote, userID: 'US001', quoteID: docId,))
         ],
       )
     );

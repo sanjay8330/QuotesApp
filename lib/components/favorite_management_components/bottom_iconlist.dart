@@ -6,11 +6,13 @@ import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
 class BottomIconList extends StatefulWidget {
   final String copyText;
   final String userID;
+  final String quoteID;
 
   const BottomIconList({
     Key? key,
     required this.copyText,
     required this.userID,
+    required this.quoteID
   }) : super(key: key);
 
   @override
