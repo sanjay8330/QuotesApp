@@ -11,8 +11,8 @@ import 'package:quotes_app/screens/quote_management/view_quotes_category.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_people.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
 import 'package:quotes_app/screens/user_management/user_home.dart';
-
 import 'components/user_management_component/home.dart';
+import 'package:quotes_app/screens/user_management/login_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -37,11 +37,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: Home.routeName,
+      initialRoute: User_home.routeName,
       routes: {
         //Keshawa
         Home.routeName: (context) => const Home(),
-        User_home.routeName: (context) => const User_home(),
+        User_home.routeName: (context) => const LoginScreen(),
+
         //Sanjay
         FindQuotes.routeName: (context) => const FindQuotes(),
         ViewSingleQuote.routeName: (context) => const ViewSingleQuote(),
