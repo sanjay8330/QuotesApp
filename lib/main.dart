@@ -44,14 +44,14 @@ class MyApp extends StatelessWidget {
       routes: {
         //------------------------Keshawa(IT19150758)---------------------------
         Home.routeName: (context) => const Home(),
-<<<<<<< HEAD
+
         User_home.routeName: (context) => const LoginScreen(),
 
         //Sanjay
-=======
-        User_home.routeName: (context) => const User_home(),
+
+        //User_home.routeName: (context) => const User_home(),
         //-------------------------Sanjay(IT19158228)---------------------------
->>>>>>> 1c60e194a58ea4a03fd92ea07dfc85cbf918b3bd
+
         FindQuotes.routeName: (context) => const FindQuotes(),
         ViewSingleQuote.routeName: (context) => const ViewSingleQuote(),
         ViewFavorites.routeName: (context) => const ViewFavorites(),
