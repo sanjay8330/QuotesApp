@@ -18,6 +18,10 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
   Set<String> uniqueCategories = {};//Using a map to pick only the unique categories
   List uniqueCategoriesList = [];//Adding the unique categories to a new list
 
+  Icon cusIcon = const Icon(Icons.search);
+
+  Widget cusSearchBar = const Center(child: Text("Quotes by Category"));
+
   @override
   void initState() {
     super.initState();
@@ -59,9 +63,34 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Quotes by Category'),
-        ),
+        title: cusSearchBar,
+        actions: [
+          IconButton(
+            icon: cusIcon,
+            onPressed: (){
+              setState(() {
+                if(cusIcon.icon == Icons.search){
+                  cusIcon = const Icon(Icons.cancel);
+                  cusSearchBar = const TextField(
+                    textInputAction: TextInputAction.go,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Search here",
+                    ),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                    ),
+                  );
+                }
+                else{
+                  cusIcon = const Icon(Icons.search);
+                  cusSearchBar = const Center(child: Text("Quotes by Category"));
+                }
+              });
+            },
+          ),
+        ],
         backgroundColor: Colors.blueGrey,
       ),
       body: uniqueCategoriesList.isNotEmpty ? ListView.builder(

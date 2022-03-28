@@ -84,7 +84,13 @@ class _user_homeState extends State<User_home> {
                 ),
               ],
             ),
-
+            // with custom text
+            SizedBox(height: 20.0),
+            SignInButton(
+              Buttons.Google,
+              text: "Sign up with Google",
+              onPressed: () {},
+            )
           ],
         ),
       ),

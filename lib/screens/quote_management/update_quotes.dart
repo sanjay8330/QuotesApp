@@ -191,7 +191,7 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                           ),
                           const SizedBox(
                             width: double.infinity,
-                            height: 20,
+                            height: 5,
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -201,9 +201,12 @@ class _UpdateQuotesState extends State<UpdateQuotes> {
                             padding:
                             const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
+                              child: DropdownButtonFormField<String>(
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                ),
                                 hint: Text(
-                                  '  Select Category',
+                                  'Select Category',
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Theme.of(context).hintColor,
