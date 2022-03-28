@@ -5,7 +5,7 @@ import '../../components/layout.dart';
 
 class ViewComments extends StatefulWidget {
   static String routeName = '/ViewComments';
-  final String? QuoteID = 'B7AKhFjGPXHWoslty0FV';
+  final String? QuoteID = 'D3onguNGLjHhaQ509Xz3';
 
   const ViewComments({Key? key}) : super(key: key);
 
@@ -41,6 +41,28 @@ class _ViewCommentsState extends State<ViewComments> {
 
   }
 
+  void deleteComment(String commentID) async {
+
+    String commentId = commentID;
+
+    bool result = await DatabaseHandler().deleteComments(commentId);
+
+    if(result){
+      getCommentsList();
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text('Comment deleted!')
+          )
+      );
+    }else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text('Something went wrong. Try again later!')
+          )
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -66,17 +88,21 @@ class _ViewCommentsState extends State<ViewComments> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                     margin: const EdgeInsets.all(8.0),
                     elevation: 4,
-                    child: ListTile(
-                      /*leading: ClipRRect(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          /*leading: ClipRRect(
                         borderRadius: BorderRadius.circular(25.0),
                         child: comments[index]['personImage'].toString().isNotEmpty ? Image.network(comments[index]['personImage']) : null,
                       ),*/
-                      title: Text(comments[index]['content'], overflow: TextOverflow.ellipsis, softWrap: false,),
-                      subtitle: Text(comments[index]['UserId']),
-
-
+                          title: Text(comments[index]['Content'], overflow: TextOverflow.ellipsis, softWrap: false,),
+                          subtitle: Text(comments[index]['UserId']),
+                          trailing: IconButton(onPressed: () {deleteComment(comments[index] ['_id']);}, icon: const Icon(Icons.delete_forever)),
+                        ),
+                        ],
                     ),
-                  );
+
+                    );
                 }
             ) : Column(
               mainAxisAlignment: MainAxisAlignment.center,
