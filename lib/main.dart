@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
 
         //Sanjay
 
-        User_home.routeName: (context) => const User_home(),
+        //User_home.routeName: (context) => const User_home(),
         //-------------------------Sanjay(IT19158228)---------------------------
 
         FindQuotes.routeName: (context) => const FindQuotes(),
