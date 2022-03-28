@@ -4,12 +4,15 @@ import 'package:quotes_app/screens/favorite_management/find_quotes.dart';
 import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
 import 'package:quotes_app/screens/favorite_management/view_single_quote.dart';
 import 'package:quotes_app/screens/feedback_management/add_feedback.dart';
-import 'package:quotes_app/screens/quote_management/people_quotes_list.dart';
+import 'package:quotes_app/screens/quote_management/all_quotes_list.dart';
+import 'package:quotes_app/screens/quote_management/personal_quotes_list.dart';
 import 'package:quotes_app/screens/quote_management/quotes_list_for_admin.dart';
+import 'package:quotes_app/screens/quote_management/update_quotes.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_category.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_people.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
+import 'package:quotes_app/screens/user_management/dashboard.dart';
 import 'package:quotes_app/screens/user_management/user_home.dart';
 import 'components/user_management_component/home.dart';
 import 'package:quotes_app/screens/user_management/login_screen.dart';
@@ -39,23 +42,32 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: User_home.routeName,
       routes: {
-        //Keshawa
+        //------------------------Keshawa(IT19150758)---------------------------
         Home.routeName: (context) => const Home(),
+<<<<<<< HEAD
         User_home.routeName: (context) => const LoginScreen(),
 
         //Sanjay
+=======
+        User_home.routeName: (context) => const User_home(),
+        //-------------------------Sanjay(IT19158228)---------------------------
+>>>>>>> 1c60e194a58ea4a03fd92ea07dfc85cbf918b3bd
         FindQuotes.routeName: (context) => const FindQuotes(),
         ViewSingleQuote.routeName: (context) => const ViewSingleQuote(),
         ViewFavorites.routeName: (context) => const ViewFavorites(),
         ViewQuotes.routeName: (context) => const ViewQuotes(),
         AddFeedback.routeName: (context) => const AddFeedback(),
         ViewQuotesByPerson.routeName : (context) => const ViewQuotesByPerson(),
-        //Kasuni
+        //-------------------------Kasuni(IT19144986)---------------------------
         AddQuotes.routeName: (context) => const AddQuotes(),
-        PeopleQuotesList.routeName: (context) => const PeopleQuotesList(),
+        UpdateQuotes.routeName: (context) => const UpdateQuotes(),
+        AllQuotesList.routeName: (context) => const AllQuotesList(),
+        PersonalQuotesList.routeName: (context) => const PersonalQuotesList(),
         ViewQuotesCategory.routeName: (context) => const ViewQuotesCategory(),
         ViewQuotesPeople.routeName: (context) => const ViewQuotesPeople(),
         AdminQuoteList.routeName: (context) => const AdminQuoteList(),
+        //------------------------Kavindi(IT19150826)---------------------------
+        AdminDashboard.routeName: (context) => const AdminDashboard(),
       },
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quotes_app/components/layout.dart';
+import 'package:quotes_app/database_manager/quote_handler/database_handler.dart' as QuoteDatabase;
 import 'package:quotes_app/screens/favorite_management/view_single_quote.dart';
 
 import '../../database_manager/favorite_manager/database_handler_favorites.dart';
@@ -20,11 +20,55 @@ class ViewFavorites extends StatefulWidget {
 class _ViewFavoritesState extends State<ViewFavorites> {
   List userQuoteList = [];
   List quoteList = [];
+  Icon cusIcon = const Icon(Icons.search);
+
+  Widget cusSearchBar = const Center(child: Text("View Favorites"));
 
   @override
   void initState() {
     super.initState();
     fetchUserQuotes();
+  }
+
+  /*
+   *********************************************************************************************************************
+   * @Developer: Sanjay Sakthivel (IT19158228)
+   * @Created Date: 11/03/2022
+   * @Purpose: This method gets the list of quotes already added to favorites by the user from Firestore
+   * *******************************************************************************************************************
+   */
+  fetchQuoteDetail(quote) async {
+    List result = await QuoteDatabase.DatabaseHandler().getQuoteDetails(quote);
+
+    if(result == null){
+      print('Unable to retrieve!');
+    }else{
+      List quoteListSearch = result;
+
+      for (var element in quoteListSearch) {
+        setState(() {
+          quoteList.add(element['quote'].toString());
+        });
+      }
+    }
+  }
+
+  /*
+   *********************************************************************************************************************
+   * @Developer: Sanjay Sakthivel (IT19158228)
+   * @Created Date: 28/03/2022
+   * @Purpose: This method search the value entered in search field and check in firestore database
+   * *******************************************************************************************************************
+   */
+  searchQuotes() async {
+
+    for(String quote in quoteList){
+      if(quote.contains('Early')){
+        print('Quote Found!'+quote);
+        quoteList = [];
+        fetchQuoteDetail(quote);
+      }
+    }
   }
 
   /*
@@ -51,7 +95,6 @@ class _ViewFavoritesState extends State<ViewFavorites> {
     }
 
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +130,57 @@ class _ViewFavoritesState extends State<ViewFavorites> {
         }
     }
 
-    return Layout(
-        context: 'View Favorites',
-      widget: Column(
+    /*
+   *******************************************************************************************************************
+   * @Developer: Sanjay Sakthivel (IT19158228)
+   * @Created Date: 28/03/2022
+   * @Purpose: Clear the search and load the original quote list.
+   *******************************************************************************************************************
+   */
+    clearSearch() async {
+      fetchUserQuotes();
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: cusSearchBar,
+        actions: [
+          IconButton(
+            icon: cusIcon,
+            onPressed: (){
+              setState(() {
+                if(cusIcon.icon == Icons.search){
+                  cusIcon = const Icon(Icons.cancel);
+                  cusSearchBar = TextField(
+                    textInputAction: TextInputAction.go,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Search here",
+                    ),
+                    onChanged: (String value){
+                      if(value.isNotEmpty){
+                        searchQuotes();
+                      }else{
+                        clearSearch();
+                      }
+                    },
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                    ),
+                  );
+                }
+                else{
+                  cusIcon = const Icon(Icons.search);
+                  cusSearchBar = const Text("All Quotes");
+                }
+              });
+            },
+          ),
+        ],
+        backgroundColor: Colors.blueGrey,
+      ),
+      body: Column(
         children: [
           const Padding(
             padding: EdgeInsets.all(10.0),
