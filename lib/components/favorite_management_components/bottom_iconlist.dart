@@ -2,6 +2,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/favorite_manager/database_handler_favorites.dart';
 import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
+import 'package:quotes_app/screens/comments_management/view_comments.dart';
 
 class BottomIconList extends StatefulWidget {
   final String copyText;
@@ -143,13 +144,18 @@ class _BottomIconListState extends State<BottomIconList> {
           Column(
             children: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //Navigator.of(context).pushNamed(ViewComments.routeName);
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (_) => ViewComments(quoteID: widget.quoteID.toString(),)
+                    ));
+                    },
                   icon: const Icon(
                     Icons.comment,
                     color: Colors.blue,
                   )
               ),
-              const Text('Add Comments')
+              const Text('Comments')
             ],
           ),
           Column(
