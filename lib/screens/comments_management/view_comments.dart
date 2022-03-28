@@ -7,10 +7,12 @@ class ViewComments extends StatefulWidget {
   static String routeName = '/ViewComments';
   //final String? QuoteID = 'D3onguNGLjHhaQ509Xz3';
   final String? quoteID;
+  final String? docID;
 
   const ViewComments({
     Key? key,
-    this.quoteID
+    this.quoteID,
+    this.docID,
   }) : super(key: key);
 
   @override
@@ -46,30 +48,54 @@ class _ViewCommentsState extends State<ViewComments> {
 
   }
 
-  void deleteComment(String commentID) async {
 
-    String commentId = commentID;
 
-    bool result = await DatabaseHandler().deleteComments(commentId);
-
-    if(result){
-      getCommentsList();
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text('Comment deleted!')
-          )
-      );
-    }else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text('Something went wrong. Try again later!')
-          )
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+
+    List commentDetailList = [];
+    String docID = '';
+
+    fetchCommentsDetails(commentToRetrieve) async {
+    List result = await DatabaseHandler().getCommentDetails(commentToRetrieve);
+
+    if(result == null){
+    print('Unable to retrieve!');
+    }else{
+    setState(() {
+    commentDetailList = result;
+    });
+
+    print('DOC ID : '+commentDetailList[1].toString());
+    setState(() {
+    docID = commentDetailList[1].toString();
+    });
+    }
+    }
+
+    void deleteComment(String commentID) async {
+
+      await fetchCommentsDetails(commentID).then((value) async {
+        bool result = await DatabaseHandler().deleteComments(docID);
+
+        if(result){
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                  content: Text('Quote Removed from Database!')
+              )
+          );
+          Navigator.of(context).pushNamed(AddComments.routeName);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                  content: Text('Something went wrong. Try again later!')
+              )
+          );
+        }
+      });
+
+    }
 
     return Layout(
       context: "Comments",
@@ -102,12 +128,13 @@ class _ViewCommentsState extends State<ViewComments> {
                       ),*/
                           title: Text(comments[index]['Content'], overflow: TextOverflow.ellipsis, softWrap: false,),
                           subtitle: Text(comments[index]['UserId']),
-                          trailing: IconButton(onPressed: () {deleteComment(comments[index] ['Content']);}, icon: const Icon(Icons.delete_forever)),
+                          trailing: IconButton(onPressed: () {deleteComment(comments[index]['Content'].toString());}, icon: const Icon(Icons.delete_forever)),
                         ),
                         ],
                     ),
 
                     );
+
                 }
             ) : Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -122,7 +149,11 @@ class _ViewCommentsState extends State<ViewComments> {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: FloatingActionButton(
-              onPressed: () {Navigator.of(context).pushNamed(AddComments.routeName);},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (_) => AddComments(quoteID: widget.quoteID.toString(),)
+                ));
+              },
               child: const Icon(Icons.add),
             ),
           )
