@@ -22,8 +22,9 @@ dependencies:
   firebase: ^9.0.2
   path: ^1.8.0
   firebase_database: any
-  firebase_auth: any
+  firebase_auth: ^3.3.11
   flutter_signin_button: ^2.0.0
+  fluttertoast: ^8.0.9
 
 
 dev_dependencies:
