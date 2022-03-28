@@ -45,7 +45,6 @@ class MyApp extends StatelessWidget {
         //------------------------Keshawa(IT19150758)---------------------------
         Home.routeName: (context) => const Home(),
         User_home.routeName: (context) => const LoginScreen(),
-        User_home.routeName: (context) => const User_home(),
         //-------------------------Sanjay(IT19158228)---------------------------
         FindQuotes.routeName: (context) => const FindQuotes(),
         ViewSingleQuote.routeName: (context) => const ViewSingleQuote(),
