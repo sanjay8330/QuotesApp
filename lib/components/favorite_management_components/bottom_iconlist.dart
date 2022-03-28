@@ -144,7 +144,12 @@ class _BottomIconListState extends State<BottomIconList> {
           Column(
             children: [
               IconButton(
-                  onPressed: () {Navigator.of(context).pushNamed(ViewComments.routeName);},
+                  onPressed: () {
+                    //Navigator.of(context).pushNamed(ViewComments.routeName);
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (_) => ViewComments(quoteID: widget.quoteID.toString(),)
+                    ));
+                    },
                   icon: const Icon(
                     Icons.comment,
                     color: Colors.blue,

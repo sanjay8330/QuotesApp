@@ -5,9 +5,13 @@ import '../../components/layout.dart';
 
 class ViewComments extends StatefulWidget {
   static String routeName = '/ViewComments';
-  final String? QuoteID = 'D3onguNGLjHhaQ509Xz3';
+  //final String? QuoteID = 'D3onguNGLjHhaQ509Xz3';
+  final String? quoteID;
 
-  const ViewComments({Key? key}) : super(key: key);
+  const ViewComments({
+    Key? key,
+    this.quoteID
+  }) : super(key: key);
 
   @override
   State<ViewComments> createState() => _ViewCommentsState();
@@ -25,12 +29,13 @@ class _ViewCommentsState extends State<ViewComments> {
   }
 
   getCommentsList() async {
-    List result = await DatabaseHandler().getCommentsbyQuoteID(widget.QuoteID.toString());
+    //List result = await DatabaseHandler().getCommentsbyQuoteID(widget.QuoteID.toString());
+    List result = await DatabaseHandler().getCommentsbyQuoteID(widget.quoteID.toString());
 
     if(result.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content: Text('Error in retrieving details!!')
+              content: Text('No comments yet!!')
           )
       );
     }else{
@@ -97,7 +102,7 @@ class _ViewCommentsState extends State<ViewComments> {
                       ),*/
                           title: Text(comments[index]['Content'], overflow: TextOverflow.ellipsis, softWrap: false,),
                           subtitle: Text(comments[index]['UserId']),
-                          trailing: IconButton(onPressed: () {deleteComment(comments[index] ['_id']);}, icon: const Icon(Icons.delete_forever)),
+                          trailing: IconButton(onPressed: () {deleteComment(comments[index] ['Content']);}, icon: const Icon(Icons.delete_forever)),
                         ),
                         ],
                     ),
