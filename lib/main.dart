@@ -20,6 +20,7 @@ import 'package:quotes_app/screens/comments_management/add_comments.dart';
 import 'package:quotes_app/screens/user_management/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:quotes_app/screens/comments_management/edit_comments.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
         ViewComments.routeName: (context) => const ViewComments(),
         AddComments.routeName: (context) => const AddComments(),
         AdminDashboard.routeName: (context) => const AdminDashboard(),
+        UpdateComments.routeName: (context) => const UpdateComments(),
       },
     );
   }

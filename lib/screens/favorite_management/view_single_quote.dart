@@ -7,11 +7,12 @@ import '../../database_manager/quote_handler/database_handler.dart';
 
 class ViewSingleQuote extends StatefulWidget {
   static String routeName = '/viewSingleQuote';
-
+  final String? quoteText;
   final String? quote;
 
   const ViewSingleQuote({
     Key? key,
+    this.quoteText,
     this.quote
   }) : super(key: key);
 
