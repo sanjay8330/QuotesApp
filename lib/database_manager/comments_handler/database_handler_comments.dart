@@ -8,6 +8,7 @@ class DatabaseHandler {
 
   List commentListToReturn = [];
   List quoteDetailListToReturn = [];
+  List commentListToReturnToDelete = [];
 
   //get comments by the quote ID
   Future getCommentsbyQuoteID(String quoteId) async {
@@ -72,6 +73,28 @@ class DatabaseHandler {
     }
   }
 
+  //get comment to delete
+  Future getCommentDetails(String content) async {
+    try{
+
+      List commentDetaillocal = [];
+      String docID = '';
+
+      await commentlist.where('Content', isEqualTo: content).get().then((querysnapshot) {
+        for (var element in querysnapshot.docs) {
+          docID = element.id.toString();
+          commentDetaillocal.add(element.data());
+        }
+        commentDetaillocal.add(docID);
+        commentListToReturnToDelete = commentDetaillocal;
+      });
+      return commentListToReturnToDelete;
+    }catch(error) {
+      print('Error Occurred in Retrieve '+ error.toString());
+      return null;
+    }
+  }
+
   Future deleteComments(String commentId) async {
 
     try{
@@ -79,14 +102,14 @@ class DatabaseHandler {
 
       await commentlist.doc(commentId)
           .delete()
-          .then((value){
+          .then((value) {
         successStatus = true;
       });
       return successStatus;
     }catch(error) {
-      print('Error Occurred in Removing Quote to Favorites '+ error.toString());
+      print('Error Occurred in Removing Quote'+ error.toString());
       return false;
     }
-
   }
+
 }

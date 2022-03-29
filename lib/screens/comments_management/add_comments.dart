@@ -4,9 +4,12 @@ import '../../database_manager/comments_handler/database_handler_comments.dart';
 
 class AddComments extends StatefulWidget {
   static String routeName = '/addComment';
-  final String quote = 'D3onguNGLjHhaQ509Xz3';
+  //final String quote = 'D3onguNGLjHhaQ509Xz3';
+  final String? quoteID;
 
-  const AddComments({Key? key}) : super(key: key);
+  const AddComments({
+    Key? key,
+    this.quoteID}) : super(key: key);
 
   @override
   State<AddComments> createState() => _AddCommentsState();
@@ -27,7 +30,6 @@ class _AddCommentsState extends State<AddComments> {
   String quoteText = '';
   String personImage = '';
   String personName = '';
-  String? QuoteId = 'D3onguNGLjHhaQ509Xz3';
   String? UserId = '01';
   String? content;
   DateTime? time = DateTime.now();
@@ -35,7 +37,7 @@ class _AddCommentsState extends State<AddComments> {
   //retrieve quote
   fetchQuotesList() async {
     List result = await DatabaseHandler().getQuoteDetails(
-        widget.quote.toString());
+        widget.quoteID.toString());
 
     if (result == null) {
       print('Unable to retrieve!');
@@ -59,7 +61,7 @@ class _AddCommentsState extends State<AddComments> {
   saveComment () async {
     if(_formkey.currentState!.validate()){
       _formkey.currentState!.save();
-      bool result = await DatabaseHandler().saveComment(QuoteId,UserId, content, time);
+      bool result = await DatabaseHandler().saveComment(widget.quoteID.toString(),UserId, content, time);
 
       if(result){
         ScaffoldMessenger.of(context).showSnackBar(
