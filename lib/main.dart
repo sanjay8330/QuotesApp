@@ -15,8 +15,9 @@ import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
 import 'package:quotes_app/screens/user_management/dashboard.dart';
 import 'package:quotes_app/screens/user_management/user_home.dart';
 import 'components/user_management_component/home.dart';
+import 'package:quotes_app/screens/comments_management/view_comments.dart';
+import 'package:quotes_app/screens/comments_management/add_comments.dart';
 import 'package:quotes_app/screens/user_management/login_screen.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -61,6 +62,8 @@ class MyApp extends StatelessWidget {
         ViewQuotesPeople.routeName: (context) => const ViewQuotesPeople(),
         AdminQuoteList.routeName: (context) => const AdminQuoteList(),
         //------------------------Kavindi(IT19150826)---------------------------
+        ViewComments.routeName: (context) => const ViewComments(),
+        AddComments.routeName: (context) => const AddComments(),
         AdminDashboard.routeName: (context) => const AdminDashboard(),
       },
     );
