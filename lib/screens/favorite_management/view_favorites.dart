@@ -60,10 +60,10 @@ class _ViewFavoritesState extends State<ViewFavorites> {
    * @Purpose: This method search the value entered in search field and check in firestore database
    * *******************************************************************************************************************
    */
-  searchQuotes() async {
+  searchQuotes(String value) async {
 
     for(String quote in quoteList){
-      if(quote.contains('Early')){
+      if(quote.contains(value)){
         print('Quote Found!'+quote);
         quoteList = [];
         fetchQuoteDetail(quote);
@@ -159,7 +159,7 @@ class _ViewFavoritesState extends State<ViewFavorites> {
                     ),
                     onChanged: (String value){
                       if(value.isNotEmpty){
-                        searchQuotes();
+                        searchQuotes(value.toString());
                       }else{
                         clearSearch();
                       }
@@ -172,7 +172,7 @@ class _ViewFavoritesState extends State<ViewFavorites> {
                 }
                 else{
                   cusIcon = const Icon(Icons.search);
-                  cusSearchBar = const Text("All Quotes");
+                  cusSearchBar = const Text("View Favorites");
                 }
               });
             },
