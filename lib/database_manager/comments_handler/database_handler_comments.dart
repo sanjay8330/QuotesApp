@@ -95,6 +95,7 @@ class DatabaseHandler {
     }
   }
 
+  //delete comments
   Future deleteComments(String commentId) async {
 
     try{
@@ -112,4 +113,20 @@ class DatabaseHandler {
     }
   }
 
+  //update comments
+  Future updateComment (String? docID, String? content) async {
+    try{
+      bool successStatus = false;
+
+      await commentlist.doc(docID).update({
+        'Content': content,
+      }).then((value){
+        successStatus = true;
+      });
+      return successStatus;
+    }catch(error) {
+      print('Error Occurred in Updating Quote '+ error.toString());
+      return false;
+    }
+  }
 }
