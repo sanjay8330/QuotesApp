@@ -9,11 +9,13 @@ class ViewSingleQuote extends StatefulWidget {
   static String routeName = '/viewSingleQuote';
   final String? quoteText;
   final String? quote;
+  final String? UserId;
 
   const ViewSingleQuote({
     Key? key,
     this.quoteText,
-    this.quote
+    this.quote,
+    this.UserId,
   }) : super(key: key);
 
   @override
@@ -121,7 +123,7 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
           const SizedBox(width: double.infinity, height: 10,),
           Align(
             alignment: Alignment.bottomCenter,
-              child: BottomIconList(copyText: quote, userID: 'US001', quoteID: docId,))
+              child: BottomIconList(copyText: quote, userID: this.widget.UserId.toString(), quoteID: docId,))
         ],
       )
     );

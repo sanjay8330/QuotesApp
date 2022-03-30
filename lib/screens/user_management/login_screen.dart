@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quotes_app/components/user_management_component/home.dart';
 import 'package:quotes_app/screens/user_management/registration_screen.dart';
+import 'package:quotes_app/screens/user_management/user_welcome.dart';
 
 import 'dashboard.dart';
 
@@ -165,8 +166,8 @@ class _LoginScreenState extends State<LoginScreen> {
           .then((uid) => {
                 Fluttertoast.showToast(msg: "Login Successful"),
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => Home())),
-                //MaterialPageRoute(builder: (context) => UserWelcome())),
+                   // MaterialPageRoute(builder: (context) => Home())),
+                MaterialPageRoute(builder: (context) => UserWelcome())),
               })
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);

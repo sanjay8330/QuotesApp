@@ -5,10 +5,13 @@ class DatabaseHandler {
       'UserComments');
   final CollectionReference quoteslist = FirebaseFirestore.instance.collection(
       'Quotes');
+  final CollectionReference userList = FirebaseFirestore.instance.collection('users');
 
   List commentListToReturn = [];
   List quoteDetailListToReturn = [];
   List commentListToReturnToDelete = [];
+  List userDetailListToReturn = [];
+  List userListToReturn = [];
 
   //get comments by the quote ID
   Future getCommentsbyQuoteID(String quoteId) async {
@@ -127,6 +130,42 @@ class DatabaseHandler {
     }catch(error) {
       print('Error Occurred in Updating Quote '+ error.toString());
       return false;
+    }
+  }
+
+  //get user details
+  Future getUserDetails(String userId) async {
+    try{
+
+      List userDetaillocal = [];
+
+      await userList.where('uid', isEqualTo: userId).get().then((querysnapshot) {
+        for (var element in querysnapshot.docs) {
+          userDetaillocal.add(element.data());
+        }
+        userDetailListToReturn = userDetaillocal;
+      });
+      return userDetailListToReturn;
+    }catch(error) {
+      print('Error Occurred in Retrieve '+ error.toString());
+      return null;
+    }
+  }
+
+  Future getAllUsers() async {
+    try{
+      List allUsersLocal = [];
+
+      await userList.get().then((querysnapshot) {
+        for (var element in querysnapshot.docs) {
+          allUsersLocal.add(element.data());
+        }
+        userListToReturn = allUsersLocal;
+      });
+      return userListToReturn;
+    }catch(error) {
+      print('Error Occurred in Retrieving Quotes '+ error.toString());
+      return null;
     }
   }
 }

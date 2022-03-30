@@ -6,10 +6,12 @@ import '../favorite_management/view_single_quote.dart';
 class ViewQuotes extends StatefulWidget {
   static String routeName = '/viewQuotes';
   final String? selectedCategory;
+  final String? UserId;
 
   const ViewQuotes({
     Key? key,
-    this.selectedCategory
+    this.selectedCategory,
+    this.UserId,
   }) : super(key: key);
 
   @override
@@ -85,7 +87,7 @@ class _ViewQuotesState extends State<ViewQuotes> {
                         subtitle: Text(quotesList[index]['personName']),
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(
-                            builder: (_) => ViewSingleQuote(quote: quotesList[index]['quote'])
+                            builder: (_) => ViewSingleQuote(quote: quotesList[index]['quote'], UserId: widget.UserId,)
                           ));
                         },
                       ),
