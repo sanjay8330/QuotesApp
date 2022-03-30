@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:quotes_app/components/user_management_component/home.dart';
 import 'package:quotes_app/screens/user_management/registration_screen.dart';
-import 'package:quotes_app/screens/user_management/user_welcome.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -113,9 +113,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       SizedBox(
-                        height: 200,
+                        height: 300,
                         child: Image.asset(
-                            'assets/images/user_management/login.jpg'),
+                            'assets/images/user_management/homeIcon.jpg'),
                       ),
                       SizedBox(height: 45),
                       emailField,
@@ -137,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           RegistrationScreen()));
                             },
                             child: Text(
-                              "SignUp",
+                              " SignUp",
                               style: TextStyle(
                                   color: Colors.blueAccent,
                                   fontWeight: FontWeight.bold,
@@ -163,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
           .then((uid) => {
                 Fluttertoast.showToast(msg: "Login Successful"),
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => UserWelcome())),
+                    MaterialPageRoute(builder: (context) => Home())),
               })
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);
