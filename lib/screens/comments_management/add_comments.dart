@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/components/layout.dart';
 import '../../database_manager/comments_handler/database_handler_comments.dart';
+import '../../screens/comments_management/view_comments.dart';
 
 class AddComments extends StatefulWidget {
   static String routeName = '/addComment';
   final String? quote;
   final String? quoteID;
+  final String? UserId;
 
   const AddComments({
     Key? key,
     this.quoteID,
     this.quote,
+    this.UserId,
   }) : super(key: key);
 
   @override
@@ -32,7 +35,6 @@ class _AddCommentsState extends State<AddComments> {
   String quoteText = '';
   String personImage = '';
   String personName = '';
-  String? UserId = '02';
   String docId = '';
   String? content;
   DateTime? time = DateTime.now();
@@ -68,12 +70,17 @@ class _AddCommentsState extends State<AddComments> {
   saveComment () async {
     if(_formkey.currentState!.validate()){
       _formkey.currentState!.save();
-      bool result = await DatabaseHandler().saveComment(widget.quoteID.toString(),UserId, content, time);
+      bool result = await DatabaseHandler().saveComment(widget.quoteID.toString(),widget.UserId.toString(), content, time);
 
       if(result){
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Comment Added Successfully'),)
         );
+        {Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => ViewComments(quoteID: widget.quoteID.toString(), quote: widget.quote.toString()
+                )));}
       }else{
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Something went wrong. Try again later!'),)

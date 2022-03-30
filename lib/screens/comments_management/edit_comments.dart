@@ -33,6 +33,7 @@ class _UpdateCommentsState extends State<UpdateComments> {
   String personImage = '';
   String personName = '';
   String? UserId = '02';
+  String? docIdQuote = '';
   String docId = '';
   String? contentText;
   String? UserIDforUpdate = '';
@@ -53,7 +54,7 @@ class _UpdateCommentsState extends State<UpdateComments> {
       });
 
       setState(() {
-        docId = quoteDetailList[1].toString();
+        docIdQuote = quoteDetailList[1].toString();
       });
 
       for (var element in quoteDetailList) {
@@ -81,7 +82,7 @@ class _UpdateCommentsState extends State<UpdateComments> {
       setState(() {
         docId = commentDetailList[1].toString();
       });
-      print(docId);
+      print('ab' + docId);
 
     }
   }
@@ -94,6 +95,7 @@ class _UpdateCommentsState extends State<UpdateComments> {
 
     //update comment
     updateComment () async {
+      fetchCommentsDetails();
       if(_formkey.currentState!.validate()){
         _formkey.currentState!.save();
         bool result = await DatabaseHandler().updateComment(docId, contentText);
@@ -102,7 +104,12 @@ class _UpdateCommentsState extends State<UpdateComments> {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Comment Updated Successfully'),)
           );
-          Navigator.of(context).pushNamed(ViewComments.routeName);
+          {Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => ViewComments(quoteID: docIdQuote, quote: quoteText
+                  )));
+          }
         }else{
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Something went wrong. Try again later!'),)
@@ -112,7 +119,7 @@ class _UpdateCommentsState extends State<UpdateComments> {
     }
 
     return Layout(
-      context: 'Add Comment',
+      context: 'Edit Comment',
       widget: Column(
         children: [
           Flexible(
