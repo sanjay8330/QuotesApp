@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quotes_app/screens/admin_management/view_users.dart';
 import '../../screens/quote_management/quotes_list_for_admin.dart';
 
 class AdminDashboard extends StatelessWidget {
@@ -50,7 +51,9 @@ class AdminDashboard extends StatelessWidget {
                           ),
                           side: BorderSide(color: Colors.white)),
                     ),
-                    onPressed: () => {},
+                    onPressed: () => {
+                      Navigator.of(context).pushNamed(ViewUsers.routeName)
+                    },
                     child: const Text('Manage User Profiles',
                         style: TextStyle(color: Colors.white, fontSize: 20))),
               ),

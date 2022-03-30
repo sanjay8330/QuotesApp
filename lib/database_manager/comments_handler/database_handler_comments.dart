@@ -30,8 +30,7 @@ class DatabaseHandler {
   }
 
   //add comments
-  Future saveComment(String? QuoteId, String? UserId, String? content,
-      DateTime? time) async {
+  Future saveComment(String? QuoteId, String? UserId, String? content, DateTime? time) async {
     try {
       bool successStatus = false;
 
@@ -117,6 +116,7 @@ class DatabaseHandler {
   Future updateComment (String? docID, String? content) async {
     try{
       bool successStatus = false;
+      print('dssd' + docID!);
 
       await commentlist.doc(docID).update({
         'Content': content,

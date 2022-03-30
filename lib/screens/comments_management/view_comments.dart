@@ -12,6 +12,9 @@ class ViewComments extends StatefulWidget {
   final String? docID;
   final String? userID = '02';
 
+
+  final String? URL = 'https://www.kindpng.com/imgv/ixJxxh_transparent-avatar-png-male-avatar-icon-transparent-png/';
+
   const ViewComments({
     Key? key,
     this.quoteID,
@@ -36,7 +39,6 @@ class _ViewCommentsState extends State<ViewComments> {
   }
 
   getCommentsList() async {
-    //List result = await DatabaseHandler().getCommentsbyQuoteID(widget.QuoteID.toString());
     List result = await DatabaseHandler().getCommentsbyQuoteID(widget.quoteID.toString());
 
     if(result.isEmpty){
@@ -64,77 +66,90 @@ class _ViewCommentsState extends State<ViewComments> {
     String userId = '';
 
     fetchCommentsDetails(commentToRetrieve) async {
-    List result = await DatabaseHandler().getCommentDetails(commentToRetrieve);
 
-    if(result == null){
-    print('Unable to retrieve!');
-    }else{
-    setState(() {
-    commentDetailList = result;
-    });
-
-    print('DOC ID : '+commentDetailList[0].toString());
-
-    final iterableMap = commentDetailList.whereType<Map>().first;
-    print(iterableMap['UserId']);
-    setState(() {
-    docID = commentDetailList[1].toString();
-    UserIDforDelete = iterableMap['UserId'];
-    });
-    }
-    }
-
-    navigateToEdit(contentText) {
-      if (UserIDforDelete == widget.userID) {
-        {Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => UpdateComments(quoteID: contentText, quote: widget.quote.toString()
-                )));
-        }
+      List result = await DatabaseHandler().getCommentDetails(commentToRetrieve);
+      print( commentToRetrieve);
+      print(result);
+      if(result == null){
+        print('Unable to retrieve!');
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text('You can not edit this comment!')
-            )
-        );
+        setState(() {
+          commentDetailList = result;
+        });
+
+        print('DOC ID : '+commentDetailList[1].toString());
+
+        final iterableMap = commentDetailList.whereType<Map>().first;
+        print(iterableMap['UserId']);
+        setState(() {
+          docID = commentDetailList[1].toString();
+          UserIDforDelete = iterableMap['UserId'];
+        });
+
+        print( UserIDforDelete);
       }
+    }
+
+    navigateToEdit(contentText) async {
+      await fetchCommentsDetails(contentText);
+          if (UserIDforDelete == widget.userID) {
+            {Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => UpdateComments(quoteID: contentText, quote: widget.quote.toString()
+                    )));
+            }
+          }else{
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    content: Text('You can not edit this comment!')
+                )
+            );
+
+
+      }
+
     }
 
     void deleteComment(String commentID) async {
 
-      if (UserIDforDelete == widget.userID){
         await fetchCommentsDetails(commentID).then((value) async {
-          bool result = await DatabaseHandler().deleteComments(docID);
 
-          if(result){
+          if (UserIDforDelete == widget.userID){
+            bool result = await DatabaseHandler().deleteComments(docID);
+
+            if (result) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text('Comment Deleted!')
+                  )
+              );
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => ViewComments(quoteID: widget.quoteID.toString(), quote: widget.quote.toString()
+                      )));
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text('Something went wrong. Try again later!')
+                  )
+              );
+            }
+
+          }else{
             ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                    content: Text('Quote Removed from Database!')
-                )
-            );
-            Navigator.of(context).pushNamed(AddComments.routeName);
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text('Something went wrong. Try again later!')
+                    content: Text('You can not delete this comment!')
                 )
             );
           }
+
         });
-      }else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text('You can not delete this comment!')
-            )
-        );
-      }
-
-
 
     }
 
-    return Layout(
+      return Layout(
       context: "Comments",
       widget: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -149,43 +164,55 @@ class _ViewCommentsState extends State<ViewComments> {
           ),
           const SizedBox(width: double.infinity, height: 10,),
           Flexible(
-            child: comments.isNotEmpty ? ListView.builder(
+            child: comments.isNotEmpty ?
+             ListView.builder(
                 itemCount: comments.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-                    margin: const EdgeInsets.all(8.0),
-                    elevation: 4,
-                    child:
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(comments[index]['Content'], overflow: TextOverflow.ellipsis, softWrap: false,),
-                        Column(
+                  return Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(width: 2, color: Colors.blueAccent),
+                      ),
+                    ),
+                    padding: EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
+                    child: Row(
+                      children:  [
+                        Expanded(child: Row(
                           children: [
-                            Text(comments[index]['Content'], overflow: TextOverflow.ellipsis, softWrap: false,),
+                            CircleAvatar(
+                              backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDLCMYvrwSI4UZ286J8ypqIvxrYQSglDGy5chXyDRCbZ62dyJGqy-S4-XtSqfqjLmiukc&usqp=CAU'),
+                              maxRadius: 35,
+                            ),
+                            SizedBox(width: 16,),
+                            Expanded(child: Container(
+
+                              color: Colors.transparent,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children:[
+                                  Text(' ', style: TextStyle(fontSize: 16), ),
+                                  Text(comments[index]['Content'], style: TextStyle(fontSize: 16), ),
+                                  SizedBox(height: 4,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(comments[index]['UserId'], style: TextStyle(fontSize: 13,color: Colors.grey.shade600,)),
+                                      Spacer(),
+                                      IconButton(onPressed: () {deleteComment(comments[index]['Content'].toString());}, icon: const Icon(Icons.delete_forever)),
+                                      IconButton(onPressed: () {navigateToEdit(comments[index]['Content'].toString());}, icon: const Icon(Icons.edit)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ))
                           ],
-                        ),
-                        Column(
-                          children: [
-                            Text(comments[index]['UserId']),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            IconButton(onPressed: () {deleteComment(comments[index]['Content'].toString());}, icon: const Icon(Icons.delete_forever)),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            IconButton(onPressed: () {navigateToEdit(comments[index]['Content'].toString());}, icon: const Icon(Icons.edit)),
-                          ],
-                        ),
-                        ],
+                        ))
+                      ],
                     ),
 
                     );
                 }
+
             ) : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -201,7 +228,7 @@ class _ViewCommentsState extends State<ViewComments> {
             child: FloatingActionButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (_) => (AddComments(quoteID: widget.quoteID.toString(), quote: widget.quote.toString(),)
+                    builder: (_) => (AddComments(quoteID: widget.quoteID.toString(), quote: widget.quote.toString(), UserId: widget.userID.toString())
                 )));
               },
               child: const Icon(Icons.add),
