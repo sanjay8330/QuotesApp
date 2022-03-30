@@ -79,7 +79,8 @@ class _AddCommentsState extends State<AddComments> {
         {Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (_) => ViewComments(quoteID: widget.quoteID.toString(), quote: widget.quote.toString()
+                builder: (_) => ViewComments(quoteID: widget.quoteID.toString(), quote: widget.quote.toString(),
+                  userID: widget.UserId.toString(),
                 )));}
       }else{
         ScaffoldMessenger.of(context).showSnackBar(
