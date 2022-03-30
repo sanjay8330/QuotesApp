@@ -24,13 +24,16 @@ class _UserWelcomeState extends State<UserWelcome> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print('user ID' + user.toString()!);
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
         .get()
         .then((value) {
       this.loggedInUser = UserModel.fromMap(value.data());
-      setState(() {});
+      setState(() {
+        print(loggedInUser.uid);
+      });
     });
   }
 
@@ -82,6 +85,8 @@ class _UserWelcomeState extends State<UserWelcome> {
         ),
       ),
     );*/
+
+
 
     return Scaffold(
       appBar: AppBar(
@@ -142,7 +147,12 @@ class _UserWelcomeState extends State<UserWelcome> {
                           side: BorderSide(color: Colors.white)),
                     ),
                     onPressed: () =>
-                    {Navigator.of(context).pushNamed(FindQuotes.routeName)},
+
+                    {Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                    builder: (_) => FindQuotes(UserId: loggedInUser.uid
+                    )))},
                     child: const Text('Find Quotes',
                         style: TextStyle(color: Colors.white, fontSize: 20))),
               ),

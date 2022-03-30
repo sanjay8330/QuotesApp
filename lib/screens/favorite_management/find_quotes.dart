@@ -6,11 +6,14 @@ import '../quote_management/view_quotes_people.dart';
 
 class FindQuotes extends StatelessWidget {
   static String routeName = '/findQuotes';
+  final String? UserId;
 
-  const FindQuotes({Key? key}) : super(key: key);
+  const FindQuotes({Key? key,
+  this.UserId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -86,7 +89,11 @@ class FindQuotes extends StatelessWidget {
                       width: 250,
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed(ViewQuotesCategory.routeName);
+                            {Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => ViewQuotesCategory(UserId: this.UserId,
+                                    )));}
                           },
                           child: const Text('Find Quotes by Category')),
                     ),

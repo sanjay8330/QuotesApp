@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/comments_handler/database_handler_comments.dart';
 import 'package:quotes_app/screens/comments_management/add_comments.dart';
 import '../../components/layout.dart';
+import '../../model/user_model.dart';
 import '../../screens/comments_management/edit_comments.dart';
 
 class ViewComments extends StatefulWidget {
@@ -10,13 +13,13 @@ class ViewComments extends StatefulWidget {
   final String? quoteID;
   final String? quote;
   final String? docID;
-  final String? userID = '02';
-
+  final String? userID;
 
   final String? URL = 'https://www.kindpng.com/imgv/ixJxxh_transparent-avatar-png-male-avatar-icon-transparent-png/';
 
   const ViewComments({
     Key? key,
+    this.userID,
     this.quoteID,
     this.docID,
     this.quote,
@@ -29,14 +32,21 @@ class ViewComments extends StatefulWidget {
 
 class _ViewCommentsState extends State<ViewComments> {
 
+  UserModel loggedInUser = UserModel();
   List comments = [];
   String? UserIDforDelete = '';
+  List UsersList = [];
+  String? UserName;
+  String? Username;
+  List userDetailList = [];
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     getCommentsList();
   }
+
 
   getCommentsList() async {
     List result = await DatabaseHandler().getCommentsbyQuoteID(widget.quoteID.toString());
@@ -56,12 +66,11 @@ class _ViewCommentsState extends State<ViewComments> {
   }
 
 
-
-
   @override
   Widget build(BuildContext context) {
 
     List commentDetailList = [];
+
     String docID = '';
     String userId = '';
 
@@ -87,8 +96,12 @@ class _ViewCommentsState extends State<ViewComments> {
         });
 
         print( UserIDforDelete);
+
       }
     }
+
+
+
 
     navigateToEdit(contentText) async {
       await fetchCommentsDetails(contentText);
@@ -195,8 +208,10 @@ class _ViewCommentsState extends State<ViewComments> {
                                   SizedBox(height: 4,),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(comments[index]['UserId'], style: TextStyle(fontSize: 13,color: Colors.grey.shade600,)),
+                                    children: [ (widget.userID == comments[index]['UserId'])
+                                          ? Text('Added by you', style: TextStyle(fontSize: 13,color: Colors.grey.shade600,))
+                                          : Text(' ', style: TextStyle(fontSize: 13,color: Colors.grey.shade600,)),
+
                                       Spacer(),
                                       IconButton(onPressed: () {deleteComment(comments[index]['Content'].toString());}, icon: const Icon(Icons.delete_forever)),
                                       IconButton(onPressed: () {navigateToEdit(comments[index]['Content'].toString());}, icon: const Icon(Icons.edit)),

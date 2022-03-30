@@ -4,8 +4,9 @@ import 'package:quotes_app/screens/quote_management/view_quotes.dart';
 
 class ViewQuotesCategory extends StatefulWidget {
   static String routeName = '/ViewQuotesCategory';
+  final String? UserId;
 
-  const ViewQuotesCategory({Key? key}) : super(key: key);
+  const ViewQuotesCategory({Key? key, this.UserId}) : super(key: key);
 
   @override
   State<ViewQuotesCategory> createState() => _ViewQuotesCategoryState();
@@ -111,7 +112,7 @@ class _ViewQuotesCategoryState extends State<ViewQuotesCategory> {
                   ),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(
-                        builder: (_) => ViewQuotes(selectedCategory: uniqueCategoriesList[index].toString(),)
+                        builder: (_) => ViewQuotes(selectedCategory: uniqueCategoriesList[index].toString(), UserId: widget.UserId,)
                     ));
                   },
                   child: Text(
