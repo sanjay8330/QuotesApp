@@ -4,12 +4,14 @@ import '../../database_manager/comments_handler/database_handler_comments.dart';
 
 class AddComments extends StatefulWidget {
   static String routeName = '/addComment';
-  //final String quote = 'D3onguNGLjHhaQ509Xz3';
+  final String? quote;
   final String? quoteID;
 
   const AddComments({
     Key? key,
-    this.quoteID}) : super(key: key);
+    this.quoteID,
+    this.quote,
+  }) : super(key: key);
 
   @override
   State<AddComments> createState() => _AddCommentsState();
@@ -30,20 +32,25 @@ class _AddCommentsState extends State<AddComments> {
   String quoteText = '';
   String personImage = '';
   String personName = '';
-  String? UserId = '01';
+  String? UserId = '02';
+  String docId = '';
   String? content;
   DateTime? time = DateTime.now();
 
   //retrieve quote
   fetchQuotesList() async {
     List result = await DatabaseHandler().getQuoteDetails(
-        widget.quoteID.toString());
+        widget.quote.toString());
 
     if (result == null) {
       print('Unable to retrieve!');
     } else {
       setState(() {
         quoteDetailList = result;
+      });
+
+      setState(() {
+        docId = quoteDetailList[1].toString();
       });
 
       for (var element in quoteDetailList) {
@@ -117,6 +124,9 @@ class _AddCommentsState extends State<AddComments> {
                     ),
                   ),
                   const SizedBox(width: double.infinity, height: 40,),
+                ],
+              ),
+                  ),
                   Align(
                       alignment: Alignment.bottomCenter,
                       child: Column(
@@ -192,10 +202,6 @@ class _AddCommentsState extends State<AddComments> {
                     ),)
                     ],
                     ),
-            ),
-          ],
-              ),
-
             );
 
   }

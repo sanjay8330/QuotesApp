@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/comments_handler/database_handler_comments.dart';
 import 'package:quotes_app/screens/comments_management/add_comments.dart';
 import '../../components/layout.dart';
+import '../../screens/comments_management/edit_comments.dart';
 
 class ViewComments extends StatefulWidget {
   static String routeName = '/ViewComments';
   //final String? QuoteID = 'D3onguNGLjHhaQ509Xz3';
   final String? quoteID;
+  final String? quote;
   final String? docID;
+  final String? userID = '01';
 
   const ViewComments({
     Key? key,
     this.quoteID,
     this.docID,
+    this.quote,
   }) : super(key: key);
 
   @override
@@ -23,6 +27,7 @@ class ViewComments extends StatefulWidget {
 class _ViewCommentsState extends State<ViewComments> {
 
   List comments = [];
+  String? UserIDforDelete = '';
 
   @override
   void initState() {
@@ -56,6 +61,7 @@ class _ViewCommentsState extends State<ViewComments> {
 
     List commentDetailList = [];
     String docID = '';
+    String userId = '';
 
     fetchCommentsDetails(commentToRetrieve) async {
     List result = await DatabaseHandler().getCommentDetails(commentToRetrieve);
@@ -67,33 +73,64 @@ class _ViewCommentsState extends State<ViewComments> {
     commentDetailList = result;
     });
 
-    print('DOC ID : '+commentDetailList[1].toString());
+    print('DOC ID : '+commentDetailList[0].toString());
+
+    final iterableMap = commentDetailList.whereType<Map>().first;
+    print(iterableMap['UserId']);
     setState(() {
     docID = commentDetailList[1].toString();
+    UserIDforDelete = iterableMap['UserId'];
     });
     }
     }
 
+    navigateToEdit(contentText) {
+      if (UserIDforDelete == widget.userID) {
+        {Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => UpdateComments(quoteID: contentText, quote: widget.quote.toString()
+                )));
+        }
+      }else{
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text('You can not edit this comment!')
+            )
+        );
+      }
+    }
+
     void deleteComment(String commentID) async {
 
-      await fetchCommentsDetails(commentID).then((value) async {
-        bool result = await DatabaseHandler().deleteComments(docID);
+      if (UserIDforDelete == widget.userID){
+        await fetchCommentsDetails(commentID).then((value) async {
+          bool result = await DatabaseHandler().deleteComments(docID);
 
-        if(result){
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                  content: Text('Quote Removed from Database!')
-              )
-          );
-          Navigator.of(context).pushNamed(AddComments.routeName);
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                  content: Text('Something went wrong. Try again later!')
-              )
-          );
-        }
-      });
+          if(result){
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    content: Text('Quote Removed from Database!')
+                )
+            );
+            Navigator.of(context).pushNamed(AddComments.routeName);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    content: Text('Something went wrong. Try again later!')
+                )
+            );
+          }
+        });
+      }else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text('You can not delete this comment!')
+            )
+        );
+      }
+
+
 
     }
 
@@ -119,22 +156,35 @@ class _ViewCommentsState extends State<ViewComments> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                     margin: const EdgeInsets.all(8.0),
                     elevation: 4,
-                    child: Column(
+                    child:
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ListTile(
-                          /*leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(25.0),
-                        child: comments[index]['personImage'].toString().isNotEmpty ? Image.network(comments[index]['personImage']) : null,
-                      ),*/
-                          title: Text(comments[index]['Content'], overflow: TextOverflow.ellipsis, softWrap: false,),
-                          subtitle: Text(comments[index]['UserId']),
-                          trailing: IconButton(onPressed: () {deleteComment(comments[index]['Content'].toString());}, icon: const Icon(Icons.delete_forever)),
+                        Text(comments[index]['Content'], overflow: TextOverflow.ellipsis, softWrap: false,),
+                        Column(
+                          children: [
+                            Text(comments[index]['Content'], overflow: TextOverflow.ellipsis, softWrap: false,),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(comments[index]['UserId']),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            IconButton(onPressed: () {deleteComment(comments[index]['Content'].toString());}, icon: const Icon(Icons.delete_forever)),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            IconButton(onPressed: () {navigateToEdit(comments[index]['Content'].toString());}, icon: const Icon(Icons.edit)),
+                          ],
                         ),
                         ],
                     ),
 
                     );
-
                 }
             ) : Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -151,8 +201,8 @@ class _ViewCommentsState extends State<ViewComments> {
             child: FloatingActionButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (_) => AddComments(quoteID: widget.quoteID.toString(),)
-                ));
+                    builder: (_) => (AddComments(quoteID: widget.quoteID.toString(), quote: widget.quote.toString(),)
+                )));
               },
               child: const Icon(Icons.add),
             ),
