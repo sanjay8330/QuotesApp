@@ -8,8 +8,9 @@ import '../../database_manager/quote_handler/database_handler.dart';
 
 class AddQuotes extends StatefulWidget {
   static String routeName = '/addQuotes';
+  final String? quote;
 
-  const AddQuotes({Key? key}) : super(key: key);
+  const AddQuotes({Key? key, this.quote}) : super(key: key);
 
   @override
   State<AddQuotes> createState() => _AddQuotesState();
@@ -18,6 +19,38 @@ class AddQuotes extends StatefulWidget {
 class _AddQuotesState extends State<AddQuotes> {
   var selectedCategory;
   String imageURL = '';
+  List quoteDetailList = [];
+  String docID = '';
+
+  /*
+   *********************************************************************************************************************
+   * @Developer: Kasuni Navodya (IT19144986)
+   * @Created Date: 20/03/2022
+   * @Method: Retrieve added personal image in the page
+   * *******************************************************************************************************************
+*/
+  fetchQuotesList() async {
+    List result = await DatabaseHandler().getQuoteDetails(widget.quote.toString());
+
+    if(result == null){
+      print('Unable to retrieve!');
+    }else{
+      setState(() {
+        quoteDetailList = result;
+      });
+
+      print('DOC ID : '+quoteDetailList[1].toString());
+      setState(() {
+        docID = quoteDetailList[1].toString();
+      });
+
+      for (var element in quoteDetailList) {
+        setState(() {
+          imageURL = element['personImage'].toString();
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +147,7 @@ class _AddQuotesState extends State<AddQuotes> {
                   key: _formkey,
                   child: Container(
                     width: 400,
-                    height: 715,
+                    height: 840,
                     child: Card(
                       elevation: 40,
                       child: Column(
@@ -129,7 +162,29 @@ class _AddQuotesState extends State<AddQuotes> {
                               )),
                           const SizedBox(
                             width: double.infinity,
-                            height: 5,
+                            height: 20,
+                          ),
+                          Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50.0),
+                              child: imageURL.isNotEmpty ? Image.network(imageURL, width: 100, height: 100,) : null,
+                            ),
+                          ),
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: uploadImage,
+                              child: const Text('+ Upload Image'),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.blue,
+                                textStyle: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: double.infinity,
+                            height: 10,
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -174,22 +229,6 @@ class _AddQuotesState extends State<AddQuotes> {
                                   isExpanded: true,
                                   dropdownColor: Colors.white,
                                 ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: double.infinity,
-                            height: 20,
-                          ),
-                          Center(
-                            child: ElevatedButton(
-                              onPressed: uploadImage,
-                              child: const Text('+ Upload Image'),
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.blue,
-                                textStyle: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              ),
                             ),
                           ),
                           const SizedBox(

@@ -24,7 +24,7 @@ class AdminDashboard extends StatelessWidget {
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/user_management/home3.jpg"),
+              image: AssetImage("assets/images/user_management/2.png"),
               fit: BoxFit.cover),
         ),
         child: Column(
@@ -42,7 +42,7 @@ class AdminDashboard extends StatelessWidget {
                 height: 100,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      elevation: 5.0,
+                      elevation: 1.0,
                       primary: Colors.blue.withOpacity(0),
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
@@ -65,7 +65,7 @@ class AdminDashboard extends StatelessWidget {
                 height: 100,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      elevation: 5.0,
+                      elevation: 1.0,
                       primary: Colors.red.withOpacity(0),
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
@@ -90,7 +90,7 @@ class AdminDashboard extends StatelessWidget {
             const Center(
               child: Text(
                 'Powered by 2022_REG_02 CTSE Group',
-                style: TextStyle(fontSize: 15, color: Colors.white54),
+                style: TextStyle(fontSize: 15, color: Colors.white70),
               ),
             ),
           ],

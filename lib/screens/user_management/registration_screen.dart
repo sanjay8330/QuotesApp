@@ -200,7 +200,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       SizedBox(
                         height: 180,
                         child: Image.asset(
-                            'assets/images/user_management/login.jpg'),
+                            'assets/images/user_management/homeIcon2.jpg'),
                       ),
                       SizedBox(height: 18),
                       firstNameField,
