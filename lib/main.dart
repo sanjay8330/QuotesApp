@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quotes_app/screens/admin_management/view_profile.dart';
+import 'package:quotes_app/screens/admin_management/view_users.dart';
 import 'package:quotes_app/screens/quote_management/add_quotes.dart';
 import 'package:quotes_app/screens/favorite_management/find_quotes.dart';
 import 'package:quotes_app/screens/favorite_management/view_favorites.dart';
@@ -47,6 +49,8 @@ class MyApp extends StatelessWidget {
         //------------------------Keshawa(IT19150758)---------------------------
         Home.routeName: (context) => const Home(),
         User_home.routeName: (context) => const LoginScreen(),
+        ViewUsers.routeName : (context) => const ViewUsers(),
+        ViewProfile.routeName : (context) => const ViewProfile(),
         //-------------------------Sanjay(IT19158228)---------------------------
         FindQuotes.routeName: (context) => const FindQuotes(),
         ViewSingleQuote.routeName: (context) => const ViewSingleQuote(),
