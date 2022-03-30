@@ -11,6 +11,8 @@ class ViewComments extends StatefulWidget {
   final String? quote;
   final String? docID;
   final String? userID = '02';
+
+
   final String? URL = 'https://www.kindpng.com/imgv/ixJxxh_transparent-avatar-png-male-avatar-icon-transparent-png/';
 
   const ViewComments({
