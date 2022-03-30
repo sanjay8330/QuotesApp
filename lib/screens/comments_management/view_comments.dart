@@ -10,7 +10,7 @@ class ViewComments extends StatefulWidget {
   final String? quoteID;
   final String? quote;
   final String? docID;
-  final String? userID = '01';
+  final String? userID = '02';
 
   const ViewComments({
     Key? key,
