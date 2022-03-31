@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/screens/admin_management/view_users.dart';
 import '../../screens/quote_management/quotes_list_for_admin.dart';
+import 'login_screen.dart';
 
 class AdminDashboard extends StatelessWidget {
   static String routeName = '/dashboard';
@@ -17,7 +18,10 @@ class AdminDashboard extends StatelessWidget {
         backgroundColor: Colors.blueGrey,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const LoginScreen()));
+              },
               icon: const Icon(Icons.logout)),
         ],
       ),
@@ -40,7 +44,7 @@ class AdminDashboard extends StatelessWidget {
             Flexible(
               child: SizedBox(
                 width: 270,
-                height: 100,
+                height: 1040,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 1.0,
@@ -65,7 +69,7 @@ class AdminDashboard extends StatelessWidget {
             Flexible(
               child: SizedBox(
                 width: 270,
-                height: 100,
+                height: 140,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 1.0,
@@ -84,11 +88,7 @@ class AdminDashboard extends StatelessWidget {
             ),
             const SizedBox(
               width: double.infinity,
-              height: 20,
-            ),
-            const SizedBox(
-              width: double.infinity,
-              height: 193,
+              height: 170,
             ),
             const Center(
               child: Text(
