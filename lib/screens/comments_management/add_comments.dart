@@ -39,7 +39,13 @@ class _AddCommentsState extends State<AddComments> {
   String? content;
   DateTime? time = DateTime.now();
 
-  //retrieve quote
+  /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 28/03/2022
+  * @Method: rretrieve quote list details from the firebase
+  * *******************************************************************************************************************
+ */
   fetchQuotesList() async {
     List result = await DatabaseHandler().getQuoteDetails(
         widget.quote.toString());
@@ -66,7 +72,13 @@ class _AddCommentsState extends State<AddComments> {
     }
   }
 
-  //insert comment
+  /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 28/03/2022
+  * @Method: insert comment quote to the firebase (Quote ID, User ID, comment, time)
+  * *******************************************************************************************************************
+ */
   saveComment () async {
     if(_formkey.currentState!.validate()){
       _formkey.currentState!.save();

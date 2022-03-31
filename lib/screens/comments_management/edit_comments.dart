@@ -7,11 +7,13 @@ class UpdateComments extends StatefulWidget {
   static String routeName = '/updateComment';
   final String? quote;
   final String? quoteID;
+  final String? userID;
 
   const UpdateComments({
     Key? key,
     this.quoteID,
     this.quote,
+    this.userID,
   }) : super(key: key);
 
   @override
@@ -32,16 +34,19 @@ class _UpdateCommentsState extends State<UpdateComments> {
   String quoteText = '';
   String personImage = '';
   String personName = '';
-  String? UserId = '02';
   String? docIdQuote = '';
   String docId = '';
   String? contentText;
-  String? UserIDforUpdate = '';
-  String? QuoteIDforUpdate = '';
   DateTime? time;
 
+/*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 29/03/2022
+  * @Method: retrieve quote list from the firebase
+  * *******************************************************************************************************************
+ */
 
-  //retrieve quote
   fetchQuotesList() async {
     List result = await DatabaseHandler().getQuoteDetails(
         widget.quote.toString());
@@ -68,7 +73,14 @@ class _UpdateCommentsState extends State<UpdateComments> {
     }
   }
 
-  //retrieve comment
+  /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani (IT19150826)
+  * @Created Date: 29/03/2022
+  * @Method: retrieve comment details from the firebase by using the comment
+  * *******************************************************************************************************************
+ */
+
   fetchCommentsDetails() async {
     List result = await DatabaseHandler().getCommentDetails(widget.quoteID.toString());
 
@@ -93,7 +105,13 @@ class _UpdateCommentsState extends State<UpdateComments> {
 
     final _formkey = GlobalKey<FormState>();
 
-    //update comment
+    /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 30/03/2022
+  * @Method: update comment details from the firebase by using the comment
+  * *******************************************************************************************************************
+ */
     updateComment () async {
       fetchCommentsDetails();
       if(_formkey.currentState!.validate()){
@@ -107,7 +125,7 @@ class _UpdateCommentsState extends State<UpdateComments> {
           {Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (_) => ViewComments(quoteID: docIdQuote, quote: quoteText
+                  builder: (_) => ViewComments(quoteID: docIdQuote, quote: quoteText, userID: widget.userID.toString(),
                   )));
           }
         }else{
@@ -120,7 +138,8 @@ class _UpdateCommentsState extends State<UpdateComments> {
 
     return Layout(
       context: 'Edit Comment',
-      widget: Column(
+      widget:
+      Column(
         children: [
           Flexible(
             //flex: 7,
@@ -137,7 +156,7 @@ class _UpdateCommentsState extends State<UpdateComments> {
                 Flexible(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50.0),
-                    child: personImage.isNotEmpty ? Image.network(personImage, width: 200, height: 200,) : null,
+                    child: personImage.isNotEmpty ? Image.network(personImage, width: 150, height: 150,) : null,
                   ),
                 ),
                 const SizedBox(width: double.infinity, height: 40,),
