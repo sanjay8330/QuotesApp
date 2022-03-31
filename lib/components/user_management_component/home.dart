@@ -7,7 +7,6 @@ import '../../screens/user_management/dashboard.dart';
 
 class Home extends StatelessWidget {
   static String routeName = '/home';
-
   const Home({Key? key}) : super(key: key);
 
   @override
@@ -31,10 +30,8 @@ class Home extends StatelessWidget {
               icon: const Icon(Icons.feedback_sharp)),
           IconButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const LoginScreen()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const LoginScreen()));
               },
               icon: const Icon(Icons.login)),
         ],
@@ -52,7 +49,10 @@ class Home extends StatelessWidget {
               padding: EdgeInsets.all(83.0),
               child: Text(
                 'QUORE',
-                style: TextStyle(fontSize: 69, color: Colors.lightBlueAccent, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 69,
+                    color: Colors.lightBlueAccent,
+                    fontWeight: FontWeight.bold),
               ),
             ),
             Flexible(
@@ -118,9 +118,9 @@ class Home extends StatelessWidget {
                           side: BorderSide(color: Colors.white)),
                     ),
                     onPressed: () => {
-                      Navigator.of(context)
-                          .pushNamed(AdminDashboard.routeName)
-                    },
+                          Navigator.of(context)
+                              .pushNamed(AdminDashboard.routeName)
+                        },
                     child: const Text('Admin Dashboard',
                         style: TextStyle(color: Colors.white, fontSize: 20))),
               ),

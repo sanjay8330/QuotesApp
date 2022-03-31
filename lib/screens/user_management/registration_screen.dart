@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:quotes_app/model/user_model.dart';
 
 
@@ -250,6 +249,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.uid = user!.uid;
     userModel.firstname = firstNameEditingController.text;
     userModel.secondname = secondNameEditingController.text;
+    userModel.category = 'User';
 
     await firebaseFirestore
         .collection("users")

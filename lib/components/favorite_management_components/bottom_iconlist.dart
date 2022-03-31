@@ -147,7 +147,9 @@ class _BottomIconListState extends State<BottomIconList> {
                   onPressed: () {
                     //Navigator.of(context).pushNamed(ViewComments.routeName);
                     Navigator.push(context, MaterialPageRoute(
-                        builder: (_) => ViewComments(quoteID: widget.quoteID.toString(), quote: widget.copyText.toString())
+                        builder: (_) => ViewComments(quoteID: widget.quoteID.toString(),
+                            quote: widget.copyText.toString(),
+                        userID:widget.userID.toString() )
                     ));
                     },
                   icon: const Icon(
