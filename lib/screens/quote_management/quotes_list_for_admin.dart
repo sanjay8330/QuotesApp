@@ -98,7 +98,7 @@ class _AdminQuoteListState extends State<AdminQuoteList> {
     }
 
     return Layout(
-      context: "Admin - Quotes List",
+      context: "All Quotes List",
       widget: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
