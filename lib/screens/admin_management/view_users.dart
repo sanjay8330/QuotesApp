@@ -41,7 +41,8 @@ class _ViewUsersState extends State<ViewUsers> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('List of Users'),
+        title: Center(child: const Text('List of Users')),
+        backgroundColor: Colors.blueGrey,
       ),
       body: userList.isNotEmpty ? ListView.builder(
           itemCount: userList.length,

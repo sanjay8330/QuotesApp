@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quotes_app/components/user_management_component/home.dart';
+import '../screens/user_management/user_welcome.dart';
 
 class Layout extends StatelessWidget {
   final String context;
@@ -23,7 +23,7 @@ class Layout extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => const Home()));
+                        builder: (_) => const UserWelcome()));
               },
               icon: const Icon(Icons.home)),
         ],

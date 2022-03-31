@@ -16,7 +16,7 @@ import 'package:quotes_app/screens/quote_management/view_quotes_people.dart';
 import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
 import 'package:quotes_app/screens/user_management/dashboard.dart';
 import 'package:quotes_app/screens/user_management/user_home.dart';
-import 'components/user_management_component/home.dart';
+import 'package:quotes_app/screens/user_management/user_welcome.dart';
 import 'package:quotes_app/screens/comments_management/view_comments.dart';
 import 'package:quotes_app/screens/comments_management/add_comments.dart';
 import 'package:quotes_app/screens/user_management/login_screen.dart';
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       initialRoute: User_home.routeName,
       routes: {
         //------------------------Keshawa(IT19150758)---------------------------
-        Home.routeName: (context) => const Home(),
+        UserWelcome.routeName: (context) => const UserWelcome(),
         User_home.routeName: (context) => const LoginScreen(),
         ViewUsers.routeName : (context) => const ViewUsers(),
         ViewProfile.routeName : (context) => const ViewProfile(),

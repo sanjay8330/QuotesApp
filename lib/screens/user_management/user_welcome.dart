@@ -10,6 +10,8 @@ import 'dashboard.dart';
 import 'login_screen.dart';
 
 class UserWelcome extends StatefulWidget {
+  static String routeName = '/UserWelcome';
+
   const UserWelcome({Key? key}) : super(key: key);
 
   @override
@@ -135,7 +137,7 @@ class _UserWelcomeState extends State<UserWelcome> {
             Flexible(
               child: SizedBox(
                 width: 270,
-                height: 100,
+                height: 140,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 1.0,
@@ -164,7 +166,7 @@ class _UserWelcomeState extends State<UserWelcome> {
             Flexible(
               child: SizedBox(
                 width: 270,
-                height: 100,
+                height: 140,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 1.0,
@@ -183,33 +185,7 @@ class _UserWelcomeState extends State<UserWelcome> {
             ),
             const SizedBox(
               width: double.infinity,
-              height: 20,
-            ),
-            Flexible(
-              child: SizedBox(
-                width: 270,
-                height: 100,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 1.0,
-                      primary: Colors.red.withOpacity(0),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(2),
-                          ),
-                          side: BorderSide(color: Colors.white)),
-                    ),
-                    onPressed: () => {
-                      Navigator.of(context)
-                          .pushNamed(AdminDashboard.routeName)
-                    },
-                    child: const Text('Admin Dashboard',
-                        style: TextStyle(color: Colors.white, fontSize: 20))),
-              ),
-            ),
-            const SizedBox(
-              width: double.infinity,
-              height: 85,
+              height: 140,
             ),
             const Center(
               child: Text(
