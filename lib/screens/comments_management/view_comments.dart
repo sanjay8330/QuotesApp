@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/comments_handler/database_handler_comments.dart';
 import 'package:quotes_app/screens/comments_management/add_comments.dart';
@@ -32,13 +30,12 @@ class ViewComments extends StatefulWidget {
 
 class _ViewCommentsState extends State<ViewComments> {
 
+  List userDetailList = [];
   UserModel loggedInUser = UserModel();
   List comments = [];
   String? UserIDforDelete = '';
   List UsersList = [];
-  String? UserName;
-  String? Username;
-  List userDetailList = [];
+  String? Username = ' ';
 
   @override
   void initState() {
@@ -47,7 +44,13 @@ class _ViewCommentsState extends State<ViewComments> {
     getCommentsList();
   }
 
-
+  /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 29/03/2022
+  * @Method: retrieve comment list details from the firebase
+  * *******************************************************************************************************************
+ */
   getCommentsList() async {
     List result = await DatabaseHandler().getCommentsbyQuoteID(widget.quoteID.toString());
 
@@ -65,15 +68,20 @@ class _ViewCommentsState extends State<ViewComments> {
 
   }
 
-
   @override
   Widget build(BuildContext context) {
 
     List commentDetailList = [];
-
     String docID = '';
-    String userId = '';
+    String username ='';
 
+    /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 29/03/2022
+  * @Method: retrieve comment details details from the firebase(comment)
+  * *******************************************************************************************************************
+ */
     fetchCommentsDetails(commentToRetrieve) async {
 
       List result = await DatabaseHandler().getCommentDetails(commentToRetrieve);
@@ -81,35 +89,45 @@ class _ViewCommentsState extends State<ViewComments> {
       print(result);
       if(result == null){
         print('Unable to retrieve!');
-      }else{
+      }else {
         setState(() {
           commentDetailList = result;
         });
 
-        print('DOC ID : '+commentDetailList[1].toString());
+        print('DOC ID : ' + commentDetailList[1].toString());
 
-        final iterableMap = commentDetailList.whereType<Map>().first;
+        final iterableMap = commentDetailList
+            .whereType<Map>()
+            .first;
         print(iterableMap['UserId']);
+
         setState(() {
           docID = commentDetailList[1].toString();
           UserIDforDelete = iterableMap['UserId'];
         });
 
-        print( UserIDforDelete);
+        print(UserIDforDelete);
+
+
+
 
       }
     }
 
-
-
-
+    /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 30/03/2022
+  * @Method: nevigate to edit page of the user has added the comment
+  * *******************************************************************************************************************
+ */
     navigateToEdit(contentText) async {
       await fetchCommentsDetails(contentText);
           if (UserIDforDelete == widget.userID) {
             {Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (_) => UpdateComments(quoteID: contentText, quote: widget.quote.toString()
+                    builder: (_) => UpdateComments(quoteID: contentText, quote: widget.quote.toString(), userID: widget.userID.toString(),
                     )));
             }
           }else{
@@ -124,6 +142,13 @@ class _ViewCommentsState extends State<ViewComments> {
 
     }
 
+    /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 30/03/2022
+  * @Method: delete the comment from the firebase (comment)
+  * *******************************************************************************************************************
+ */
     void deleteComment(String commentID) async {
 
         await fetchCommentsDetails(commentID).then((value) async {
@@ -187,16 +212,16 @@ class _ViewCommentsState extends State<ViewComments> {
                         bottom: BorderSide(width: 2, color: Colors.blueAccent),
                       ),
                     ),
-                    padding: EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
+                    padding: EdgeInsets.only(left: 16,right: 16,top: 5,bottom: 5),
                     child: Row(
                       children:  [
                         Expanded(child: Row(
                           children: [
                             CircleAvatar(
                               backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDLCMYvrwSI4UZ286J8ypqIvxrYQSglDGy5chXyDRCbZ62dyJGqy-S4-XtSqfqjLmiukc&usqp=CAU'),
-                              maxRadius: 35,
+                              maxRadius: 40,
                             ),
-                            SizedBox(width: 16,),
+                            SizedBox(width: 20,),
                             Expanded(child: Container(
 
                               color: Colors.transparent,
@@ -205,12 +230,12 @@ class _ViewCommentsState extends State<ViewComments> {
                                 children:[
                                   Text(' ', style: TextStyle(fontSize: 16), ),
                                   Text(comments[index]['Content'], style: TextStyle(fontSize: 16), ),
-                                  SizedBox(height: 4,),
+
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [ (widget.userID == comments[index]['UserId'])
                                           ? Text('Added by you', style: TextStyle(fontSize: 13,color: Colors.grey.shade600,))
-                                          : Text(' ', style: TextStyle(fontSize: 13,color: Colors.grey.shade600,)),
+                                          : Text(username, style: TextStyle(fontSize: 13,color: Colors.grey.shade600,)),
 
                                       Spacer(),
                                       IconButton(onPressed: () {deleteComment(comments[index]['Content'].toString());}, icon: const Icon(Icons.delete_forever)),

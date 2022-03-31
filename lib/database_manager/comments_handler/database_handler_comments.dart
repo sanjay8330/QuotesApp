@@ -5,7 +5,6 @@ class DatabaseHandler {
       'UserComments');
   final CollectionReference quoteslist = FirebaseFirestore.instance.collection(
       'Quotes');
-  final CollectionReference userList = FirebaseFirestore.instance.collection('users');
 
   List commentListToReturn = [];
   List quoteDetailListToReturn = [];
@@ -13,7 +12,13 @@ class DatabaseHandler {
   List userDetailListToReturn = [];
   List userListToReturn = [];
 
-  //get comments by the quote ID
+  /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 28/03/2022
+  * @Method: retrieve get comments by the quote ID
+  * *******************************************************************************************************************
+ */
   Future getCommentsbyQuoteID(String quoteId) async {
     try {
       List commentsList = [];
@@ -32,7 +37,13 @@ class DatabaseHandler {
     }
   }
 
-  //add comments
+  /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 28/03/2022
+  * @Method: add comments
+  * *******************************************************************************************************************
+ */
   Future saveComment(String? QuoteId, String? UserId, String? content, DateTime? time) async {
     try {
       bool successStatus = false;
@@ -52,8 +63,13 @@ class DatabaseHandler {
     }
   }
 
-
-  //display quote
+  /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 28/03/2022
+  * @Method: display quote using quote
+  * *******************************************************************************************************************
+ */
   Future getQuoteDetails(String quote) async {
     try{
 
@@ -75,7 +91,13 @@ class DatabaseHandler {
     }
   }
 
-  //get comment to delete
+  /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 29/03/2022
+  * @Method: get comment to delete
+  * *******************************************************************************************************************
+ */
   Future getCommentDetails(String content) async {
     try{
 
@@ -97,7 +119,13 @@ class DatabaseHandler {
     }
   }
 
-  //delete comments
+  /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 29/03/2022
+  * @Method: delete comments
+  * *******************************************************************************************************************
+ */
   Future deleteComments(String commentId) async {
 
     try{
@@ -115,7 +143,13 @@ class DatabaseHandler {
     }
   }
 
-  //update comments
+  /*
+  *********************************************************************************************************************
+  * @Developer: D. P. Kavindi Gimshani(IT19150826)
+  * @Created Date: 30/03/2022
+  * @Method: update comments
+  * *******************************************************************************************************************
+ */
   Future updateComment (String? docID, String? content) async {
     try{
       bool successStatus = false;
@@ -130,42 +164,6 @@ class DatabaseHandler {
     }catch(error) {
       print('Error Occurred in Updating Quote '+ error.toString());
       return false;
-    }
-  }
-
-  //get user details
-  Future getUserDetails(String userId) async {
-    try{
-
-      List userDetaillocal = [];
-
-      await userList.where('uid', isEqualTo: userId).get().then((querysnapshot) {
-        for (var element in querysnapshot.docs) {
-          userDetaillocal.add(element.data());
-        }
-        userDetailListToReturn = userDetaillocal;
-      });
-      return userDetailListToReturn;
-    }catch(error) {
-      print('Error Occurred in Retrieve '+ error.toString());
-      return null;
-    }
-  }
-
-  Future getAllUsers() async {
-    try{
-      List allUsersLocal = [];
-
-      await userList.get().then((querysnapshot) {
-        for (var element in querysnapshot.docs) {
-          allUsersLocal.add(element.data());
-        }
-        userListToReturn = allUsersLocal;
-      });
-      return userListToReturn;
-    }catch(error) {
-      print('Error Occurred in Retrieving Quotes '+ error.toString());
-      return null;
     }
   }
 }
