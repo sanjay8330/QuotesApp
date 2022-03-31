@@ -41,7 +41,8 @@ class _ViewUsersState extends State<ViewUsers> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('List of Users'),
+        title: Center(child: const Text('List of Users')),
+        backgroundColor: Colors.blueGrey,
       ),
       body: userList.isNotEmpty ? ListView.builder(
           itemCount: userList.length,
@@ -62,9 +63,6 @@ class _ViewUsersState extends State<ViewUsers> {
                   onSelected: (value) {
                     List<String> newValues = value.toString().split(':');
 
-                    if(newValues[0].toString().contains('Edit')){
-                      print('Edit Clicked ${userList[index]['uid']}');
-                    }
                     if(newValues[0].toString().contains('Remove')){
                       print('Remove Clicked ${userList[index]['uid']}');
                     }
@@ -73,10 +71,6 @@ class _ViewUsersState extends State<ViewUsers> {
                     PopupMenuItem(
                       child: const Text("Remove"),
                       value: 'Remove :'+ userList[index]['uid'].toString(),
-                    ),
-                    PopupMenuItem(
-                      child: const Text("Edit"),
-                      value: 'Edit :'+ userList[index]['uid'].toString(),
                     ),
                   ],
                 ),
