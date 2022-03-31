@@ -25,6 +25,7 @@ class _BottomIconListState extends State<BottomIconList> {
   List userQuoteList = [];
   List quoteList = [];
   bool quoteAlreadyExist = false;
+  String userId = '';
 
   @override
   void initState() {
@@ -40,6 +41,7 @@ class _BottomIconListState extends State<BottomIconList> {
    ********************************************************************************************************************
    */
   fetchUserQuotes() async {
+    print(widget.userID.toString());
     dynamic result = await DatabaseHandler().getQuotesByUserID(widget.userID.toString());
 
     //Set the results obtained to userQuotesList

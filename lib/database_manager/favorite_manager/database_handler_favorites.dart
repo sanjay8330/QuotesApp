@@ -21,6 +21,7 @@ class DatabaseHandler{
         userQuotesListlocal.add(documentSnapshot.data());
         userQuotes = userQuotesListlocal;
       });
+      print(userQuotes.toString());
       return userQuotes;
     }catch(error) {
       print('Error Occurred in Retrieve '+ error.toString());

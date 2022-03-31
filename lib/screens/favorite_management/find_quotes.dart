@@ -4,13 +4,18 @@ import 'package:quotes_app/screens/quote_management/view_quotes_category.dart';
 
 import '../quote_management/view_quotes_people.dart';
 
-class FindQuotes extends StatelessWidget {
+class FindQuotes extends StatefulWidget {
   static String routeName = '/findQuotes';
   final String? UserId;
 
   const FindQuotes({Key? key,
   this.UserId}) : super(key: key);
 
+  @override
+  State<FindQuotes> createState() => _FindQuotesState();
+}
+
+class _FindQuotesState extends State<FindQuotes> {
   @override
   Widget build(BuildContext context) {
 
@@ -22,7 +27,7 @@ class FindQuotes extends StatelessWidget {
         backgroundColor: Colors.blueGrey,
         actions: [IconButton(onPressed: () {
           Navigator.push(context, MaterialPageRoute(
-              builder: (_) => const ViewFavorites(userID: 'US001')
+              builder: (_) => ViewFavorites(userID: widget.UserId.toString())//Removed Hard coded - US001
           ));
           },
             icon: const Icon(Icons.favorite_sharp))],
@@ -92,7 +97,7 @@ class FindQuotes extends StatelessWidget {
                             {Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => ViewQuotesCategory(UserId: this.UserId,
+                                    builder: (_) => ViewQuotesCategory(UserId: this.widget.UserId,
                                     )));}
                           },
                           child: const Text('Find Quotes by Category')),
