@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/database_manager/user_handler/database_handler_user.dart';
+import 'package:quotes_app/screens/admin_management/view_users.dart';
 
 class ViewProfile extends StatefulWidget {
   static String routeName = '/viewProfile';
@@ -16,14 +17,15 @@ class ViewProfile extends StatefulWidget {
 
 class _ViewProfileState extends State<ViewProfile> {
 
-  //our form key
-  final _formKey = GlobalKey<FormState>();
+  // //our form key
+  // final _formKey = GlobalKey<FormState>();
 
   //Local varibales to hold the data retrieved
   List userDetailList = [];
   String firstName = '';
   String lastName = '';
   String email = '';
+  String docID = '';
 
   @override
   void initState() {
@@ -46,6 +48,7 @@ class _ViewProfileState extends State<ViewProfile> {
           firstName = element['firstname'].toString();
           lastName = element['secondname'].toString();
           email = element['email'].toString();
+          docID = element['uid'].toString();
         });
       }
     }
@@ -54,12 +57,50 @@ class _ViewProfileState extends State<ViewProfile> {
 
   @override
   Widget build(BuildContext context) {
+
+    //our form key
+    final _formKey = GlobalKey<FormState>();
+
+    String? newFirstName = '';
+    String? newLastName = '';
+    String? newEmail = '';
+
+    updateUser () async {
+      if(_formKey.currentState!.validate()){
+        _formKey.currentState!.save();
+        bool result = await DatabaseHandlerUser().updateUser(docID, newFirstName, newLastName, newEmail);
+
+        if(result){
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('User Updated Successfully'),)
+          );
+          Navigator.of(context).pushNamed(ViewUsers.routeName);
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Something went wrong. Try again later!'),)
+          );
+        }
+      }
+    }
+
     //first name field
     final firstNameField = firstName.isNotEmpty ? TextFormField(
-      initialValue: firstName,
       autofocus: false,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
+      validator: (value) {
+        if(value==null || value.isEmpty){
+          return 'First Name is required';
+        }
+        return null;
+      },
+      initialValue: firstName,
+      onSaved: (String? value) {
+        if (value != null) {
+          newFirstName = value;
+          print(newFirstName);
+        }
+      },
       decoration: InputDecoration(
           prefixIcon: const Icon(Icons.account_circle),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -75,6 +116,18 @@ class _ViewProfileState extends State<ViewProfile> {
       autofocus: false,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
+      validator: (value) {
+        if(value==null || value.isEmpty){
+          return 'Last Name is required';
+        }
+        return null;
+      },
+      onSaved: (String? value) {
+        if (value != null) {
+          newLastName = value;
+          print(newLastName);
+        }
+      },
       decoration: InputDecoration(
           prefixIcon: const Icon(Icons.account_circle),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -90,6 +143,18 @@ class _ViewProfileState extends State<ViewProfile> {
       autofocus: false,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
+      validator: (value) {
+        if(value==null || value.isEmpty){
+          return 'Email is required';
+        }
+        return null;
+      },
+      onSaved: (String? value) {
+        if (value != null) {
+          newEmail = value;
+          print(newEmail);
+        }
+      },
       decoration: InputDecoration(
           prefixIcon: const Icon(Icons.mail),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -107,7 +172,7 @@ class _ViewProfileState extends State<ViewProfile> {
       child: MaterialButton(
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () { },
+        onPressed: updateUser,
         child: const Text(
           'Update',
           textAlign: TextAlign.center,

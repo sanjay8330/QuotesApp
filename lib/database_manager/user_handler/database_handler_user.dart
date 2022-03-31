@@ -11,7 +11,7 @@ class DatabaseHandlerUser{
     try{
       List allUsersLocal = [];
 
-      await userList.get().then((querysnapshot) {
+      await userList.where('category', isEqualTo: 'User').get().then((querysnapshot) {
         for (var element in querysnapshot.docs) {
           allUsersLocal.add(element.data());
         }
@@ -39,6 +39,24 @@ class DatabaseHandlerUser{
     }catch(error) {
       print('Error Occurred in Retrieve '+ error.toString());
       return null;
+    }
+  }
+
+  Future updateUser (String? docID, String? newFirstName, String? newSecondName, String? newEmail) async {
+    try{
+      bool successStatus = false;
+
+      await userList.doc(docID).update({
+        'firstname': newFirstName,
+        'secondname': newSecondName,
+        'email': newEmail
+      }).then((value){
+        successStatus = true;
+      });
+      return successStatus;
+    }catch(error) {
+      print('Error Occurred in Updating Quote '+ error.toString());
+      return false;
     }
   }
 
