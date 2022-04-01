@@ -18,8 +18,13 @@ class DatabaseHandler{
       List userQuotesListlocal = [];
 
       await quoteslist.doc(userId).get().then((DocumentSnapshot documentSnapshot) {
-        userQuotesListlocal.add(documentSnapshot.data());
-        userQuotes = userQuotesListlocal;
+        if(documentSnapshot.exists == false){
+          quoteslist.doc(userId).set({'quotes': ''});//Added by Sanjay - if logged in user has no doc in favorites creates an empty one
+        }else{
+          userQuotesListlocal.add(documentSnapshot.data());
+          userQuotes = userQuotesListlocal;
+        }
+
       });
       print(userQuotes.toString());
       return userQuotes;

@@ -2,11 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:quotes_app/screens/quote_management/all_quotes_list.dart';
 import 'package:quotes_app/screens/quote_management/personal_quotes_list.dart';
 
-class ViewQuotesPeople extends StatelessWidget {
+class ViewQuotesPeople extends StatefulWidget {
   static String routeName = '/ViewQuotesPeople';
+  final String? userID;//Added by Sanjay - UserId as route param (BUG FIX)
 
-  const ViewQuotesPeople({Key? key}) : super(key: key);
+  const ViewQuotesPeople({
+    Key? key,
+    this.userID
+  }) : super(key: key);
 
+  @override
+  State<ViewQuotesPeople> createState() => _ViewQuotesPeopleState();
+}
+
+class _ViewQuotesPeopleState extends State<ViewQuotesPeople> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +54,10 @@ class ViewQuotesPeople extends StatelessWidget {
                       width: 190,
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed(AllQuotesList.routeName);
+                            //Navigator.of(context).pushNamed(AllQuotesList.routeName);
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (_) => AllQuotesList(userID: widget.userID.toString(),)//Added by Sanjay - UserId as route param (BUG FIX)
+                            ));
                           },
                           child: const Text('All Quotes')),
                     ),
@@ -70,7 +82,10 @@ class ViewQuotesPeople extends StatelessWidget {
                       width: 190,
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed(PersonalQuotesList.routeName);
+                            //Navigator.of(context).pushNamed(PersonalQuotesList.routeName);
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (_) => PersonalQuotesList(userID: widget.userID.toString(),)//Added by Sanjay - UserId as route param (BUG FIX)
+                            ));
                           },
                           child: const Text('Personal Quotes')),
                     ),

@@ -4,8 +4,12 @@ import 'package:quotes_app/screens/quote_management/view_quotes_person.dart';
 
 class AllQuotesList extends StatefulWidget {
   static String routeName = '/AllQuotesList';
+  final String? userID;//Added by Sanjay - UserId as route param (BUG FIX)
 
-  const AllQuotesList({Key? key}) : super(key: key);
+  const AllQuotesList({
+    Key? key,
+    this.userID
+  }) : super(key: key);
 
   @override
   State<AllQuotesList> createState() => _AllQuotesListState();
@@ -103,7 +107,7 @@ class _AllQuotesListState extends State<AllQuotesList> {
                               IconButton(icon: Image.network(allQuotesList[index]['personImage']), iconSize: 130, onPressed: () {
                                 //Navigator.of(context).pushNamed(ViewQuotesByPerson.routeName);
                                 Navigator.push(context, MaterialPageRoute(
-                                    builder: (_) => ViewQuotesByPerson(selectedPersonName: allQuotesList[index]['personName'],)
+                                    builder: (_) => ViewQuotesByPerson(selectedPersonName: allQuotesList[index]['personName'], userID: widget.userID.toString(),)//Added by Sanjay - UserId as route param (BUG FIX)
                                 ));
                               },),
                               Text(allQuotesList[index]['personName'], style: Theme.of(context).textTheme.bodyLarge),

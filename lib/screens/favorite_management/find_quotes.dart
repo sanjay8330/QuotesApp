@@ -8,8 +8,10 @@ class FindQuotes extends StatefulWidget {
   static String routeName = '/findQuotes';
   final String? UserId;
 
-  const FindQuotes({Key? key,
-  this.UserId}) : super(key: key);
+  const FindQuotes({
+    Key? key,
+    this.UserId
+  }) : super(key: key);
 
   @override
   State<FindQuotes> createState() => _FindQuotesState();
@@ -26,9 +28,13 @@ class _FindQuotesState extends State<FindQuotes> {
         ),
         backgroundColor: Colors.blueGrey,
         actions: [IconButton(onPressed: () {
-          Navigator.push(context, MaterialPageRoute(
+          widget.UserId != null ? Navigator.push(context, MaterialPageRoute(
               builder: (_) => ViewFavorites(userID: widget.UserId.toString())//Removed Hard coded - US001
-          ));
+          )) : ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                  content: Text('No related user ID for logged in User!!')
+              )
+          );
           },
             icon: const Icon(Icons.favorite_sharp))],
       ),
@@ -65,7 +71,14 @@ class _FindQuotesState extends State<FindQuotes> {
                       width: 250,
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed(ViewQuotesPeople.routeName);
+                            print('SEND USER :'+widget.UserId.toString());
+                            widget.UserId != null ? Navigator.push(context, MaterialPageRoute(
+                                builder: (_) => ViewQuotesPeople(userID: widget.UserId.toString(),)
+                            )) : ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Issues with logged in User!!')
+                                )
+                            );
                           },
                           child: const Text('Find Quotes by People')),
                     ),
@@ -94,11 +107,13 @@ class _FindQuotesState extends State<FindQuotes> {
                       width: 250,
                       child: ElevatedButton(
                           onPressed: () {
-                            {Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => ViewQuotesCategory(UserId: this.widget.UserId,
-                                    )));}
+                            widget.UserId != null ? Navigator.push(context, MaterialPageRoute(
+                                builder: (_) => ViewQuotesCategory(userId: widget.UserId.toString(),)
+                            )): ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Issues with logged in User!!')
+                                )
+                            );
                           },
                           child: const Text('Find Quotes by Category')),
                     ),

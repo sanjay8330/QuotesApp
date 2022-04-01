@@ -204,7 +204,7 @@ class _ViewFavoritesState extends State<ViewFavorites> {
                       }, icon: const Icon(Icons.delete_forever)),
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(
-                            builder: (_) => ViewSingleQuote(quote: quoteList[index])
+                            builder: (_) => ViewSingleQuote(quote: quoteList[index], UserId: widget.userID.toString(),)//Added By Sanjay - Passed By user ID (BUG FIX)
                         ));
                       },
                     ),

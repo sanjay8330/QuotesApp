@@ -6,7 +6,6 @@ import 'package:quotes_app/model/user_model.dart';
 import '../favorite_management/find_quotes.dart';
 import '../feedback_management/add_feedback.dart';
 import '../quote_management/add_quotes.dart';
-import 'dashboard.dart';
 import 'login_screen.dart';
 
 class UserWelcome extends StatefulWidget {
@@ -21,6 +20,7 @@ class UserWelcome extends StatefulWidget {
 class _UserWelcomeState extends State<UserWelcome> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
+  String? userID;
 
   @override
   void initState() {
@@ -34,62 +34,14 @@ class _UserWelcomeState extends State<UserWelcome> {
         .then((value) {
       this.loggedInUser = UserModel.fromMap(value.data());
       setState(() {
-        print(loggedInUser.uid);
+        print('Logged in user ID : '+loggedInUser.uid.toString());//Added By Sanjay - Get the current user ID
+        userID = loggedInUser.uid.toString();
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    /*return Scaffold(
-      appBar: AppBar(
-        title: Text('Welcome'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 180,
-                child: Image.asset('assets/images/user_management/welcome.jpg',
-                    fit: BoxFit.contain),
-              ),
-              Text(
-                "Welcome Back",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              Text(
-                "${loggedInUser.firstname} ${loggedInUser.secondname}",
-                style: TextStyle(
-                    color: Colors.black54, fontWeight: FontWeight.w500),
-              ),
-              Text(
-                "${loggedInUser.email}",
-                style: TextStyle(
-                    color: Colors.black54, fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              ActionChip(label: Text("Logout"), onPressed: () {}),
-              ElevatedButton(
-                  onPressed: () {
-                    logout(context);
-                  },
-                  child: const Text('Home Nav Test'))
-            ],
-          ),
-        ),
-      ),
-    );*/
-
-
-
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -102,8 +54,8 @@ class _UserWelcomeState extends State<UserWelcome> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => const AddFeedback(
-                          userId: 'US001',
+                        builder: (_) => AddFeedback(
+                          userId: userID,
                         )));
               },
               icon: const Icon(Icons.feedback_sharp)),

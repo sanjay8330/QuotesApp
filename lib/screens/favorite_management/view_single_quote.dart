@@ -29,7 +29,6 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
   String personName = '';
   String personImage = '';
   String quote = '';
-  //String category = '';
   String docId = '';
 
   @override
@@ -51,8 +50,12 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
   fetchQuotesList() async {
     List result = await DatabaseHandler().getQuoteDetails(widget.quote.toString());
 
-    if(result == null){
-      print('Unable to retrieve!');
+    if(result.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text('Something went wrong! Try again later')
+          )
+      );
     }else{
       setState(() {
         quoteDetailList = result;
@@ -62,16 +65,17 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
         docId = quoteDetailList[1].toString();
       });
 
-      print('Quote Retreived : '+docId.toString());
+      //print('Quote Retreived : '+docId.toString());
+      //print('USER ON SINGLE QUOTE PAGE : '+widget.UserId.toString());
 
       for (var element in quoteDetailList) {
         setState(() {
           personName = element['personName'].toString();
           personImage = element['personImage'].toString();
           quote = element['quote'].toString();
-          //category = element['category'].toString();
         });
       }
+
     }
   }
 
@@ -102,7 +106,7 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
                 ),
                 const SizedBox(width: double.infinity, height: 40,),
                 Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Text('"'+ quote +'"',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
@@ -123,7 +127,7 @@ class _ViewSingleQuoteState extends State<ViewSingleQuote> {
           const SizedBox(width: double.infinity, height: 10,),
           Align(
             alignment: Alignment.bottomCenter,
-              child: BottomIconList(copyText: quote, userID: this.widget.UserId.toString(), quoteID: docId,))
+              child: BottomIconList(copyText: quote, userID: widget.UserId.toString(), quoteID: docId,)) //Added By Sanjay - Passed By user ID (BUG FIX)
         ],
       )
     );

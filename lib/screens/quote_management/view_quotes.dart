@@ -87,7 +87,7 @@ class _ViewQuotesState extends State<ViewQuotes> {
                         subtitle: Text(quotesList[index]['personName']),
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(
-                            builder: (_) => ViewSingleQuote(quote: quotesList[index]['quote'], UserId: widget.UserId,)
+                            builder: (_) => ViewSingleQuote(quote: quotesList[index]['quote'], UserId: widget.UserId.toString(),)//Added by Sanjay - UserId as route param (BUG FIX)
                           ));
                         },
                       ),
