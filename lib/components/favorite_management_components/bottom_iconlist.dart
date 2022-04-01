@@ -25,11 +25,11 @@ class _BottomIconListState extends State<BottomIconList> {
   List userQuoteList = [];
   List quoteList = [];
   bool quoteAlreadyExist = false;
-  String userId = '';
 
   @override
   void initState() {
     super.initState();
+    print('USER ON STATE : '+widget.userID);
     fetchUserQuotes();
   }
 
@@ -41,13 +41,14 @@ class _BottomIconListState extends State<BottomIconList> {
    ********************************************************************************************************************
    */
   fetchUserQuotes() async {
-    print(widget.userID.toString());
     dynamic result = await DatabaseHandler().getQuotesByUserID(widget.userID.toString());
 
     //Set the results obtained to userQuotesList
     setState(() {
       userQuoteList = result;
     });
+
+    print('Response : '+widget.userID.toString());
 
     //Set the values obtained from the quotes list to an independant list
     //Sample Response -> {quotes: [Early bird catches the worm , No matter what happens try to believe in god]}
@@ -61,6 +62,7 @@ class _BottomIconListState extends State<BottomIconList> {
 
   @override
   Widget build(BuildContext context) {
+
 
     /*
    ******************************************************************************************************************
@@ -147,7 +149,7 @@ class _BottomIconListState extends State<BottomIconList> {
             children: [
               IconButton(
                   onPressed: () {
-                    //Navigator.of(context).pushNamed(ViewComments.routeName);
+                    print('USER TEST : '+widget.userID.toString());
                     Navigator.push(context, MaterialPageRoute(
                         builder: (_) => ViewComments(quoteID: widget.quoteID.toString(),
                             quote: widget.copyText.toString(),

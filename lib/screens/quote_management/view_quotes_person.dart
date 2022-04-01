@@ -8,10 +8,12 @@ import '../../database_manager/quote_handler/database_handler.dart';
 class ViewQuotesByPerson extends StatefulWidget {
   static String routeName = '/viewQuotesByPerson';
   final String? selectedPersonName;
+  final String? userID;//Added by Sanjay - UserId as route param (BUG FIX)
 
   const ViewQuotesByPerson({
     Key? key,
-    this.selectedPersonName
+    this.selectedPersonName,
+    this.userID
   }) : super(key: key);
 
   @override
@@ -114,7 +116,7 @@ class _ViewQuotesByPersonState extends State<ViewQuotesByPerson> {
                       ),
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(
-                            builder: (_) => ViewSingleQuote(quote: quotesList[index]['quote'])
+                            builder: (_) => ViewSingleQuote(quote: quotesList[index]['quote'], UserId: widget.userID.toString(),)//Added by Sanjay - UserId as route param (BUG FIX)
                         ));
                       },
                     ),
